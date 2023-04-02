@@ -1,6 +1,6 @@
 package za.ac.cput.domain;
 
-/*  Location.java
+/*  Vehicle.java
     Entity for the Vehicle
     Author: Muhammed Luqmaan Hoosain (220464901)
     Date: 2 April 2023
