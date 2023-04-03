@@ -1,18 +1,19 @@
 /*  Car.java
     Entity for Car
     Author: Alan Chapman (220092362)
-    Date: 2 April 2023
+    Date: 3 April 2023
 */
 package za.ac.cput.domain;
 
 import java.util.Objects;
 
-public class Car {
+public class Car extends Vehicle {
     private boolean isHasTowBar;
 
     private Car() {}
 
     private Car(CarBuilder builder) {
+        super(builder);
         this.isHasTowBar = builder.isHasTowBar;
     }
 
@@ -33,15 +34,18 @@ public class Car {
 
     @Override
     public String toString() {
-        return "Car{" +
-                "isHasTowBar=" + isHasTowBar +
-                '}';
+        return super.toString() +
+                "isHasTowBar= " + isHasTowBar +
+                " }";
     }
 
-    public static class CarBuilder {
+    public static class CarBuilder extends Vehicle.VehicleBuilder<CarBuilder> {
         private boolean isHasTowBar;
 
-        public void setHasTowBar(boolean hasTowBar) { isHasTowBar = hasTowBar;}
+        public CarBuilder setHasTowBar(boolean hasTowBar) {
+            isHasTowBar = hasTowBar;
+            return this;
+        }
 
         public CarBuilder copy(Car car) {
             this.isHasTowBar = car.isHasTowBar;

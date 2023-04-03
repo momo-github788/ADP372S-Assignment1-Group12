@@ -1,18 +1,19 @@
 /*  Motorcycle.java
     Entity for Motorcycle
     Author: Alan Chapman (220092362)
-    Date: 2 April 2023
+    Date: 3 April 2023
 */
 package za.ac.cput.domain;
 
 import java.util.Objects;
 
-public class Motorcycle {
+public class Motorcycle extends Vehicle {
     private boolean isHasSideCar;
 
     private Motorcycle() {}
 
     private Motorcycle(MotorcycleBuilder builder) {
+        super(builder);
         this.isHasSideCar = builder.isHasSideCar;
     }
 
@@ -33,19 +34,22 @@ public class Motorcycle {
 
     @Override
     public String toString() {
-        return "Motorcycle{" +
-                "isHasSideCar=" + isHasSideCar +
+        return super.toString() +
+                "isHasSideCar= " + isHasSideCar +
                 '}';
     }
 
-    public static class MotorcycleBuilder {
+    public static class MotorcycleBuilder extends Vehicle.VehicleBuilder<MotorcycleBuilder> {
         private boolean isHasSideCar;
 
-        public boolean isHasSideCar() { return isHasSideCar;}
+        public MotorcycleBuilder setHasSideCar(boolean hasSideCar) {
+            isHasSideCar = hasSideCar;
+            return this;
+        }
 
         public MotorcycleBuilder copy(Motorcycle motorcycle) {
             this.isHasSideCar = motorcycle.isHasSideCar;
-        return this;
+            return this;
         }
 
         public Motorcycle build() { return new Motorcycle(this);}
