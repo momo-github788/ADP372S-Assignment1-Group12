@@ -2,7 +2,7 @@ package za.ac.cput.domain;
 /* DetailingAddOn.java
     Subclass for Entity that is extends from Addons
     Junaid Cedrass - 219090912
-    3 April 2023
+    02 April 2023
 
  */
 import java.time.LocalDateTime;
