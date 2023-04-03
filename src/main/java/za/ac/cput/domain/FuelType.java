@@ -6,6 +6,6 @@ package za.ac.cput.domain;
     Date: 2 April 2023
 */
 
-public enum FuelType {
+enum FuelType {
     PETROL, DIESEL, ELECTRIC
 }
