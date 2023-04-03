@@ -1,6 +1,6 @@
 package za.ac.cput.domain;
 
-/*  Location.java
+/*  Vehicle.java
     Entity for the Vehicle
     Author: Muhammed Luqmaan Hoosain (220464901)
     Date: 2 April 2023
@@ -18,11 +18,11 @@ public class Vehicle {
     private int year;
     private int mileage;
 
-    private Vehicle() {
+    protected Vehicle() {
 
     }
 
-    private Vehicle (VehicleBuilder builder){
+    protected Vehicle (VehicleBuilder<?> builder){
         this.vehicleId = builder.vehicleId;
         this.make = builder.make;
         this.model = builder.model;
@@ -88,11 +88,10 @@ public class Vehicle {
                 ", fuelType=" + fuelType +
                 ", colour='" + colour + '\'' +
                 ", year=" + year +
-                ", mileage=" + mileage +
-                '}';
+                ", mileage=" + mileage + ", ";
     }
 
-    public static class VehicleBuilder {
+    public static class VehicleBuilder<T extends VehicleBuilder<T>>{
         private String vehicleId;
         private String make;
         private String model;
@@ -103,47 +102,47 @@ public class Vehicle {
         private int mileage;
 
 
-        public VehicleBuilder setVehicleId(String vehicleId) {
+        public T setVehicleId(String vehicleId) {
             this.vehicleId = vehicleId;
-            return this;
+            return (T) this;
         }
 
-        public VehicleBuilder setMake(String make) {
+        public T setMake(String make) {
             this.make = make;
-            return this;
+            return (T) this;
         }
 
-        public VehicleBuilder setModel(String model) {
+        public T setModel(String model) {
             this.model = model;
-            return this;
+            return (T) this;
         }
 
-        public VehicleBuilder setCondition(VehicleCondition condition) {
+        public T setCondition(VehicleCondition condition) {
             this.condition = condition;
-            return this;
+            return (T) this;
         }
 
-        public VehicleBuilder setFuelType(FuelType fuelType) {
+        public T setFuelType(FuelType fuelType) {
             this.fuelType = fuelType;
-            return this;
+            return (T) this;
         }
 
-        public VehicleBuilder setColour(String colour) {
+        public T setColour(String colour) {
             this.colour = colour;
-            return this;
+            return (T) this;
         }
 
-        public VehicleBuilder setYear(int year) {
+        public T setYear(int year) {
             this.year = year;
-            return this;
+            return (T) this;
         }
 
-        public VehicleBuilder setMileage(int mileage) {
+        public T setMileage(int mileage) {
             this.mileage = mileage;
-            return this;
+            return (T) this;
         }
 
-        public VehicleBuilder copy(Vehicle vehicle){
+        public VehicleBuilder<?> copy(Vehicle vehicle){
             this.vehicleId = vehicle.vehicleId;
             this.make = vehicle.make;
             this.model = vehicle.model;
