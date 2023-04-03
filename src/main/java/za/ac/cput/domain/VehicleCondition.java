@@ -6,6 +6,6 @@ package za.ac.cput.domain;
     Date: 2 April 2023
 */
 
-enum VehicleCondition {
+public enum VehicleCondition {
     NEW, USED, DEMO
 }
