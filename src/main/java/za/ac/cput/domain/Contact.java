@@ -3,7 +3,7 @@ package za.ac.cput.domain;
 /*  Contact.java
     Entity for the Contact
     Junaid Cedrass - 219090912
-    02 April 2023
+    03 April 2023
  */
 import java.util.Objects;
 

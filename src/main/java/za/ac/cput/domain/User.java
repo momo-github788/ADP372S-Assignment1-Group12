@@ -2,7 +2,7 @@ package za.ac.cput.domain;
 /*  User.java
     Entity for the User
     Junaid Cedrass - 219090912
-    02 April 2023
+    03 April 2023
  */
 import java.time.LocalDate;
 import java.util.Objects;
