@@ -6,19 +6,34 @@
 package za.ac.cput.factory;
 
 import org.junit.jupiter.api.Test;
+import za.ac.cput.domain.FuelType;
 import za.ac.cput.domain.Motorcycle;
+import za.ac.cput.domain.VehicleCondition;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class MotorcycleFactoryTest {
     @Test
     void testCreateMotorcycleSuccess() {
-        Motorcycle motorcycle1 = MotorcycleFactory.createMotorcycle(true);
-        System.out.println(motorcycle1);
-        assertNotNull(motorcycle1);
+        Motorcycle motorcycle = MotorcycleFactory.createMotorcycle("Harley-Davidson", "Vittorio Brumotti - Sportster S", VehicleCondition.NEW,
+                FuelType.PETROL,"Navy blue", 2022, 0, false);
+        System.out.println(motorcycle);
+        assertNotNull(motorcycle);
+    }
 
-        Motorcycle motorcycle2 = MotorcycleFactory.createMotorcycle(false);
-        System.out.println(motorcycle2);
-        assertNotNull(motorcycle2);
+    @Test
+    void testCreateMotorcycleFail() {
+        Motorcycle motorcycle = MotorcycleFactory.createMotorcycle("Harley-Davidson", null, VehicleCondition.NEW,
+                FuelType.PETROL,"Navy blue", 2022, 0, false);
+        System.out.println(motorcycle);
+        assertNotNull(motorcycle, "Value cannot be empty");
+    }
+
+    @Test
+    void testCreateMotorcycleWithNullValue() {
+        Motorcycle motorcycle = MotorcycleFactory.createMotorcycle("Harley-Davidson", null, VehicleCondition.NEW,
+                FuelType.PETROL,null, 2022, 0, false);
+        System.out.println(motorcycle);
+        assertNull(motorcycle);
     }
 }
