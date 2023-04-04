@@ -9,7 +9,7 @@ import java.util.Objects;
 
 public class Truck extends Vehicle {
     private int numOfWheels;
-    private int maxLoadCapacity;
+    private double maxLoadCapacity;
 
     private  Truck() {}
 
@@ -20,7 +20,7 @@ public class Truck extends Vehicle {
     }
 
     public int getNumOfWheels() { return numOfWheels;}
-    public int getMaxLoadCapacity() { return maxLoadCapacity;}
+    public double getMaxLoadCapacity() { return maxLoadCapacity;}
 
     @Override
     public boolean equals(Object o) {
@@ -45,13 +45,13 @@ public class Truck extends Vehicle {
 
     public static class TruckBuilder extends Vehicle.VehicleBuilder<TruckBuilder> {
         private int numOfWheels;
-        private int maxLoadCapacity;
+        private double maxLoadCapacity;
 
         public TruckBuilder setNumOfWheels(int numOfWheels) {
             this.numOfWheels = numOfWheels;
             return this;
         }
-        public TruckBuilder setMaxLoadCapacity(int maxLoadCapacity) {
+        public TruckBuilder setMaxLoadCapacity(double maxLoadCapacity) {
             this.maxLoadCapacity = maxLoadCapacity;
             return this;
         }
