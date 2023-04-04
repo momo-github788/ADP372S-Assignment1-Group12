@@ -1,3 +1,8 @@
+/*  MotorcycleFactory.java
+    Factory for Motorcycle Entity
+    Author: Alan Chapman (220092362)
+    Date: 3 April 2023
+*/
 package za.ac.cput.factory;
 
 import za.ac.cput.domain.Motorcycle;
