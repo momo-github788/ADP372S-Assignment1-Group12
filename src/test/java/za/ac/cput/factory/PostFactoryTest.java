@@ -29,11 +29,10 @@ class PostFactoryTest {
 
         Location location = LocationFactory.createLocation(27, "Daisy Street", "Cape Town", "7850", "Western Cape");
 
-        // Need to fix imports once the person pushes BranchFactory
-        //Branch branch = BranchFactory.createBranch("Cape town branch", 2017, location);
+        Branch branch = BranchFactory.createBranch("Cape town branch", 2017, location);
 
         Post post = PostFactory.createPost("Audi A4 For sale", "Car is in good condition. License up to date", 249999.99,
-                vehicle, null, true);
+                vehicle, branch, true);
 
         System.out.println(post);
         assertNotNull(post);
