@@ -14,7 +14,7 @@ public class User {
     private String lastName;
     private LocalDate dateJoined;
     private String password;
-    private Contact contact;
+    private Long contact;
 
     private User() {
 
@@ -49,7 +49,7 @@ public class User {
         return password;
     }
 
-    public Contact getContact() {
+    public Long getContact() {
         return contact;
     }
 
@@ -83,7 +83,7 @@ public class User {
         private String lastName;
         private LocalDate dateJoined;
         private String password;
-        private Contact contact;
+        private Long contact;
 
         public UserBuilder setUserId(String userId) {
             this.userId = userId;
@@ -110,7 +110,7 @@ public class User {
             return this;
         }
 
-        public UserBuilder setContact(Contact contact) {
+        public UserBuilder setContact(Long contact) {
             this.contact = contact;
             return this;
         }

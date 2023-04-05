@@ -8,15 +8,15 @@ package za.ac.cput.domain;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public class DetailingAddon extends AddOns{
+public class DetailingAddOn extends AddOns{
     private LocalDateTime dateCheckedIn;
     private LocalDateTime dateCheckedOut;
 
-    private DetailingAddon(){
+    private DetailingAddOn(){
 
     }
 
-    public DetailingAddon(DetailingAddOnBuilder builder){
+    public DetailingAddOn(DetailingAddOnBuilder builder){
         super(builder);
         this.dateCheckedIn = builder.dateCheckedIn;
         this.dateCheckedOut = builder.dateCheckedOut;
@@ -33,7 +33,7 @@ public class DetailingAddon extends AddOns{
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof DetailingAddon that)) return false;
+        if (!(o instanceof DetailingAddOn that)) return false;
         return Objects.equals(dateCheckedIn, that.dateCheckedIn) && Objects.equals(dateCheckedOut, that.dateCheckedOut);
     }
 
@@ -64,14 +64,14 @@ public class DetailingAddon extends AddOns{
             return this;
         }
 
-        public DetailingAddOnBuilder copy(DetailingAddon detailingAddon){
-            this.dateCheckedIn = detailingAddon.dateCheckedIn;
-            this.dateCheckedOut = detailingAddon.dateCheckedOut;
+        public DetailingAddOnBuilder copy(DetailingAddOn detailingAddOn){
+            this.dateCheckedIn = detailingAddOn.dateCheckedIn;
+            this.dateCheckedOut = detailingAddOn.dateCheckedOut;
             return this;
         }
 
-        public DetailingAddon build(){
-            return new DetailingAddon(this);
+        public DetailingAddOn build(){
+            return new DetailingAddOn(this);
         }
     }
 }
