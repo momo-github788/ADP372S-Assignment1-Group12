@@ -38,6 +38,16 @@ public class Branch {
         return location;
     }
 
+    @Override
+    public String toString() {
+        return "Branch{" +
+                "branchId='" + branchId + '\'' +
+                ", branchName='" + branchName + '\'' +
+                ", yearOpened=" + yearOpened +
+                ", location=" + location +
+                '}';
+    }
+
     public static class Builder {
         private String branchId;
         private String branchName;
