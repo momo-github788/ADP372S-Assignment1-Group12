@@ -4,7 +4,7 @@ public class Inventory {
 
     private String inventoryId;
     private int quantity;
-    private String inventoryType;
+    private InventoryType inventoryType;
     private Vehicle Vehicle;
     public Inventory(Builder builder) {
         this.inventoryId = builder.inventoryId;
@@ -22,7 +22,7 @@ public class Inventory {
         return quantity;
     }
 
-    public String getInventoryType() {
+    public InventoryType getInventoryType() {
         return inventoryType;
     }
     public Vehicle getVehicle() {
@@ -41,7 +41,7 @@ public class Inventory {
 
         private String inventoryId;
         private int quantity;
-        private String inventoryType;
+        private InventoryType inventoryType;
         private Vehicle Vehicle;
 
         public Builder setInventoryId(String inventoryId) {
@@ -54,7 +54,7 @@ public class Inventory {
             return this;
         }
 
-        public Builder setInventoryType(String inventoryType) {
+        public Builder setInventoryType(InventoryType inventoryType) {
             this.inventoryType = inventoryType;
             return this;
         }

@@ -16,9 +16,9 @@ class InventoryRepositoryImplTest {
     private static InventoryRepositoryImpl InventoryRepository =InventoryRepositoryImpl.getRepository();
     private static  Vehicle vehicle = VehicleFactory.createVehicle("Audi", "A4", VehicleCondition.USED, FuelType.PETROL, "White", 2019, 23000);
 
-    private static  Inventory inventory= InventoryFactory.createInventoryFactory(43,"Car",vehicle);
+    private static  Inventory inventory= InventoryFactory.createInventoryFactory(43,InventoryType.NEW_INVENTORY,vehicle);
 
-    private static  Inventory inventory1= InventoryFactory.createInventoryFactory(673,"Car",vehicle);
+    private static  Inventory inventory1= InventoryFactory.createInventoryFactory(673,InventoryType.USED_INVENTORY,vehicle);
 
 
     @Order(1)

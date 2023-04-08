@@ -8,13 +8,14 @@ package za.ac.cput.factory;
  */
 
 import za.ac.cput.domain.Inventory;
+import za.ac.cput.domain.InventoryType;
 import za.ac.cput.domain.Vehicle;
 import za.ac.cput.util.Helper;
 
 import static za.ac.cput.util.Helper.isNullOrEmpty;
 
 public class InventoryFactory {
-    public static Inventory createInventoryFactory(int quantity, String inventoryType, Vehicle vehicle) {
+    public static Inventory createInventoryFactory(int quantity, InventoryType inventoryType, Vehicle vehicle) {
       String id = Helper.generateId();
         if(isNullOrEmpty(quantity) || isNullOrEmpty(inventoryType) ) {
             throw new IllegalArgumentException("quantity or inventoryType is empty ");
