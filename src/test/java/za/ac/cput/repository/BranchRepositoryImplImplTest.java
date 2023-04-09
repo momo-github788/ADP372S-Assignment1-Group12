@@ -16,8 +16,8 @@ import za.ac.cput.factory.LocationFactory;
 import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.MethodName.class)
-class BranchRepositoryTest {
-    private static BranchRepository repository = BranchRepository.getBranchRepository();
+class BranchRepositoryImplImplTest {
+    private static BranchRepositoryImpl repository = BranchRepositoryImpl.getBranchRepository();
 
     private static Location location = LocationFactory.createLocation(89974, "Main Road", "Paarl", "7626", "Western Cape");
 

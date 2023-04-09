@@ -13,21 +13,21 @@ import java.util.HashSet;
 import java.util.Set;
 
 
-public class BranchRepository implements IBranchRepository{
+public class BranchRepositoryImpl implements IBranchRepository{
 
 
-    private static BranchRepository branchRepository = null;
+    private static BranchRepositoryImpl branchRepositoryImpl = null;
     private Set<Branch> branchDB = null;
 
-    private BranchRepository() {
+    private BranchRepositoryImpl() {
         this.branchDB = new HashSet<Branch>();
     }
 
-    public static BranchRepository getBranchRepository() {
-        if(branchRepository == null) {
-            branchRepository = new BranchRepository();
+    public static BranchRepositoryImpl getBranchRepository() {
+        if(branchRepositoryImpl == null) {
+            branchRepositoryImpl = new BranchRepositoryImpl();
         }
-        return branchRepository;
+        return branchRepositoryImpl;
     }
 
     @Override

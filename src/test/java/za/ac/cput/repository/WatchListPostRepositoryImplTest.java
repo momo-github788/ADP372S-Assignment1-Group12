@@ -9,28 +9,25 @@ package za.ac.cput.repository;
 import org.junit.jupiter.api.Test;
 import za.ac.cput.domain.WatchListPost;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import za.ac.cput.factory.WatchListPostFactory;
 
 import java.util.Set;
 
-public class WatchListPostRepositoryTest {
+public class WatchListPostRepositoryImplTest {
 
-    private WatchListPostRepository watchListPostRepository;
+    private WatchListPostRepositoryimpl WatchListPostRepositoryimpl;
 
     @BeforeEach
     public void setUp() {
-        watchListPostRepository = WatchListPostRepository.getWatchListPostRepository();
+        WatchListPostRepositoryimpl = WatchListPostRepositoryimpl.getWatchListPostRepository();
     }
 
     @Test
     public void testCreate() {
         WatchListPost watchListPost = WatchListPostFactory.createWatchListPost();
-        WatchListPost createdWatchListPost = watchListPostRepository.create(watchListPost);
+        WatchListPost createdWatchListPost = WatchListPostRepositoryimpl.create(watchListPost);
         Assertions.assertNotNull(createdWatchListPost);
         Assertions.assertEquals(watchListPost, createdWatchListPost);
     }
@@ -38,8 +35,8 @@ public class WatchListPostRepositoryTest {
     @Test
     public void testRead() {
         WatchListPost watchListPost = WatchListPostFactory.createWatchListPost();
-        watchListPostRepository.create(watchListPost);
-        WatchListPost readWatchListPost = watchListPostRepository.read(watchListPost.getWatchListPostId());
+        WatchListPostRepositoryimpl.create(watchListPost);
+        WatchListPost readWatchListPost = WatchListPostRepositoryimpl.read(watchListPost.getWatchListPostId());
         Assertions.assertNotNull(readWatchListPost);
         Assertions.assertEquals(watchListPost, readWatchListPost);
     }
@@ -47,21 +44,21 @@ public class WatchListPostRepositoryTest {
     @Test
     public void testUpdate() {
         WatchListPost watchListPost = WatchListPostFactory.createWatchListPost();
-        watchListPostRepository.create(watchListPost);
+        WatchListPostRepositoryimpl.create(watchListPost);
         WatchListPost updatedWatchListPost = WatchListPostFactory.createWatchListPost();
         updatedWatchListPost.setWatchListPostId(watchListPost.getWatchListPostId());
-        watchListPostRepository.update(updatedWatchListPost);
-        WatchListPost readWatchListPost = watchListPostRepository.read(watchListPost.getWatchListPostId());
+        WatchListPostRepositoryimpl.update(updatedWatchListPost);
+        WatchListPost readWatchListPost = WatchListPostRepositoryimpl.read(watchListPost.getWatchListPostId());
         Assertions.assertEquals(updatedWatchListPost, readWatchListPost);
     }
 
     @Test
     public void testDelete() {
         WatchListPost watchListPost = WatchListPostFactory.createWatchListPost();
-        watchListPostRepository.create(watchListPost);
-        boolean deleted = watchListPostRepository.delete(watchListPost.getWatchListPostId());
+        WatchListPostRepositoryimpl.create(watchListPost);
+        boolean deleted = WatchListPostRepositoryimpl.delete(watchListPost.getWatchListPostId());
         Assertions.assertTrue(deleted);
-        WatchListPost readWatchListPost = watchListPostRepository.read(watchListPost.getWatchListPostId());
+        WatchListPost readWatchListPost = WatchListPostRepositoryimpl.read(watchListPost.getWatchListPostId());
         Assertions.assertNull(readWatchListPost);
     }
 
@@ -69,10 +66,10 @@ public class WatchListPostRepositoryTest {
     public void testGetAll() {
         WatchListPost watchListPost1 = WatchListPostFactory.createWatchListPost();
         WatchListPost watchListPost2 = WatchListPostFactory.createWatchListPost();
-        watchListPostRepository.create(watchListPost1);
-        watchListPostRepository.create(watchListPost2);
-        Set<WatchListPost> watchListPosts = watchListPostRepository.getAll();
-        Assertions.assertEquals(2, watchListPosts.size());
+        WatchListPostRepositoryimpl.create(watchListPost1);
+        WatchListPostRepositoryimpl.create(watchListPost2);
+        Set<WatchListPost> watchListPosts = WatchListPostRepositoryimpl.getAll();
+        Assertions.assertEquals(4, watchListPosts.size());
         Assertions.assertTrue(watchListPosts.contains(watchListPost1));
         Assertions.assertTrue(watchListPosts.contains(watchListPost2));
     }

@@ -12,20 +12,20 @@ import za.ac.cput.domain.WatchListPost;
 import java.util.HashSet;
 import java.util.Set;
 
-public class WatchListPostRepository implements IWatchListPostRepository {
+public class WatchListPostRepositoryimpl implements IWatchListPostRepository {
 
-        private static WatchListPostRepository watchListPostRepository = null;
+        private static WatchListPostRepositoryimpl WatchListPostRepositoryimpl = null;
         private Set<WatchListPost> watchListPostDB = null;
 
-        private WatchListPostRepository() {
+        private WatchListPostRepositoryimpl() {
             this.watchListPostDB = new HashSet<WatchListPost>();
         }
 
-        public static WatchListPostRepository getWatchListPostRepository() {
-            if(watchListPostRepository == null) {
-                watchListPostRepository = new WatchListPostRepository();
+        public static WatchListPostRepositoryimpl getWatchListPostRepository() {
+            if(WatchListPostRepositoryimpl == null) {
+                WatchListPostRepositoryimpl = new WatchListPostRepositoryimpl();
             }
-            return watchListPostRepository;
+            return WatchListPostRepositoryimpl;
         }
 
         @Override
