@@ -23,7 +23,7 @@ class VehicleAddonsRepositoryImplTest {
 
 
     private static VehicleAddons  vehicleAddons= VehicleAddonsFactory.createVehicleAddonsFactory(
-            "67689","9876");
+            "1238906","23456");
 
     @Order(1)
     @Test
