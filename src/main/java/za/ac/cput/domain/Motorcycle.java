@@ -48,6 +48,7 @@ public class Motorcycle extends Vehicle {
         }
 
         public MotorcycleBuilder copy(Motorcycle motorcycle) {
+            super.copy(motorcycle);
             this.isHasSideCar = motorcycle.isHasSideCar;
             return this;
         }

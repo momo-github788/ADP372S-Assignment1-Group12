@@ -67,6 +67,7 @@ public class DetailingAddon extends Addons {
         }
 
         public DetailingAddOnBuilder copy(DetailingAddon detailingAddOn){
+            super.copy(detailingAddOn);
             this.dateCheckedIn = detailingAddOn.dateCheckedIn;
             this.dateCheckedOut = detailingAddOn.dateCheckedOut;
             return this;

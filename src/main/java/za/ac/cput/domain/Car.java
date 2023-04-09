@@ -48,6 +48,7 @@ public class Car extends Vehicle {
         }
 
         public CarBuilder copy(Car car) {
+            super.copy(car);
             this.isHasTowBar = car.isHasTowBar;
             return this;
         }

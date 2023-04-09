@@ -10,7 +10,7 @@ class ContactFactoryTest {
     @Test
     public void test(){
         Contact contact = ContactFactory.createContact("1231223412L", "michealjames@gmail.com" );
-        System.out.println(contact.toString());
         assertNotNull(contact);
+        System.out.println(contact.toString());
     }
 }
