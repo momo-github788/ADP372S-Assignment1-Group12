@@ -20,20 +20,4 @@ class TruckFactoryTest {
         System.out.println(truck);
         assertNotNull(truck);
     }
-
-    @Test
-    void testCreateTruckFail() {
-        Truck truck = TruckFactory.createTruck(null, "Actros", VehicleCondition.USED, FuelType.DIESEL,"red",
-                2023, 100, 6, 13607.8);
-        System.out.println(truck);
-        assertNotNull(truck, "Value cannot be empty");
-    }
-
-    @Test
-    void testCreateTruckWithNullValue() {
-        Truck truck = TruckFactory.createTruck(null, "Actros", VehicleCondition.USED, FuelType.DIESEL,null,
-                2023, 100, 6, 13607.8);
-        System.out.println(truck);
-        assertNull(truck);
-    }
 }

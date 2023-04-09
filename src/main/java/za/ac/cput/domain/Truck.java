@@ -57,6 +57,7 @@ public class Truck extends Vehicle {
         }
 
         public TruckBuilder copy(Truck truck) {
+            super.copy(truck);
             this.numOfWheels = truck.numOfWheels;
             this.maxLoadCapacity = truck.maxLoadCapacity;
             return this;
