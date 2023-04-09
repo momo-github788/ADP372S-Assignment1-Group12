@@ -36,9 +36,9 @@ class VehicleAddonsRepositoryImplTest {
     @Order(2)
     @Test
     void b_read() {
-        VehicleAddons Read =Repository.read(vehicleAddons.getVehicleId());
+        VehicleAddons readvehicle =Repository.read(vehicleAddons.getVehicleId());
 
-        System.out.println("Read: " + Read);
+        System.out.println("Read: " + readvehicle);
     }
     @Order(3)
     @Test
