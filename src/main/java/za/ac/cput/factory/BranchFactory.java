@@ -10,27 +10,22 @@ package za.ac.cput.factory;
 
 import za.ac.cput.domain.Branch;
 import za.ac.cput.domain.Location;
-
-import java.util.HashMap;
-import java.util.Map;
+import static za.ac.cput.util.Helper.generateId;
+import static za.ac.cput.util.Helper.isNullOrEmpty;
 
 public class BranchFactory {
-    private static Map<String, Branch> branches = new HashMap<>();
-
     public static Branch createBranch(String branchName, int yearOpened, Location location) {
-        Branch branch = new Branch.Builder()
+
+        if (isNullOrEmpty(branchName) || yearOpened <= 0 || location == null) {
+            return null;
+        }
+
+        return new Branch.BranchBuilder()
+                .setBranchId(generateId())
                 .setBranchName(branchName)
                 .setYearOpened(yearOpened)
                 .setLocation(location)
                 .build();
-        if (branches.containsKey(branch.getBranchId())) {
-            throw new RuntimeException("Branch ID already exists: " + branch.getBranchId());
-        }
-        branches.put(branch.getBranchId(), branch);
-        return branch;
-    }
 
-    public static Branch getBranch(String branchId) {
-        return branches.get(branchId);
     }
 }
