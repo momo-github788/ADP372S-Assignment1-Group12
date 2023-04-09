@@ -7,7 +7,7 @@
 package za.ac.cput.domain;
 
 public class WatchListPost {
-    private Integer watchListPostId;
+    private String watchListPostId;
     private String postId;
     private String userId;
 
@@ -17,24 +17,61 @@ public class WatchListPost {
         this.userId = builder.userId;
     }
 
-    public Integer getWatchListPostId() {
+
+    public String getWatchListPostId() {
         return watchListPostId;
+    }
+
+    public void setWatchListPostId(String watchListPostId) {
+        this.watchListPostId = watchListPostId;
     }
 
     public String getPostId() {
         return postId;
     }
 
+    public void setPostId(String postId) {
+        this.postId = postId;
+    }
+
     public String getUserId() {
         return userId;
     }
 
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    @Override
+    public String toString() {
+        return "WatchListPost{" +
+                "watchListPostId=" + watchListPostId +
+                ", postId='" + postId + '\'' +
+                ", userId='" + userId + '\'' +
+                '}';
+    }
+
     public static class Builder {
-        private Integer watchListPostId;
+        private String watchListPostId;
         private String postId;
         private String userId;
 
-        public Builder withWatchListPostId(Integer watchListPostId) {
+        public Builder setWatchListPostId(String watchListPostId) {
+            this.watchListPostId = watchListPostId;
+            return this;
+        }
+
+        public Builder setPostId(String postId) {
+            this.postId = postId;
+            return this;
+        }
+
+        public Builder setUserId(String userId) {
+            this.userId = userId;
+            return this;
+        }
+
+        public Builder withWatchListPostId(String watchListPostId) {
             this.watchListPostId = watchListPostId;
             return this;
         }
@@ -49,8 +86,17 @@ public class WatchListPost {
             return this;
         }
 
+        private WatchListPost.Builder copy(WatchListPost watchListPost) {
+            this.watchListPostId = watchListPost.watchListPostId;
+            this.postId = watchListPost.postId;
+            this.userId = watchListPost.userId;
+
+            return this;
+        }
+
         public WatchListPost build() {
             return new WatchListPost(this);
         }
     }
 }
+

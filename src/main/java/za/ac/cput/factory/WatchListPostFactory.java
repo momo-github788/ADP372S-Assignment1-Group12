@@ -9,12 +9,15 @@ package za.ac.cput.factory;
 
 import za.ac.cput.domain.WatchListPost;
 
+import static za.ac.cput.util.Helper.generateId;
+
 public class WatchListPostFactory {
-    public static WatchListPost createWatchListPost(Integer watchListPostId, String postId, String userId) {
+    public static WatchListPost createWatchListPost() {
         return new WatchListPost.Builder()
-                .withWatchListPostId(watchListPostId)
-                .withPostId(postId)
-                .withUserId(userId)
+                .setWatchListPostId(generateId())
+                .setPostId(generateId())
+                .setUserId(generateId())
                 .build();
     }
 }
+
