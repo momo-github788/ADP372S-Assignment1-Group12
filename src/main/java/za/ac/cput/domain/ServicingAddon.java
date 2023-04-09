@@ -65,6 +65,7 @@ public class ServicingAddon extends Addons{
         }
 
         public ServicingAddonBuilder copy(ServicingAddon servicingAddon) {
+            super.copy(servicingAddon);
             this.serviceCount = servicingAddon.serviceCount;
             this.mileageLimit = servicingAddon.mileageLimit;
             return this;

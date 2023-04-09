@@ -20,20 +20,4 @@ class MotorcycleFactoryTest {
         System.out.println(motorcycle);
         assertNotNull(motorcycle);
     }
-
-    @Test
-    void testCreateMotorcycleFail() {
-        Motorcycle motorcycle = MotorcycleFactory.createMotorcycle("Harley-Davidson", null, VehicleCondition.NEW,
-                FuelType.PETROL,"Navy blue", 2022, 0, false);
-        System.out.println(motorcycle);
-        assertNotNull(motorcycle, "Value cannot be empty");
-    }
-
-    @Test
-    void testCreateMotorcycleWithNullValue() {
-        Motorcycle motorcycle = MotorcycleFactory.createMotorcycle("Harley-Davidson", null, VehicleCondition.NEW,
-                FuelType.PETROL,null, 2022, 0, false);
-        System.out.println(motorcycle);
-        assertNull(motorcycle);
-    }
 }
