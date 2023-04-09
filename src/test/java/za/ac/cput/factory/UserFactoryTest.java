@@ -1,5 +1,9 @@
 package za.ac.cput.factory;
-
+/*  UserFactoryTest.java
+    Factory Test for Car Entity
+    Author: Junaid Cedrass (219090912)
+    Date: 4 April 2023
+*/
 import org.junit.jupiter.api.Test;
 import za.ac.cput.domain.Contact;
 import za.ac.cput.domain.User;
