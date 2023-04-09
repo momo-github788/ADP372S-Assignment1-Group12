@@ -1,1 +1,2 @@
-![Assignment 1 - Vehicle Dealership UML](https://user-images.githubusercontent.com/126054835/229348580-ec6b35ea-c5f4-4730-bbaa-09f1fa46e234.jpg)
+![Assignment 1 - Vehicle Dealership UML](https://user-images.githubusercontent.com/126054835/230753034-5f17bbd6-b290-40ce-868c-e8d4c70bd08a.jpg)
+
