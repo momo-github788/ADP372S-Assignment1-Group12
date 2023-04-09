@@ -52,6 +52,7 @@ public class ExtendedWarrantyAddon extends Addons{
         }
 
         public ExtendedWarrantyAddonBuilder copy(ExtendedWarrantyAddon extendedWarrantyAddon) {
+            super.copy(extendedWarrantyAddon);
             this.mileageLimit = extendedWarrantyAddon.mileageLimit;
             return this;
         }
