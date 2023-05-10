@@ -24,7 +24,7 @@ public class LocationFactory {
             throw new IllegalArgumentException("Street number cannot be a negative value");
         }
 
-        return new Location.LocationBuilder()
+        return new Location.Builder()
                 .setLocationId(generateId())
                 .setStreetNumber(streetNumber)
                 .setStreetName(streetName)

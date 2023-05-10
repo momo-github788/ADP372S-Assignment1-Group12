@@ -24,7 +24,7 @@ public class Post {
 
     }
 
-    private Post(PostBuilder builder){
+    private Post(Builder builder){
         this.postId = builder.postId;
         this.title = builder.title;
         this.description = builder.description;
@@ -100,7 +100,7 @@ public class Post {
                 '}';
     }
 
-    public static class PostBuilder {
+    public static class Builder {
         private String postId;
         private String title;
         private String description;
@@ -111,52 +111,52 @@ public class Post {
         private LocalDateTime expiredAt;
         private boolean isActive;
 
-        public PostBuilder setPostId(String postId) {
+        public Builder setPostId(String postId) {
             this.postId = postId;
             return this;
         }
 
-        public PostBuilder setTitle(String title) {
+        public Builder setTitle(String title) {
             this.title = title;
             return this;
         }
 
-        public PostBuilder setDescription(String description) {
+        public Builder setDescription(String description) {
             this.description = description;
             return this;
         }
 
-        public PostBuilder setPrice(double price) {
+        public Builder setPrice(double price) {
             this.price = price;
             return this;
         }
 
-        public PostBuilder setVehicle(Vehicle vehicle) {
+        public Builder setVehicle(Vehicle vehicle) {
             this.vehicle = vehicle;
             return this;
         }
 
-        public PostBuilder setBranch(Branch branch) {
+        public Builder setBranch(Branch branch) {
             this.branch = branch;
             return this;
         }
 
-        public PostBuilder setCreatedAt(LocalDateTime createdAt) {
+        public Builder setCreatedAt(LocalDateTime createdAt) {
             this.createdAt = createdAt;
             return this;
         }
 
-        public PostBuilder setExpiredAt(LocalDateTime expiredAt) {
+        public Builder setExpiredAt(LocalDateTime expiredAt) {
             this.expiredAt = expiredAt;
             return this;
         }
 
-        public PostBuilder setActive(boolean active) {
+        public Builder setActive(boolean active) {
             isActive = active;
             return this;
         }
 
-        public PostBuilder copy(Post post){
+        public Builder copy(Post post){
             this.postId = post.postId;
             this.title = post.title;
             this.description = post.description;
