@@ -20,7 +20,7 @@ public class Location {
 
     }
 
-    private Location(LocationBuilder builder) {
+    private Location(Builder builder) {
         this.locationId = builder.locationId;
         this.streetNumber = builder.streetNumber;
         this.streetName = builder.streetName;
@@ -79,7 +79,7 @@ public class Location {
                 '}';
     }
 
-    public static class LocationBuilder {
+    public static class Builder {
         private String locationId;
         private int streetNumber;
         private String streetName;
@@ -87,37 +87,37 @@ public class Location {
         private String postalCode;
         private String province;
 
-        public LocationBuilder setLocationId(String locationId) {
+        public Builder setLocationId(String locationId) {
             this.locationId = locationId;
             return this;
         }
 
-        public LocationBuilder setStreetNumber(int streetNumber) {
+        public Builder setStreetNumber(int streetNumber) {
             this.streetNumber = streetNumber;
             return this;
         }
 
-        public LocationBuilder setStreetName(String streetName) {
+        public Builder setStreetName(String streetName) {
             this.streetName = streetName;
             return this;
         }
 
-        public LocationBuilder setCity(String city) {
+        public Builder setCity(String city) {
             this.city = city;
             return this;
         }
 
-        public LocationBuilder setPostalCode(String postalCode) {
+        public Builder setPostalCode(String postalCode) {
             this.postalCode = postalCode;
             return this;
         }
 
-        public LocationBuilder setProvince(String province) {
+        public Builder setProvince(String province) {
             this.province = province;
             return this;
         }
 
-        public LocationBuilder copy(Location location) {
+        public Builder copy(Location location) {
             this.locationId = location.locationId;
             this.streetNumber = location.streetNumber;
             this.streetName = location.streetName;

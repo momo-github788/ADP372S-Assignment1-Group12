@@ -9,20 +9,20 @@ package za.ac.cput.domain;
 import java.util.Objects;
 
 public class Vehicle {
-    private String vehicleId;
-    private String make;
-    private String model;
-    private VehicleCondition condition;
-    private FuelType fuelType;
-    private String colour;
-    private int year;
-    private int mileage;
+    protected String vehicleId;
+    protected String make;
+    protected String model;
+    protected VehicleCondition condition;
+    protected FuelType fuelType;
+    protected String colour;
+    protected int year;
+    protected int mileage;
 
     protected Vehicle() {
 
     }
 
-    protected Vehicle (VehicleBuilder<?> builder){
+    protected Vehicle (Builder builder){
         this.vehicleId = builder.vehicleId;
         this.make = builder.make;
         this.model = builder.model;
@@ -91,7 +91,7 @@ public class Vehicle {
                 ", mileage=" + mileage + ", ";
     }
 
-    public static class VehicleBuilder<T extends VehicleBuilder<T>>{
+    public static class Builder {
         private String vehicleId;
         private String make;
         private String model;
@@ -102,47 +102,47 @@ public class Vehicle {
         private int mileage;
 
 
-        public T setVehicleId(String vehicleId) {
+        public Builder setVehicleId(String vehicleId) {
             this.vehicleId = vehicleId;
-            return (T) this;
+            return this;
         }
 
-        public T setMake(String make) {
+        public Builder setMake(String make) {
             this.make = make;
-            return (T) this;
+            return this;
         }
 
-        public T setModel(String model) {
+        public Builder setModel(String model) {
             this.model = model;
-            return (T) this;
+            return this;
         }
 
-        public T setCondition(VehicleCondition condition) {
+        public Builder setCondition(VehicleCondition condition) {
             this.condition = condition;
-            return (T) this;
+            return this;
         }
 
-        public T setFuelType(FuelType fuelType) {
+        public Builder setFuelType(FuelType fuelType) {
             this.fuelType = fuelType;
-            return (T) this;
+            return this;
         }
 
-        public T setColour(String colour) {
+        public Builder setColour(String colour) {
             this.colour = colour;
-            return (T) this;
+            return this;
         }
 
-        public T setYear(int year) {
+        public Builder setYear(int year) {
             this.year = year;
-            return (T) this;
+            return this;
         }
 
-        public T setMileage(int mileage) {
+        public Builder setMileage(int mileage) {
             this.mileage = mileage;
-            return (T) this;
+            return this;
         }
 
-        public VehicleBuilder<?> copy(Vehicle vehicle){
+        public Builder copy(Vehicle vehicle){
             this.vehicleId = vehicle.vehicleId;
             this.make = vehicle.make;
             this.model = vehicle.model;

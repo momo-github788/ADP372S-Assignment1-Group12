@@ -40,7 +40,7 @@ class LocationRepositoryImplTest {
     @Order(3)
     @Test
     void update() {
-        Location updatedLocation = new Location.LocationBuilder().copy(location)
+        Location updatedLocation = new Location.Builder().copy(location)
                 .setStreetNumber(129)
                 .setPostalCode("8982")
                 .build();

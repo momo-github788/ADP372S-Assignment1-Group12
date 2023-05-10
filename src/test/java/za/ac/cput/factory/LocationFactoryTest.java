@@ -14,7 +14,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class LocationFactoryTest {
 
-
     @Test
     public void testCreateLocationSuccess() {
         Location location = LocationFactory.createLocation(27, "Daisy Street", "Cape Town", "7850", "Western Cape");

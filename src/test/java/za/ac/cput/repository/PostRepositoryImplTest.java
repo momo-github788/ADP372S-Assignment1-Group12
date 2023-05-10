@@ -50,7 +50,7 @@ class PostRepositoryImplTest {
     @Order(3)
     @Test
     void update() {
-        Post updatedPost = new Post.PostBuilder()
+        Post updatedPost = new Post.Builder()
                 .copy(post)
                 .setDescription("Car is in terrible condition")
                 .build();

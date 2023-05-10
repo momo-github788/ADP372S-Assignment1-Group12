@@ -25,7 +25,7 @@ public class PostFactory {
             return null;
         }
 
-        return new Post.PostBuilder()
+        return new Post.Builder()
                 .setPostId(generateId())
                 .setTitle(title)
                 .setDescription(description)
