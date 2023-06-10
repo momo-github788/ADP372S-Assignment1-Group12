@@ -1,2 +1,1 @@
-![Assignment 1 - Vehicle Dealership UML](https://user-images.githubusercontent.com/126054835/230753034-5f17bbd6-b290-40ce-868c-e8d4c70bd08a.jpg)
-
+![Capture](https://github.com/momo-github788/ADP372S-Assignment1-Group12/assets/126054835/b8060b5d-cc75-4041-a29e-4bbc47a1fd64)
