@@ -8,7 +8,6 @@ package za.ac.cput.vehicledealership.repository;
 
 import za.ac.cput.vehicledealership.domain.Branch;
 
-
 import java.util.Set;
 
 public interface BranchRepository extends IRepository<Branch, String >{

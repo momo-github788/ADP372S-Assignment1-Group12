@@ -7,6 +7,7 @@ package za.ac.cput.vehicledealership.service;
 */
 
 import za.ac.cput.vehicledealership.domain.Name;
+
 import java.util.List;
 
 public interface NameService extends IService<Name, String> {

@@ -7,8 +7,8 @@ package za.ac.cput.vehicledealership.service.impl;
 */
 
 import za.ac.cput.vehicledealership.domain.Name;
-import za.ac.cput.vehicledealership.service.NameService;
 import za.ac.cput.vehicledealership.repository.impl.NameRepositoryImpl;
+import za.ac.cput.vehicledealership.service.NameService;
 
 import java.util.List;
 

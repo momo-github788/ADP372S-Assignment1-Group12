@@ -11,8 +11,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import za.ac.cput.vehicledealership.domain.VehicleAddons;
 import za.ac.cput.vehicledealership.factory.VehicleAddonsFactory;
+import za.ac.cput.vehicledealership.repository.impl.VehicleAddonsRepositoryImpl;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class VehicleAddonsRepositoryImplTest {
 

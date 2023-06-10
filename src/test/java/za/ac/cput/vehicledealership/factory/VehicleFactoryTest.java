@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import za.ac.cput.vehicledealership.domain.FuelType;
 import za.ac.cput.vehicledealership.domain.Vehicle;
 import za.ac.cput.vehicledealership.domain.VehicleCondition;
-import za.ac.cput.vehicledealership.factory.VehicleFactory;
 
 import static org.junit.jupiter.api.Assertions.*;
 

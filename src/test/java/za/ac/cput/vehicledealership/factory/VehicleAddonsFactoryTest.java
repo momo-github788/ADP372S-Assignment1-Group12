@@ -8,9 +8,9 @@ package za.ac.cput.vehicledealership.factory;
 
 import org.junit.jupiter.api.Test;
 import za.ac.cput.vehicledealership.domain.VehicleAddons;
-import za.ac.cput.vehicledealership.factory.VehicleAddonsFactory;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 class VehicleAddonsFactoryTest {
 
@@ -25,7 +25,7 @@ class VehicleAddonsFactoryTest {
 
     @Test
     void createVehicleAddonsFails() {
-        vehicleAddons  =VehicleAddonsFactory.createVehicleAddonsFactory("289273","8736736");
+        vehicleAddons  =VehicleAddonsFactory.createVehicleAddonsFactory("289273","");
         assertNull(vehicleAddons);
     }
 }

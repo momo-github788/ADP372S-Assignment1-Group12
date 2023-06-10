@@ -9,7 +9,6 @@ package za.ac.cput.vehicledealership.repository.impl;
 import za.ac.cput.vehicledealership.domain.Branch;
 import za.ac.cput.vehicledealership.repository.BranchRepository;
 
-
 import java.util.HashSet;
 import java.util.Set;
 

@@ -22,7 +22,7 @@ public class Vehicle {
 
     }
 
-    protected Vehicle (Builder builder){
+    protected Vehicle (Builder<?> builder){
         this.vehicleId = builder.vehicleId;
         this.make = builder.make;
         this.model = builder.model;
@@ -91,7 +91,7 @@ public class Vehicle {
                 ", mileage=" + mileage + ", ";
     }
 
-    public static class Builder {
+    public static class Builder<T extends Builder<T>> {
         private String vehicleId;
         private String make;
         private String model;
@@ -102,47 +102,47 @@ public class Vehicle {
         private int mileage;
 
 
-        public Builder setVehicleId(String vehicleId) {
+        public T setVehicleId(String vehicleId) {
             this.vehicleId = vehicleId;
-            return this;
+            return (T) this;
         }
 
-        public Builder setMake(String make) {
+        public T setMake(String make) {
             this.make = make;
-            return this;
+            return (T) this;
         }
 
-        public Builder setModel(String model) {
+        public T setModel(String model) {
             this.model = model;
-            return this;
+            return (T) this;
         }
 
-        public Builder setCondition(VehicleCondition condition) {
+        public T setCondition(VehicleCondition condition) {
             this.condition = condition;
-            return this;
+            return (T) this;
         }
 
-        public Builder setFuelType(FuelType fuelType) {
+        public T setFuelType(FuelType fuelType) {
             this.fuelType = fuelType;
-            return this;
+            return (T) this;
         }
 
-        public Builder setColour(String colour) {
+        public T setColour(String colour) {
             this.colour = colour;
-            return this;
+            return (T) this;
         }
 
-        public Builder setYear(int year) {
+        public T setYear(int year) {
             this.year = year;
-            return this;
+            return (T) this;
         }
 
-        public Builder setMileage(int mileage) {
+        public T setMileage(int mileage) {
             this.mileage = mileage;
-            return this;
+            return (T) this;
         }
 
-        public Builder copy(Vehicle vehicle){
+        public Builder<?> copy(Vehicle vehicle){
             this.vehicleId = vehicle.vehicleId;
             this.make = vehicle.make;
             this.model = vehicle.model;

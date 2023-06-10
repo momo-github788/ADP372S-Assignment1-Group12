@@ -16,6 +16,7 @@ import za.ac.cput.vehicledealership.factory.LocationFactory;
 import za.ac.cput.vehicledealership.factory.PostFactory;
 import za.ac.cput.vehicledealership.factory.VehicleFactory;
 import za.ac.cput.vehicledealership.service.impl.PostServiceImpl;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)

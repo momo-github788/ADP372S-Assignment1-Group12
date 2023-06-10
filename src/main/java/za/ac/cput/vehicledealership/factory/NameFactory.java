@@ -7,10 +7,11 @@ package za.ac.cput.vehicledealership.factory;
 */
 
 import za.ac.cput.vehicledealership.domain.Name;
+
 import static za.ac.cput.vehicledealership.util.Helper.isNullOrEmpty;
 
 public class NameFactory {
-    public static Name createNameFactory(String firstName, String middleName, String lastName) {
+    public static Name createName(String firstName, String middleName, String lastName) {
 
         if(isNullOrEmpty(firstName) || isNullOrEmpty(lastName)) {
             return null;
@@ -20,6 +21,13 @@ public class NameFactory {
                 .setFirstName(firstName)
                 .setMiddleName(middleName)
                 .setLastName(lastName)
+                .build();
+    }
+
+    public static Name createName(String middleName) {
+
+        return new Name.Builder()
+                .setMiddleName(middleName)
                 .build();
     }
 }

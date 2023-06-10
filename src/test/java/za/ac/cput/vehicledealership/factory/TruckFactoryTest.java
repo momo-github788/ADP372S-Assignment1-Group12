@@ -9,9 +9,8 @@ import org.junit.jupiter.api.Test;
 import za.ac.cput.vehicledealership.domain.FuelType;
 import za.ac.cput.vehicledealership.domain.Truck;
 import za.ac.cput.vehicledealership.domain.VehicleCondition;
-import za.ac.cput.vehicledealership.factory.TruckFactory;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class TruckFactoryTest {
     @Test

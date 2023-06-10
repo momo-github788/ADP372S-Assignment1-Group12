@@ -9,6 +9,8 @@ package za.ac.cput.vehicledealership.factory;
 import za.ac.cput.vehicledealership.domain.Location;
 import za.ac.cput.vehicledealership.util.Helper;
 
+import static za.ac.cput.vehicledealership.util.Helper.generateId;
+
 public class LocationFactory {
 
     public static Location createLocation(int streetNumber, String streetName, String city, String postalCode, String province) {
@@ -22,6 +24,7 @@ public class LocationFactory {
         }
 
         return new Location.Builder()
+                .setLocationId(generateId())
                 .setStreetNumber(streetNumber)
                 .setStreetName(streetName)
                 .setCity(city)

@@ -22,8 +22,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class EmployeeRepositoryImplTest {
 
     private static EmployeeRepositoryImpl employeeRepository = EmployeeRepositoryImpl.getEmployeeRepository();
-    private static Name name = NameFactory.createNameFactory("Mary", "", "Anne");
-    private static Employee employee = EmployeeFactory.createEmployee(name, "password123");
+    private static Name name = NameFactory.createName("Mary", "", "Anne");
+    private static Employee employee = EmployeeFactory.createEmployee(name, "Password123");
 
 
     @Order(1)
@@ -47,7 +47,7 @@ class EmployeeRepositoryImplTest {
     void update() {
         Employee updatedEmployee = new Employee.Builder()
                 .copy(employee)
-                .setPassword("updatedpassword123")
+                .setName(NameFactory.createName("Mary", "Julia", "Anne"))
                 .build();
 
         assertNotNull(employeeRepository.update(updatedEmployee));

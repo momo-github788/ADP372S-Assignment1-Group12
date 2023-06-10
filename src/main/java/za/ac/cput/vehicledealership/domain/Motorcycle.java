@@ -39,7 +39,7 @@ public class Motorcycle extends Vehicle {
                 '}';
     }
 
-    public static class MotorcycleBuilder extends Vehicle.VehicleBuilder<MotorcycleBuilder> {
+    public static class MotorcycleBuilder extends Builder<MotorcycleBuilder> {
         private boolean isHasSideCar;
 
         public MotorcycleBuilder setHasSideCar(boolean hasSideCar) {

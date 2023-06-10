@@ -8,15 +8,14 @@ package za.ac.cput.vehicledealership.factory;
 
 import org.junit.jupiter.api.Test;
 import za.ac.cput.vehicledealership.domain.Name;
-import za.ac.cput.vehicledealership.factory.NameFactory;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class NameFactoryTest {
 
     @Test
     void testCreateNameSuccess() {
-        Name name = NameFactory.createNameFactory("John", "Jones", "Doe");
+        Name name = NameFactory.createName("John", "Jones", "Doe");
         assertNotNull(name);
     }
 

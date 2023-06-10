@@ -13,6 +13,7 @@ import za.ac.cput.vehicledealership.domain.Vehicle;
 import za.ac.cput.vehicledealership.domain.VehicleCondition;
 import za.ac.cput.vehicledealership.factory.AddonsFactory;
 import za.ac.cput.vehicledealership.factory.VehicleFactory;
+import za.ac.cput.vehicledealership.repository.impl.AddonsRepositoryImpl;
 
 import java.time.LocalDateTime;
 

@@ -7,6 +7,7 @@ package za.ac.cput.vehicledealership.service;
 */
 
 import za.ac.cput.vehicledealership.domain.Post;
+
 import java.util.Set;
 
 public interface PostService extends IService<Post, String>{

@@ -43,7 +43,7 @@ public class Truck extends Vehicle {
                 '}';
     }
 
-    public static class TruckBuilder extends Vehicle.VehicleBuilder<TruckBuilder> {
+    public static class TruckBuilder extends Builder<TruckBuilder> {
         private int numOfWheels;
         private double maxLoadCapacity;
 

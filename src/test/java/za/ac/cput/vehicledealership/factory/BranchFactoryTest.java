@@ -11,11 +11,9 @@ package za.ac.cput.vehicledealership.factory;
 import org.junit.jupiter.api.Test;
 import za.ac.cput.vehicledealership.domain.Branch;
 import za.ac.cput.vehicledealership.domain.Location;
-import za.ac.cput.vehicledealership.factory.BranchFactory;
-import za.ac.cput.vehicledealership.factory.LocationFactory;
 
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class BranchFactoryTest {
     @Test

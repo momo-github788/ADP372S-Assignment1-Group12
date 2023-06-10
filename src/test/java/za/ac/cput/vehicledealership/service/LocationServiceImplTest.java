@@ -13,6 +13,7 @@ import org.junit.jupiter.api.TestMethodOrder;
 import za.ac.cput.vehicledealership.domain.Location;
 import za.ac.cput.vehicledealership.factory.LocationFactory;
 import za.ac.cput.vehicledealership.service.impl.LocationServiceImpl;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)

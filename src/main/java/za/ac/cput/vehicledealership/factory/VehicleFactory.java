@@ -8,11 +8,10 @@ package za.ac.cput.vehicledealership.factory;
 */
 
 
-
+import za.ac.cput.vehicledealership.domain.FuelType;
 import za.ac.cput.vehicledealership.domain.Vehicle;
 import za.ac.cput.vehicledealership.domain.VehicleCondition;
 import za.ac.cput.vehicledealership.util.Helper;
-import za.ac.cput.vehicledealership.domain.FuelType;
 
 public class VehicleFactory {
 

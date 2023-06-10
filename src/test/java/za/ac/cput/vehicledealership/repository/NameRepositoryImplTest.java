@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class NameRepositoryImplTest {
 
     private static NameRepositoryImpl nameRepository = NameRepositoryImpl.getNameRepository();
-    private static Name name = NameFactory.createNameFactory("John", "James", "Doe");
+    private static Name name = NameFactory.createName("John", "James", "Doe");
 
     @Order(1)
     @Test

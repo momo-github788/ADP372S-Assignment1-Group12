@@ -5,11 +5,14 @@
 */
 package za.ac.cput.vehicledealership.repository;
 
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import za.ac.cput.vehicledealership.domain.Car;
 import za.ac.cput.vehicledealership.domain.FuelType;
 import za.ac.cput.vehicledealership.domain.VehicleCondition;
-import za.ac.cput.factory.CarFactory;
+import za.ac.cput.vehicledealership.factory.CarFactory;
 import za.ac.cput.vehicledealership.repository.impl.CarRepositoryImpl;
 
 import static org.junit.jupiter.api.Assertions.*;

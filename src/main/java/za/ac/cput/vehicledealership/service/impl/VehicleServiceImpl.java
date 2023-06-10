@@ -13,8 +13,8 @@ package za.ac.cput.vehicledealership.service.impl;
 */
 
 import za.ac.cput.vehicledealership.domain.Vehicle;
-import za.ac.cput.vehicledealership.service.VehicleService;
 import za.ac.cput.vehicledealership.repository.impl.VehicleRepositoryImpl;
+import za.ac.cput.vehicledealership.service.VehicleService;
 
 import java.util.List;
 

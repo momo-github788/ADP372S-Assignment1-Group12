@@ -12,6 +12,7 @@ import za.ac.cput.vehicledealership.domain.Branch;
 import za.ac.cput.vehicledealership.domain.Location;
 import za.ac.cput.vehicledealership.factory.BranchFactory;
 import za.ac.cput.vehicledealership.factory.LocationFactory;
+import za.ac.cput.vehicledealership.repository.impl.BranchRepositoryImpl;
 
 import static org.junit.jupiter.api.Assertions.*;
 

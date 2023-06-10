@@ -86,7 +86,7 @@ public class WatchListPost {
             return this;
         }
 
-        private WatchListPost.Builder copy(WatchListPost watchListPost) {
+        private Builder copy(WatchListPost watchListPost) {
             this.watchListPostId = watchListPost.watchListPostId;
             this.postId = watchListPost.postId;
             this.userId = watchListPost.userId;

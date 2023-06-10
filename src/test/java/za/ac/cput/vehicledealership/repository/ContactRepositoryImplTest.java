@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import za.ac.cput.vehicledealership.domain.Contact;
 import za.ac.cput.vehicledealership.factory.ContactFactory;
+import za.ac.cput.vehicledealership.repository.impl.ContactRepositoryImpl;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.MethodName.class)

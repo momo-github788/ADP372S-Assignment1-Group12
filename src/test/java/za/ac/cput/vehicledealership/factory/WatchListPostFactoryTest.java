@@ -7,11 +7,10 @@
 
 package za.ac.cput.vehicledealership.factory;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.Test;
 import za.ac.cput.vehicledealership.domain.WatchListPost;
-import za.ac.cput.vehicledealership.factory.WatchListPostFactory;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
 public class WatchListPostFactoryTest {

@@ -6,12 +6,12 @@
 
 package za.ac.cput.vehicledealership.repository;
 
-import org.junit.jupiter.api.Test;
-import za.ac.cput.vehicledealership.domain.WatchListPost;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import za.ac.cput.vehicledealership.domain.WatchListPost;
 import za.ac.cput.vehicledealership.factory.WatchListPostFactory;
+import za.ac.cput.vehicledealership.repository.impl.WatchListPostRepositoryimpl;
 
 import java.util.Set;
 

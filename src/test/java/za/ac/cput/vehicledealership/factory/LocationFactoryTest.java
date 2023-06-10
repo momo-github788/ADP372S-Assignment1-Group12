@@ -9,7 +9,6 @@ package za.ac.cput.vehicledealership.factory;
 
 import org.junit.jupiter.api.Test;
 import za.ac.cput.vehicledealership.domain.Location;
-import za.ac.cput.vehicledealership.factory.LocationFactory;
 
 import static org.junit.jupiter.api.Assertions.*;
 

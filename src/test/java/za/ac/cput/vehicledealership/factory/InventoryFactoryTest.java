@@ -7,11 +7,9 @@ package za.ac.cput.vehicledealership.factory;
 
 import org.junit.jupiter.api.Test;
 import za.ac.cput.vehicledealership.domain.*;
-import za.ac.cput.vehicledealership.factory.InventoryFactory;
-import za.ac.cput.vehicledealership.factory.VehicleFactory;
-import za.ac.cput.domain.*;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 class InventoryFactoryTest {
 

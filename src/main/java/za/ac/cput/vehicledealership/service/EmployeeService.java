@@ -7,6 +7,7 @@ package za.ac.cput.vehicledealership.service;
 */
 
 import za.ac.cput.vehicledealership.domain.Employee;
+
 import java.util.List;
 
 public interface EmployeeService extends IService<Employee, Long> {

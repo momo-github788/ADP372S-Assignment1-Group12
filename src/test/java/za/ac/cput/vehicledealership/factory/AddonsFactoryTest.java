@@ -5,12 +5,10 @@ import za.ac.cput.vehicledealership.domain.Addons;
 import za.ac.cput.vehicledealership.domain.FuelType;
 import za.ac.cput.vehicledealership.domain.Vehicle;
 import za.ac.cput.vehicledealership.domain.VehicleCondition;
-import za.ac.cput.vehicledealership.factory.AddonsFactory;
-import za.ac.cput.vehicledealership.factory.VehicleFactory;
 
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 /*  AddonsFactoryTest.java
     Test class for AddonsFactory
     Author: George Tapiwa Charimba (220073465)

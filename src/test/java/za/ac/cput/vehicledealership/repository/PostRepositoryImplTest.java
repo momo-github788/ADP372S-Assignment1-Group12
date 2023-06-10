@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import za.ac.cput.vehicledealership.domain.*;
-import za.ac.cput.domain.*;
 import za.ac.cput.vehicledealership.factory.BranchFactory;
 import za.ac.cput.vehicledealership.factory.LocationFactory;
 import za.ac.cput.vehicledealership.factory.PostFactory;

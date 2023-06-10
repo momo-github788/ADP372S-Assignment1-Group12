@@ -5,10 +5,10 @@
 */
 package za.ac.cput.vehicledealership.factory;
 
-import za.ac.cput.vehicledealership.domain.VehicleCondition;
-import za.ac.cput.vehicledealership.util.Helper;
 import za.ac.cput.vehicledealership.domain.FuelType;
 import za.ac.cput.vehicledealership.domain.Truck;
+import za.ac.cput.vehicledealership.domain.VehicleCondition;
+import za.ac.cput.vehicledealership.util.Helper;
 
 public class TruckFactory {
     public static Truck createTruck(String make, String model, VehicleCondition condition, FuelType fuelType, String colour, int year, int mileage, int numOfWheels, double maxLoadCapacity) {

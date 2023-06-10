@@ -15,14 +15,15 @@ import za.ac.cput.vehicledealership.domain.Name;
 import za.ac.cput.vehicledealership.factory.EmployeeFactory;
 import za.ac.cput.vehicledealership.factory.NameFactory;
 import za.ac.cput.vehicledealership.service.impl.EmployeeServiceImpl;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class EmployeeServiceImplTest {
 
     private static EmployeeServiceImpl employeeService = EmployeeServiceImpl.getEmployeeService();
-    private static Name name = NameFactory.createNameFactory("Mary", "", "Anne");
-    private static Employee employee = EmployeeFactory.createEmployee(name, "password123");
+    private static Name name = NameFactory.createName("Mary", "", "Anne");
+    private static Employee employee = EmployeeFactory.createEmployee(name, "Password123");
 
 
     @Order(1)

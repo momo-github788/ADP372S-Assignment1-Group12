@@ -6,9 +6,9 @@ package za.ac.cput.vehicledealership.service.impl;
     Date: 10 June 2023
 */
 
+import za.ac.cput.vehicledealership.domain.Post;
 import za.ac.cput.vehicledealership.repository.impl.PostRepositoryImpl;
 import za.ac.cput.vehicledealership.service.PostService;
-import za.ac.cput.vehicledealership.domain.Post;
 
 import java.util.Set;
 

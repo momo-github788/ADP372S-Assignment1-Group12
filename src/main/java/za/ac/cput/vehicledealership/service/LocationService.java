@@ -7,6 +7,7 @@ package za.ac.cput.vehicledealership.service;
 */
 
 import za.ac.cput.vehicledealership.domain.Location;
+
 import java.util.Set;
 
 public interface LocationService extends IService<Location, String> {

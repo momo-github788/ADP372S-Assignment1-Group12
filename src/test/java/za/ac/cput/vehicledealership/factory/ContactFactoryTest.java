@@ -2,7 +2,6 @@ package za.ac.cput.vehicledealership.factory;
 
 import org.junit.jupiter.api.Test;
 import za.ac.cput.vehicledealership.domain.Contact;
-import za.ac.cput.vehicledealership.factory.ContactFactory;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 

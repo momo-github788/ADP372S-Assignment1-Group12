@@ -44,7 +44,7 @@ class VehicleRepositoryImplTest {
     @Order(3)
     @Test
     void update() {
-        Vehicle updatedVehicle = new Vehicle.VehicleBuilder()
+        Vehicle updatedVehicle = new Vehicle.Builder<>()
                 .copy(vehicle)
                 .setMileage(59999)
                 .build();

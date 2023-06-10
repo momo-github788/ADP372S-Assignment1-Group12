@@ -13,12 +13,13 @@ import org.junit.jupiter.api.TestMethodOrder;
 import za.ac.cput.vehicledealership.domain.Name;
 import za.ac.cput.vehicledealership.factory.NameFactory;
 import za.ac.cput.vehicledealership.service.impl.NameServiceImpl;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class NameServiceImplTest {
 
-    private static Name name = NameFactory.createNameFactory("Mary", "", "Anne");
+    private static Name name = NameFactory.createName("Mary", "", "Anne");
     private static NameServiceImpl nameService = NameServiceImpl.getNameService();
 
     @Order(1)

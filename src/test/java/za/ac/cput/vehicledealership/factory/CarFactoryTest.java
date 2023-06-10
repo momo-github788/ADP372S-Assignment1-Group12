@@ -10,7 +10,7 @@ import za.ac.cput.vehicledealership.domain.Car;
 import za.ac.cput.vehicledealership.domain.FuelType;
 import za.ac.cput.vehicledealership.domain.VehicleCondition;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class CarFactoryTest {
     @Test

@@ -1,7 +1,7 @@
 package za.ac.cput.vehicledealership.repository.impl;
 
-import za.ac.cput.vehicledealership.repository.ContactRepository;
 import za.ac.cput.vehicledealership.domain.Contact;
+import za.ac.cput.vehicledealership.repository.ContactRepository;
 
 import java.util.HashSet;
 import java.util.Set;
