@@ -1,33 +1,33 @@
-package za.ac.cput.vehicledealership.repository.impl;
-/*  AddonsRepositoryImplTest.java
-    Test class for AddonsFactoryRepositoryImpl
+package za.ac.cput.vehicledealership.service;
+/*  AddonsSerciveImplTest.java
+    Test class for AddonsServiceImpl
     Author: George Tapiwa Charimba (220073465)
-    Date: 3 April 2023
+    Date: 11 June 2023
 */
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
-import za.ac.cput.vehicledealership.domain.AddonType;
-import za.ac.cput.vehicledealership.domain.Addons;
+import za.ac.cput.vehicledealership.domain.*;
 import za.ac.cput.vehicledealership.factory.AddonsFactory;
+import za.ac.cput.vehicledealership.factory.VehicleFactory;
+import za.ac.cput.vehicledealership.service.impl.AddonsServiceImpl;
 
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class AddonsRepositoryImplTest {
+class AddonsServiceImplTest {
 
-    private static AddonsRepositoryImpl addonsRepository = AddonsRepositoryImpl.getAddonsRepository();
-    private static AddonType addonsType = AddonType.SERVICINGADDON;
-    private static Addons addons = AddonsFactory.createAddons("Service", "Mini service", LocalDateTime.now(), AddonType.SERVICINGADDON, 10000, 12, 6);
+    private static AddonsServiceImpl addonsService = AddonsServiceImpl.getAddonsServiceService();
+    private static Addons addons = AddonsFactory.createAddons("Audi", "A4", LocalDateTime.now(), AddonType.DETAILINGADDON, 15000, 12, 12);
 
 
     @Order(1)
     @Test
     void create() {
-        Addons createdAddons = addonsRepository.create(addons);
+        Addons createdAddons = addonsService.create(addons);
         assertNotNull(createdAddons);
         System.out.println("Create: " + createdAddons);
     }
@@ -35,7 +35,7 @@ class AddonsRepositoryImplTest {
     @Order(2)
     @Test
     void read() {
-        Addons readAddons = addonsRepository.read(addons.getAddonId());
+        Addons readAddons = addonsService.read(addons.getAddonId());
         assertNotNull(readAddons);
         System.out.println("Read: " + readAddons);
     }
@@ -46,16 +46,15 @@ class AddonsRepositoryImplTest {
         Addons updatedAddons = new Addons.Builder()
                 .copy(addons)
                 .build();
-        assertNotNull(addonsRepository.update(updatedAddons));
+        assertNotNull(addonsService.update(updatedAddons));
         System.out.println("Update: " + updatedAddons);
-
 
     }
 
     @Order(5)
     @Test
     void delete() {
-        boolean success = addonsRepository.delete(addons.getAddonId());
+        boolean success = addonsService.delete(addons.getAddonId());
 
         assertTrue(success);
         System.out.println("Delete: " + success);
@@ -65,7 +64,7 @@ class AddonsRepositoryImplTest {
     @Test
     void getAll() {
         System.out.println("Get all: ");
-        System.out.println(addonsRepository.getAll());
-        assertEquals(1, addonsRepository.getAll().size());
+        System.out.println(addonsService.getAll());
+        assertEquals(1, addonsService.getAll().size());
     }
 }
