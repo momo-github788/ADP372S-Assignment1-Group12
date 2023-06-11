@@ -26,6 +26,11 @@ public class Helper {
         return validator.isValid(emailAddress);
     }
 
+    public static boolean isValidMobileNo(String contactNumber){
+        Pattern ptrn = Pattern.compile("(0/91)?[7-9][0-9]{9}");
+        Matcher match = ptrn.matcher(contactNumber);
+        return (match.find() && match.group().equals(contactNumber));
+    }
     // Minimum of 6 characters
     // Atleast one uppercase letter
     // Atleast one lowercase letter

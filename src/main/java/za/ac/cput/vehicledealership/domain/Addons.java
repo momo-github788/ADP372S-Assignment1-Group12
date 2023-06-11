@@ -1,34 +1,35 @@
 package za.ac.cput.vehicledealership.domain;
-
-import java.time.LocalDateTime;
-import java.util.Objects;
-
 /*  Addons.java
-    Entity for the Addons
+    Entity for addons
     Author: George Tapiwa Charimba (220073465)
     Date: 2 April 2023
 */
+import java.time.LocalDateTime;
+import java.util.Objects;
+
 public class Addons {
     private String addonId;
     private String name;
     private String description;
-    private LocalDateTime date;
-    private Vehicle vehicle;
+    private LocalDateTime datePurchased;
+    private AddonType addonType;
     private double price;
-    protected int periodExpirationMonths;
+    private int periodExpirationMonths;
+    private long maximumMileageLimit;
 
-    protected Addons(){
+    public Addons() {
 
     }
 
-    protected Addons (AddonsBuilder<?> builder) {
+    public Addons(Builder builder) {
         this.addonId = builder.addonId;
         this.name = builder.name;
         this.description = builder.description;
-        this.date = builder.date;
-        this.vehicle = builder.vehicle;
+        this.datePurchased = builder.datePurchased;
+        this.addonType = builder.addonType;
         this.price = builder.price;
-        this.periodExpirationMonths = periodExpirationMonths;
+        this.periodExpirationMonths = builder.periodExpirationMonths;
+        this.maximumMileageLimit = builder.maximumMileageLimit;
     }
 
     public String getAddonId() {
@@ -43,12 +44,12 @@ public class Addons {
         return description;
     }
 
-    public LocalDateTime getDate() {
-        return date;
+    public LocalDateTime getDatePurchased() {
+        return datePurchased;
     }
 
-    public Vehicle getVehicle() {
-        return vehicle;
+    public AddonType getAddonType() {
+        return addonType;
     }
 
     public double getPrice() {
@@ -59,17 +60,20 @@ public class Addons {
         return periodExpirationMonths;
     }
 
+    public long getMaximumMileageLimit() {
+        return maximumMileageLimit;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Addons addons = (Addons) o;
-        return Double.compare(addons.price, price) == 0 && periodExpirationMonths == addons.periodExpirationMonths && Objects.equals(addonId, addons.addonId) && Objects.equals(name, addons.name) && Objects.equals(description, addons.description) && Objects.equals(date, addons.date) && Objects.equals(vehicle, addons.vehicle);
+        if (!(o instanceof Addons addons)) return false;
+        return Double.compare(addons.getPrice(), getPrice()) == 0 && getPeriodExpirationMonths() == addons.getPeriodExpirationMonths() && getMaximumMileageLimit() == addons.getMaximumMileageLimit() && Objects.equals(getAddonId(), addons.getAddonId()) && Objects.equals(getName(), addons.getName()) && Objects.equals(getDescription(), addons.getDescription()) && Objects.equals(getDatePurchased(), addons.getDatePurchased()) && Objects.equals(getAddonType(), addons.getAddonType());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(addonId, name, description, date, vehicle, price, periodExpirationMonths);
+        return Objects.hash(getAddonId(), getName(), getDescription(), getDatePurchased(), getAddonType(), getPrice(), getPeriodExpirationMonths(), getMaximumMileageLimit());
     }
 
     @Override
@@ -78,68 +82,75 @@ public class Addons {
                 "addonId='" + addonId + '\'' +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
-                ", date=" + date +
-                ", vehicle=" + vehicle +
+                ", datePurchased=" + datePurchased +
+                ", addonType=" + addonType +
                 ", price=" + price +
                 ", periodExpirationMonths=" + periodExpirationMonths +
+                ", maximumMileageLimit=" + maximumMileageLimit +
                 '}';
     }
 
-    public static class AddonsBuilder<T extends AddonsBuilder<T>>{
+    public static class Builder {
         private String addonId;
         private String name;
         private String description;
-        private LocalDateTime date;
-        private Vehicle vehicle;
+        private LocalDateTime datePurchased;
+        private AddonType addonType;
         private double price;
         private int periodExpirationMonths;
+        private long maximumMileageLimit;
 
-        public T setAddonId(String addonId) {
+        public Builder setAddonId(String addonId) {
             this.addonId = addonId;
-            return (T) this;
-        }
-
-        public T setName(String name) {
-            this.name = name;
-            return (T) this;
-        }
-
-        public T setDescription(String description) {
-            this.description = description;
-            return (T) this;
-        }
-
-        public T setDate(LocalDateTime date) {
-            this.date = date;
-            return (T) this;
-        }
-
-        public T setVehicle(Vehicle vehicle) {
-            this.vehicle = vehicle;
-            return (T) this;
-        }
-
-        public T setPrice(double price) {
-            this.price = price;
-            return (T) this;
-        }
-
-        public T setPeriodExpirationMonths(int periodExpirationMonths) {
-            this.periodExpirationMonths = periodExpirationMonths;
-            return (T) this;
-        }
-
-        public AddonsBuilder<?> copy(Addons addons) {
-            this.addonId = addons.addonId;
-            this.name = addons.name;
-            this.description = addons.description;
-            this.date = addons.date;
-            this.vehicle = addons.vehicle;
-            this.price = addons.price;
-            this.periodExpirationMonths = addons.periodExpirationMonths;
             return this;
         }
 
-        public Addons build() {return new Addons(this);}
+        public Builder setName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder setDescription(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public Builder setDatePurchased(LocalDateTime datePurchased) {
+            this.datePurchased = datePurchased;
+            return this;
+        }
+
+        public Builder setAddonType(AddonType addonType) {
+            this.addonType = addonType;
+            return this;
+        }
+
+        public Builder setPrice(double price) {
+            this.price = price;
+            return this;
+        }
+
+        public Builder setPeriodExpirationMonths(int periodExpirationMonths) {
+            this.periodExpirationMonths = periodExpirationMonths;
+            return this;
+        }
+
+        public Builder setMaximumMileageLimit(long maximumMileageLimit) {
+            this.maximumMileageLimit = maximumMileageLimit;
+            return this;
+        }
+        public Addons.Builder copy(Addons adddons) {
+            this.addonId = adddons.addonId;
+            this.name = adddons.name;
+            this.description = adddons.description;
+            this.datePurchased = adddons.datePurchased;
+            this.addonType = adddons.addonType;
+            this.price = adddons.price;
+            this.periodExpirationMonths = adddons.periodExpirationMonths;
+            this.maximumMileageLimit = adddons.maximumMileageLimit;
+            return this;
     }
+        public Addons build() {
+            return new Addons(this);}
+        }
 }
