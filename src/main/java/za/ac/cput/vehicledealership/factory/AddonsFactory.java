@@ -1,32 +1,35 @@
 package za.ac.cput.vehicledealership.factory;
 
+/*  AddonsFactory.java
+    Factory for the Addons Entity
+    Author: George Tapiwa Charimba (220073465)
+    Date: 3 April 2023
+*/
+
+import za.ac.cput.vehicledealership.domain.AddonType;
 import za.ac.cput.vehicledealership.domain.Addons;
 import za.ac.cput.vehicledealership.domain.Vehicle;
 import za.ac.cput.vehicledealership.util.Helper;
 
 import java.time.LocalDateTime;
 
-/*  AddonsFactory.java
-    Factory for the Addons Entity
-    Author: George Tapiwa Charimba (220073465)
-    Date: 3 April 2023
-*/
 public class AddonsFactory {
 
-    public static Addons createAddons(String name, String description, LocalDateTime date, Vehicle vehicle, double price, int periodExpirationMonths) {
-
-        if (Helper.isNullOrEmpty(name) || Helper.isNullOrEmpty(description) || Helper.isNullOrEmpty(date) || Helper.isNullOrEmpty(vehicle) || Helper.isNullOrEmpty(price) || Helper.isNullOrEmpty(periodExpirationMonths)) {
+    public static Addons createAddons(String name, String description, LocalDateTime datePurchased, AddonType addonType, double price, int periodExpirationMonths, long maximumMileageLimit){
+        if(Helper.isNullOrEmpty(name) || Helper.isNullOrEmpty(description) || Helper.isNullOrEmpty(datePurchased) || Helper.isNullOrEmpty(price) || Helper.isNullOrEmpty(periodExpirationMonths) ||
+        Helper.isNullOrEmpty(maximumMileageLimit)) {
             return null;
         }
 
-        return new Addons.AddonsBuilder()
+        return new Addons.Builder()
                 .setAddonId(Helper.generateId())
                 .setName(name)
                 .setDescription(description)
-                .setDate(date)
-                .setVehicle(vehicle)
+                .setDatePurchased(datePurchased)
+                .setAddonType(addonType)
                 .setPrice(price)
                 .setPeriodExpirationMonths(periodExpirationMonths)
+                .setMaximumMileageLimit(maximumMileageLimit)
                 .build();
     }
 }
