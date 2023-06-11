@@ -8,48 +8,48 @@ package za.ac.cput.vehicledealership.domain;
 import java.util.Objects;
 
 public class Motorcycle extends Vehicle {
-    private boolean isHasSideCar;
+    private boolean hasSideCar;
 
     private Motorcycle() {}
 
     private Motorcycle(MotorcycleBuilder builder) {
         super(builder);
-        this.isHasSideCar = builder.isHasSideCar;
+        this.hasSideCar = builder.hasSideCar;
     }
 
-    public boolean isHasSideCar() { return isHasSideCar;}
+    public boolean isHasSideCar() { return hasSideCar;}
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Motorcycle that = (Motorcycle) o;
-        return isHasSideCar == that.isHasSideCar;
+        return hasSideCar == that.hasSideCar;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(isHasSideCar);
+        return Objects.hash(hasSideCar);
     }
 
     @Override
     public String toString() {
         return super.toString() +
-                "isHasSideCar= " + isHasSideCar +
+                "hasSideCar= " + hasSideCar +
                 '}';
     }
 
     public static class MotorcycleBuilder extends Builder<MotorcycleBuilder> {
-        private boolean isHasSideCar;
+        private boolean hasSideCar;
 
         public MotorcycleBuilder setHasSideCar(boolean hasSideCar) {
-            isHasSideCar = hasSideCar;
+            this.hasSideCar = hasSideCar;
             return this;
         }
 
         public MotorcycleBuilder copy(Motorcycle motorcycle) {
             super.copy(motorcycle);
-            this.isHasSideCar = motorcycle.isHasSideCar;
+            this.hasSideCar = motorcycle.hasSideCar;
             return this;
         }
 
