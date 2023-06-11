@@ -2,7 +2,7 @@ package za.ac.cput.vehicledealership.service;
 /*  ContactServiceImplTest.java
     Test class for ContactServiceImpl
     Author: Junaid Cedrass (219090912)
-    Date: 10 June 2023
+    Date: 11 June 2023
 */
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
@@ -12,13 +12,11 @@ import za.ac.cput.vehicledealership.domain.Contact;
 import za.ac.cput.vehicledealership.factory.ContactFactory;
 import za.ac.cput.vehicledealership.service.impl.ContactServiceImpl;
 
-import java.time.LocalDate;
-
 import static org.junit.jupiter.api.Assertions.*;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ContactServiceImplTest {
 
-    private static Contact contact = ContactFactory.createContact("", "");
+    private static Contact contact = ContactFactory.createContact("0213569812", "alanj@yahoo.com");
     private static ContactServiceImpl contactService = ContactServiceImpl.getContactService();
 
     @Order(1)

@@ -2,7 +2,7 @@ package za.ac.cput.vehicledealership.service;
 /*  UserServiceImplTest.java
     Test class for UserServiceImpl
     Author: Junaid Cedrass (219090912)
-    Date: 10 June 2023
+    Date: 11 June 2023
 */
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
@@ -13,7 +13,6 @@ import za.ac.cput.vehicledealership.domain.User;
 import za.ac.cput.vehicledealership.factory.ContactFactory;
 import za.ac.cput.vehicledealership.factory.UserFactory;
 import za.ac.cput.vehicledealership.service.impl.UserServiceImpl;
-
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -21,8 +20,8 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class UserServiceImplTest {
     static LocalDate date = LocalDate.of(1994, 11, 23);
-    static Contact contact = ContactFactory.createContact("08256546432", "jhopkins@gmail.com");
-    private static User user = UserFactory.createUser("Johnny","Hoskins", date, "JH123141", contact);
+    static Contact contact = ContactFactory.createContact("0123123412", "JP@gmail.com");
+    private static User user = UserFactory.createUser("Johnny","Hoskins", date, "JH12345",contact);
 
     private static UserServiceImpl userService = UserServiceImpl.getUserService();
     @Order(1)

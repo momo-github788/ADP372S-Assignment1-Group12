@@ -2,7 +2,7 @@ package za.ac.cput.vehicledealership.service.impl;
 /* ContactServiceImpl.java
    Implementation of ContactService
    Author: Junaid Cedrass (219090912)
-   Date: 10 June 2023
+   Date: 11 June 2023
  */
 
 import za.ac.cput.vehicledealership.domain.Contact;
