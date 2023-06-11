@@ -1,3 +1,8 @@
+/*  TruckServiceImplTest.java
+    Test class for TruckServiceImpl
+    Author: Alan Chapman(220092362)
+    Date: 11 June 2023
+*/
 package za.ac.cput.vehicledealership.service;
 
 import org.junit.jupiter.api.MethodOrderer;
