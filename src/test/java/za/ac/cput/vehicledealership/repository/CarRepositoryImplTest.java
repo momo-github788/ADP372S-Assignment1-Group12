@@ -9,6 +9,7 @@ import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import za.ac.cput.vehicledealership.domain.BodyType;
 import za.ac.cput.vehicledealership.domain.Car;
 import za.ac.cput.vehicledealership.domain.FuelType;
 import za.ac.cput.vehicledealership.domain.VehicleCondition;
@@ -21,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class CarRepositoryImplTest {
     private static CarRepositoryImpl carRepository = CarRepositoryImpl.getRepository();
     public static Car car = CarFactory.createCar("Ford", "Fiesta", VehicleCondition.DEMO,
-            FuelType.ELECTRIC,"White", 2021, 150, true);
+            FuelType.ELECTRIC,"White", 2021, 150, true, BodyType.HATCHBACK);
 
     @Order(1)
     @Test

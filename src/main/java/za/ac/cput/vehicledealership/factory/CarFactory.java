@@ -5,18 +5,20 @@
 */
 package za.ac.cput.vehicledealership.factory;
 
+import za.ac.cput.vehicledealership.domain.BodyType;
 import za.ac.cput.vehicledealership.domain.Car;
 import za.ac.cput.vehicledealership.domain.FuelType;
 import za.ac.cput.vehicledealership.domain.VehicleCondition;
+import za.ac.cput.vehicledealership.util.Helper;
 
 import static za.ac.cput.vehicledealership.util.Helper.generateId;
 import static za.ac.cput.vehicledealership.util.Helper.isNullOrEmpty;
 
 public class CarFactory {
-    public static Car createCar(String make, String model, VehicleCondition condition, FuelType fuelType, String colour, int year, int mileage, boolean isHasTowBar) {
+    public static Car createCar(String make, String model, VehicleCondition condition, FuelType fuelType, String colour, int year, int mileage, boolean hasTowBar, BodyType bodyType) {
 
-        if( isNullOrEmpty(make) || isNullOrEmpty(model) || isNullOrEmpty(condition) || isNullOrEmpty(fuelType) || isNullOrEmpty(colour)
-                || isNullOrEmpty(year) || isNullOrEmpty(mileage)|| isNullOrEmpty(isHasTowBar)) {
+        if(Helper.isNullOrEmpty(make) || Helper.isNullOrEmpty(model) || Helper.isNullOrEmpty(condition) || Helper.isNullOrEmpty(fuelType) || Helper.isNullOrEmpty(colour)
+                || Helper.isNullOrEmpty(year) || Helper.isNullOrEmpty(mileage)|| Helper.isNullOrEmpty(hasTowBar) || Helper.isNullOrEmpty(bodyType)) {
             return null;
         }
 
@@ -30,7 +32,8 @@ public class CarFactory {
                 .setColour(colour)
                 .setYear(year)
                 .setMileage(mileage)
-                .setHasTowBar(isHasTowBar)
+                .setHasTowBar(hasTowBar)
+                .setBodyType(bodyType)
                 .build();
     }
 }
