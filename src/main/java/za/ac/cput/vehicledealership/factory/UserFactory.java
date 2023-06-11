@@ -15,12 +15,14 @@ import java.time.LocalDate;
 
 public class UserFactory {
     public static User createUser(String firstName, String lastName, LocalDate dateJoined, String password, Contact contact){
-        if (!Helper.isNullOrEmpty(firstName) || !Helper.isNullOrEmpty(lastName) || !Helper.isNullOrEmpty(dateJoined) || !Helper.isValidPassword(password) || !Helper.isNullOrEmpty(contact)){
+        if (Helper.isNullOrEmpty(firstName) || Helper.isNullOrEmpty(lastName) || Helper.isNullOrEmpty(dateJoined) || Helper.isValidPassword(password) || Helper.isNullOrEmpty(contact)){
             return null;
         }
         return new User.UserBuilder().setUserId(Helper.generateId())
-                .setFirstName(firstName).setLastName(lastName)
-                .setDateJoined(dateJoined).setPassword(password)
+                .setFirstName(firstName)
+                .setLastName(lastName)
+                .setDateJoined(dateJoined)
+                .setPassword(password)
                 .setContact(contact)
                 .build();
     }

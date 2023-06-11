@@ -2,7 +2,7 @@ package za.ac.cput.vehicledealership.service.impl;
 /* UserServiceImpl.java
    Implementation of UserService
    Author: Junaid Cedrass (219090912)
-   Date: 10 June 2023
+   Date: 11 June 2023
  */
 
 import za.ac.cput.vehicledealership.domain.User;
