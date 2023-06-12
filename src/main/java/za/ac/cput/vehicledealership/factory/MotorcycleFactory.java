@@ -12,10 +12,10 @@ import za.ac.cput.vehicledealership.util.Helper;
 
 public class MotorcycleFactory {
 
-    public static Motorcycle createMotorcycle(String make, String model, VehicleCondition condition, FuelType fuelType, String colour, int year, int mileage, boolean isHasSideCar) {
+    public static Motorcycle createMotorcycle(String make, String model, VehicleCondition condition, FuelType fuelType, String colour, int year, int mileage, boolean hasSideCar) {
 
         if( Helper.isNullOrEmpty(make) || Helper.isNullOrEmpty(model) || Helper.isNullOrEmpty(condition) || Helper.isNullOrEmpty(fuelType) || Helper.isNullOrEmpty(colour)
-                 || Helper.isNullOrEmpty(year) || Helper.isNullOrEmpty(mileage) || Helper.isNullOrEmpty(isHasSideCar)) {
+                 || Helper.isNullOrEmpty(year) || Helper.isNullOrEmpty(mileage) || Helper.isNullOrEmpty(hasSideCar)) {
              return null;
          }
 
@@ -28,7 +28,7 @@ public class MotorcycleFactory {
                  .setColour(colour)
                  .setYear(year)
                  .setMileage(mileage)
-                 .setHasSideCar(isHasSideCar)
+                 .setHasSideCar(hasSideCar)
                  .build();
     }
 }
