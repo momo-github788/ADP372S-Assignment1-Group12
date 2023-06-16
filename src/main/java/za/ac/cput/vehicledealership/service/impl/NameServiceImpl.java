@@ -6,12 +6,14 @@ package za.ac.cput.vehicledealership.service.impl;
     Date: 10 June 2023
 */
 
+import org.springframework.stereotype.Service;
 import za.ac.cput.vehicledealership.domain.Name;
 import za.ac.cput.vehicledealership.repository.impl.NameRepositoryImpl;
 import za.ac.cput.vehicledealership.service.NameService;
 
 import java.util.List;
 
+@Service
 public class NameServiceImpl implements NameService {
 
     private static NameServiceImpl nameService = null;

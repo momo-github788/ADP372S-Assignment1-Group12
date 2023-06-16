@@ -6,12 +6,14 @@ package za.ac.cput.vehicledealership.service.impl;
     Date: 10 June 2023
 */
 
+import org.springframework.stereotype.Service;
 import za.ac.cput.vehicledealership.domain.Post;
 import za.ac.cput.vehicledealership.repository.impl.PostRepositoryImpl;
 import za.ac.cput.vehicledealership.service.PostService;
 
 import java.util.Set;
 
+@Service
 public class PostServiceImpl implements PostService {
 
     private static PostServiceImpl postService = null;

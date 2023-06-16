@@ -6,18 +6,14 @@ package za.ac.cput.vehicledealership.service.impl;
     Date: 10 June 2023
 */
 
-/*  VehicleServiceImpl.java
-    Implementation of VehicleService
-    Author: Muhammed Luqmaan Hoosain (220464901)
-    Date: 10 June 2023
-*/
-
+import org.springframework.stereotype.Service;
 import za.ac.cput.vehicledealership.domain.Vehicle;
 import za.ac.cput.vehicledealership.repository.impl.VehicleRepositoryImpl;
 import za.ac.cput.vehicledealership.service.VehicleService;
 
 import java.util.List;
 
+@Service
 public class VehicleServiceImpl implements VehicleService {
 
     private static VehicleServiceImpl vehicleService = null;
