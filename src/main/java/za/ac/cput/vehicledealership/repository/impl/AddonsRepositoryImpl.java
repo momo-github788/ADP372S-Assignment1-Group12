@@ -10,6 +10,7 @@ import za.ac.cput.vehicledealership.repository.AddonsRepository;
 import java.util.HashSet;
 import java.util.Set;
 
+
 public class AddonsRepositoryImpl implements AddonsRepository {
 
     private static AddonsRepositoryImpl addonsRepository = null;
@@ -66,6 +67,5 @@ public class AddonsRepositoryImpl implements AddonsRepository {
 
     @Override
     public Set<Addons> getAll(){return addonsDB;}
-
 
 }
