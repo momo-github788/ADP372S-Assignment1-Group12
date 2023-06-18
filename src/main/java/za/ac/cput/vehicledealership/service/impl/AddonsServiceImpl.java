@@ -1,14 +1,17 @@
 package za.ac.cput.vehicledealership.service.impl;
-
+/*  AddonsServiceImpl.java
+    ServiceImpl for addons
+    Author: George Tapiwa Charimba (220073465)
+    Date: 12 June 2023
+*/
+import org.springframework.stereotype.Service;
 import za.ac.cput.vehicledealership.domain.Addons;
-import za.ac.cput.vehicledealership.domain.Vehicle;
 import za.ac.cput.vehicledealership.repository.impl.AddonsRepositoryImpl;
-import za.ac.cput.vehicledealership.repository.impl.VehicleRepositoryImpl;
 import za.ac.cput.vehicledealership.service.AddonsService;
 
-import java.util.List;
 import java.util.Set;
 
+@Service
 public class AddonsServiceImpl implements AddonsService {
 
     private static AddonsServiceImpl addonsService = null;

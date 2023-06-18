@@ -8,7 +8,7 @@ package za.ac.cput.vehicledealership.factory;
 
 import za.ac.cput.vehicledealership.domain.AddonType;
 import za.ac.cput.vehicledealership.domain.Addons;
-import za.ac.cput.vehicledealership.domain.Vehicle;
+
 import za.ac.cput.vehicledealership.util.Helper;
 
 import java.time.LocalDateTime;

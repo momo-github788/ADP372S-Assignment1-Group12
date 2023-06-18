@@ -5,9 +5,6 @@ package za.ac.cput.vehicledealership.service;
     Date: 11 June 2023
 */
 import za.ac.cput.vehicledealership.domain.Addons;
-import za.ac.cput.vehicledealership.service.IService;
-
-import java.util.List;
 import java.util.Set;
 
 public interface AddonsService extends IService <Addons, String> {
