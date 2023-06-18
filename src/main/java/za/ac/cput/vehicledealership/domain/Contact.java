@@ -8,6 +8,7 @@ package za.ac.cput.vehicledealership.domain;
 import java.util.Objects;
 
 public class Contact {
+
     private String contactNumber;
     private String emailAddress;
 

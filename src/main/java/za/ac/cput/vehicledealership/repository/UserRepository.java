@@ -10,5 +10,5 @@ import java.util.Set;
 
 public interface UserRepository extends IRepository<User, String>{
 
-    public Set<User> getAll();
+     Set<User> getAll();
 }

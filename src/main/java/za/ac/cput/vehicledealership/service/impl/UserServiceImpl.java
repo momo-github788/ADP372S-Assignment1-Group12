@@ -5,12 +5,14 @@ package za.ac.cput.vehicledealership.service.impl;
    Date: 11 June 2023
  */
 
+import org.springframework.stereotype.Service;
 import za.ac.cput.vehicledealership.domain.User;
 import za.ac.cput.vehicledealership.repository.impl.UserRepositoryImpl;
 import za.ac.cput.vehicledealership.service.UserService;
 
 import java.util.Set;
 
+@Service
 public class UserServiceImpl implements UserService {
 
     private static UserServiceImpl userService = null;
