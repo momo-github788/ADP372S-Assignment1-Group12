@@ -21,8 +21,6 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class LocationControllerTest {
-
-
     private static Location location = LocationFactory.createLocation(27, "Daisy", "Cape Town", "7850", "Western Cape");
 
     private final String BASE_URL = "http://localhost:8080/location";

@@ -5,12 +5,14 @@
 */
 package za.ac.cput.vehicledealership.service.impl;
 
+import org.springframework.stereotype.Service;
 import za.ac.cput.vehicledealership.domain.Motorcycle;
 import za.ac.cput.vehicledealership.repository.impl.MotorcycleRepositoryImpl;
 import za.ac.cput.vehicledealership.service.MotorcycleService;
 
 import java.util.Set;
 
+@Service
 public class MotorcycleServiceImpl implements MotorcycleService {
     private static MotorcycleServiceImpl motorcycleService = null;
     private MotorcycleRepositoryImpl motorcycleRepository = null;

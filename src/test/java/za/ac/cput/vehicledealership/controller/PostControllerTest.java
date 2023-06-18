@@ -38,18 +38,14 @@ class PostControllerTest {
     void create() {
         String url = BASE_URL + "/create";
         ResponseEntity<Post> postResponse = restTemplate.postForEntity(url, post, Post.class);
-
-        System.out.println(postResponse);
         assertNotNull(postResponse);
         assertNotNull(postResponse.getBody());
 
         Post savedPost = postResponse.getBody();
-        System.out.println(savedPost);
 
         System.out.println("Saved data: " + savedPost);
-        assertEquals(post.getPostId(), savedPost.getPostId());
+        assertEquals(post.getPostId(),savedPost.getPostId());
     }
-
     @Test
     @Order(2)
     void read() {
