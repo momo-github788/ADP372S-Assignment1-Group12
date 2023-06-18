@@ -23,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class FloorTruckControllerTest {
+class TruckControllerTest {
     private static Truck truck = TruckFactory.createTruck("Mercedes Benz", "Actros", VehicleCondition.USED, FuelType.DIESEL,"red",
             2023, 1006, 6, 13607.8);
     private final String BASE_URL = "http://localhost:8080/car";

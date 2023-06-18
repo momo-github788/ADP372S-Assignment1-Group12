@@ -14,6 +14,10 @@ public class Branch {
     private int yearOpened;
     private Location location;
 
+    private Branch() {
+
+    }
+
     public String getBranchId() {
         return branchId;
     }

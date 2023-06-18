@@ -21,7 +21,7 @@ public class PostController {
         return postService.create(post);
     }
 
-    @GetMapping("read/{id}")
+    @GetMapping("/read/{id}")
     public Post get(@PathVariable String id) {
         return postService.read(id);
     }
