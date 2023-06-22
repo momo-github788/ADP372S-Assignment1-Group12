@@ -10,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import za.ac.cput.vehicledealership.service.AddonsService;
 import za.ac.cput.vehicledealership.domain.Addons;
-
-import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -19,7 +17,6 @@ import java.util.Set;
 public class AddonsController {
     @Autowired
     private AddonsService addonsService;
-
 
    @PostMapping("/create")
    public Addons create(@RequestBody Addons addons) {
