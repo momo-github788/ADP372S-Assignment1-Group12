@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import za.ac.cput.vehicledealership.domain.Employee;
 import za.ac.cput.vehicledealership.repository.EmployeeRepository;
-import za.ac.cput.vehicledealership.repository.impl.EmployeeRepositoryImpl;
 import za.ac.cput.vehicledealership.service.EmployeeService;
 
 import java.util.List;

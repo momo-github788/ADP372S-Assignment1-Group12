@@ -7,10 +7,11 @@ package za.ac.cput.vehicledealership.repository;
 */
 
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import za.ac.cput.vehicledealership.domain.Name;
 
 import java.util.List;
 
-public interface NameRepository extends IRepository<Name, String> {
-    List<Name> getAll();
+public interface NameRepository extends JpaRepository<Name, String> {
+
 }

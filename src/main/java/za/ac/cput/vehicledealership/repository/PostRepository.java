@@ -6,11 +6,8 @@ package za.ac.cput.vehicledealership.repository;
     Date: 6 April 2023
 */
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import za.ac.cput.vehicledealership.domain.Post;
 
-import java.util.Set;
-
-public interface PostRepository extends IRepository<Post, String> {
-
-    Set<Post> getAll();
+public interface PostRepository extends JpaRepository<Post, String> {
 }

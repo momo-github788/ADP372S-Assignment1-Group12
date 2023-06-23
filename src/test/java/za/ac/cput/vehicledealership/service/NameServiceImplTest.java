@@ -10,6 +10,7 @@ import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.springframework.beans.factory.annotation.Autowired;
 import za.ac.cput.vehicledealership.domain.Name;
 import za.ac.cput.vehicledealership.factory.NameFactory;
 import za.ac.cput.vehicledealership.service.impl.NameServiceImpl;
@@ -20,7 +21,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class NameServiceImplTest {
 
     private static Name name = NameFactory.createName("Mary", "", "Anne");
-    private static NameServiceImpl nameService = NameServiceImpl.getNameService();
+    @Autowired
+    private static NameServiceImpl nameService;
 
     @Order(1)
     @Test

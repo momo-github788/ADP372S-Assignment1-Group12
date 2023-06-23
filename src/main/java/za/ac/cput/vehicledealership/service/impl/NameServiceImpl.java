@@ -8,53 +8,50 @@ package za.ac.cput.vehicledealership.service.impl;
 
 import org.springframework.stereotype.Service;
 import za.ac.cput.vehicledealership.domain.Name;
-import za.ac.cput.vehicledealership.repository.impl.NameRepositoryImpl;
+import za.ac.cput.vehicledealership.repository.NameRepository;
 import za.ac.cput.vehicledealership.service.NameService;
-
 import java.util.List;
 
 @Service
 public class NameServiceImpl implements NameService {
 
-    private static NameServiceImpl nameService = null;
-    private NameRepositoryImpl nameRepository = null;
 
-    public NameServiceImpl() {
-        this.nameRepository = NameRepositoryImpl.getNameRepository();
+    private NameRepository nameRepository;
+
+    public NameServiceImpl(NameRepository nameRepository) {
+        this.nameRepository = nameRepository;
     }
-
-    public static NameServiceImpl getNameService() {
-        if(nameService == null) {
-            nameService = new NameServiceImpl();
-        }
-        return nameService;
-    }
-
 
     @Override
-    public Name create(Name name) {
-        return nameRepository.create(name);
+    public Name create(Name post) {
+        return nameRepository.save(post);
     }
 
-
     @Override
-    public Name read(String firstName) {
-        return nameRepository.read(firstName);
+    public Name read(String postId) {
+        return nameRepository.findById(postId)
+                .orElse(null);
     }
 
     @Override
     public Name update(Name name) {
-        return nameRepository.update(name);
+        if(this.nameRepository.existsById(name.getNameId().getFirstName())) {
+            return this.nameRepository.save(name);
+        }
+        return null;
     }
 
-
     @Override
-    public boolean delete(String firstName) {
-        return nameRepository.delete(firstName);
+    public boolean delete(String nameId) {
+        if(this.nameRepository.existsById(nameId)) {
+            this.nameRepository.deleteById(nameId);
+            return true;
+        }
+        return false;
     }
 
     @Override
     public List<Name> getAll() {
-        return nameRepository.getAll();
+        return nameRepository.findAll();
     }
 }

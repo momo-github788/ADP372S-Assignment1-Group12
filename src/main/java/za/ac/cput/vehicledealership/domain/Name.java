@@ -1,36 +1,29 @@
 package za.ac.cput.vehicledealership.domain;
 
-/*  Name.java
-    Entity for the Name
-    Author: Muhammed Luqmaan Hoosain (220464901)
-    Date: 10 May 2023
-*/
+import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
 import java.util.Objects;
 
+@Entity
+@Table(name = "name")
 public class Name {
-    private String firstName;
-    private String middleName;
-    private String lastName;
 
-    private Name() {}
+    // Reference to Id class
+    @EmbeddedId
+    private NameId nameId;
+
+    protected Name() {
+
+    }
 
     private Name(Builder builder) {
-        this.firstName = builder.firstName;
-        this.middleName = builder.middleName;
-        this.lastName = builder.lastName;
+        this.nameId = new NameId(builder.firstName, builder.middleName, builder.lastName);
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getMiddleName() {
-        return middleName;
-    }
-
-    public String getLastName() {
-        return lastName;
+    public NameId getNameId() {
+        return nameId;
     }
 
     @Override
@@ -38,24 +31,16 @@ public class Name {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Name name = (Name) o;
-        return Objects.equals(firstName, name.firstName) && Objects.equals(middleName, name.middleName) && Objects.equals(lastName, name.lastName);
+        return Objects.equals(nameId, name.nameId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(firstName, middleName, lastName);
-    }
-
-    @Override
-    public String toString() {
-        return "Name{" +
-                "firstName='" + firstName + '\'' +
-                ", middleName='" + middleName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                '}';
+        return Objects.hash(nameId);
     }
 
     public static class Builder {
+
         private String firstName;
         private String middleName;
         private String lastName;
@@ -76,9 +61,9 @@ public class Name {
         }
 
         public Builder copy(Name name) {
-            this.firstName = name.firstName;
-            this.middleName = name.middleName;
-            this.lastName = name.lastName;
+            this.firstName = name.nameId.getFirstName();
+            this.middleName = name.nameId.getMiddleName();
+            this.lastName = name.nameId.getLastName();
             return this;
         }
 
@@ -86,4 +71,6 @@ public class Name {
             return new Name(this);
         }
     }
+
+
 }

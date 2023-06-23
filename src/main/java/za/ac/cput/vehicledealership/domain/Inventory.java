@@ -6,6 +6,8 @@ public class Inventory {
     private int quantity;
     private InventoryType inventoryType;
     private Vehicle Vehicle;
+
+
     public Inventory(Builder builder) {
         this.inventoryId = builder.inventoryId;
         this.quantity =  builder.quantity;

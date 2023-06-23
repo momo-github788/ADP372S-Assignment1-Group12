@@ -5,6 +5,7 @@ import java.util.Objects;
 
 public class Employee {
     private long employeeNumber;
+
     private Name name;
     private LocalDateTime dateJoined;
     private String password;

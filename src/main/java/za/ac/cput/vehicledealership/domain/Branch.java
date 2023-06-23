@@ -8,10 +8,13 @@
 package za.ac.cput.vehicledealership.domain;
 
 
+import jakarta.persistence.Embedded;
+
 public class Branch {
     private String branchId;
     private String branchName;
     private int yearOpened;
+    @Embedded
     private Location location;
 
     private Branch() {

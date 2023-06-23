@@ -6,22 +6,23 @@ package za.ac.cput.vehicledealership.domain;
     Date: 2 April 2023
 */
 
+import jakarta.persistence.Embeddable;
+
 import java.util.Objects;
 
+@Embeddable
 public class Location {
-    private String locationId;
     private int streetNumber;
     private String streetName;
     private String city;
     private String postalCode;
     private String province;
 
-    private Location() {
+    protected Location() {
 
     }
 
     private Location(Builder builder) {
-        this.locationId = builder.locationId;
         this.streetNumber = builder.streetNumber;
         this.streetName = builder.streetName;
         this.city = builder.city;
@@ -29,29 +30,44 @@ public class Location {
         this.province = builder.province;
     }
 
-
-    public String getLocationId() {
-        return locationId;
-    }
-
     public int getStreetNumber() {
         return streetNumber;
+    }
+
+    public void setStreetNumber(int streetNumber) {
+        this.streetNumber = streetNumber;
     }
 
     public String getStreetName() {
         return streetName;
     }
 
+    public void setStreetName(String streetName) {
+        this.streetName = streetName;
+    }
+
     public String getCity() {
         return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public String getPostalCode() {
         return postalCode;
     }
 
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
+    }
+
     public String getProvince() {
         return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
     }
 
     @Override
@@ -59,19 +75,18 @@ public class Location {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Location location = (Location) o;
-        return streetNumber == location.streetNumber && Objects.equals(locationId, location.locationId) && Objects.equals(streetName, location.streetName) && Objects.equals(city, location.city) && Objects.equals(postalCode, location.postalCode) && Objects.equals(province, location.province);
+        return streetNumber == location.streetNumber && Objects.equals(streetName, location.streetName) && Objects.equals(city, location.city) && Objects.equals(postalCode, location.postalCode) && Objects.equals(province, location.province);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(locationId, streetNumber, streetName, city, postalCode, province);
+        return Objects.hash(streetNumber, streetName, city, postalCode, province);
     }
 
     @Override
     public String toString() {
         return "Location{" +
-                "locationId='" + locationId + '\'' +
-                ", streetNumber=" + streetNumber +
+                "streetNumber=" + streetNumber +
                 ", streetName='" + streetName + '\'' +
                 ", city='" + city + '\'' +
                 ", postalCode='" + postalCode + '\'' +
@@ -80,17 +95,11 @@ public class Location {
     }
 
     public static class Builder {
-        private String locationId;
         private int streetNumber;
         private String streetName;
         private String city;
         private String postalCode;
         private String province;
-
-        public Builder setLocationId(String locationId) {
-            this.locationId = locationId;
-            return this;
-        }
 
         public Builder setStreetNumber(int streetNumber) {
             this.streetNumber = streetNumber;
@@ -118,7 +127,6 @@ public class Location {
         }
 
         public Builder copy(Location location) {
-            this.locationId = location.locationId;
             this.streetNumber = location.streetNumber;
             this.streetName = location.streetName;
             this.city = location.city;

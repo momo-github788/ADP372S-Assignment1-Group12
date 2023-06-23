@@ -10,16 +10,17 @@ import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.springframework.beans.factory.annotation.Autowired;
 import za.ac.cput.vehicledealership.domain.Location;
 import za.ac.cput.vehicledealership.factory.LocationFactory;
-import za.ac.cput.vehicledealership.service.impl.LocationServiceImpl;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class LocationServiceImplTest {
 
-    private static LocationServiceImpl locationService = LocationServiceImpl.getLocationService();
+    @Autowired
+    private LocationService locationService;
     private static Location location = LocationFactory.createLocation(27, "Daisy", "Cape Town", "7850", "Western Cape");
 
 

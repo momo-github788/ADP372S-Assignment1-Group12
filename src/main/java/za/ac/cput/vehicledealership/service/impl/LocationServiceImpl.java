@@ -6,54 +6,55 @@ package za.ac.cput.vehicledealership.service.impl;
     Date: 10 June 2023
 */
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import za.ac.cput.vehicledealership.domain.Location;
-import za.ac.cput.vehicledealership.repository.impl.LocationRepositoryImpl;
+import za.ac.cput.vehicledealership.repository.LocationRepository;
 import za.ac.cput.vehicledealership.service.LocationService;
 
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class LocationServiceImpl implements LocationService {
 
-    private static LocationServiceImpl locationService = null;
-    private LocationRepositoryImpl locationRepository = null;
+    private LocationRepository locationRepository = null;
 
-    public LocationServiceImpl() {
-        this.locationRepository = LocationRepositoryImpl.getLocationRepository();
+    @Autowired
+    public LocationServiceImpl(LocationRepository locationRepository) {
+        this.locationRepository = locationRepository;
     }
-
-    public static LocationServiceImpl getLocationService() {
-        if(locationService == null) {
-            locationService = new LocationServiceImpl();
-        }
-        return locationService;
-    }
-
 
     @Override
     public Location create(Location location) {
-        return locationRepository.create(location);
+        return locationRepository.save(location);
     }
-
 
     @Override
     public Location read(String locationId) {
-        return locationRepository.read(locationId);
+        return locationRepository.findById(locationId)
+                .orElse(null);
     }
 
     @Override
     public Location update(Location location) {
-        return locationRepository.update(location);
+        if(this.locationRepository.existsById(location.getLocationId())) {
+            return this.locationRepository.save(location);
+        }
+        return null;
     }
 
     @Override
     public boolean delete(String locationId) {
-        return locationRepository.delete(locationId);
+        if(this.locationRepository.existsById(locationId)) {
+            this.locationRepository.deleteById(locationId);
+            return true;
+        }
+        return false;
     }
 
     @Override
     public Set<Location> getAll() {
-        return locationRepository.getAll();
+        return locationRepository.findAll().stream().collect(Collectors.toSet());
     }
 }
