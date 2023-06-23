@@ -10,6 +10,7 @@ import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.springframework.beans.factory.annotation.Autowired;
 import za.ac.cput.vehicledealership.domain.Employee;
 import za.ac.cput.vehicledealership.domain.Name;
 import za.ac.cput.vehicledealership.factory.EmployeeFactory;
@@ -21,7 +22,8 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class EmployeeServiceImplTest {
 
-    private static EmployeeServiceImpl employeeService = EmployeeServiceImpl.getEmployeeService();
+    @Autowired
+    private EmployeeService employeeService;
     private static Name name = NameFactory.createName("Mary", "", "Anne");
     private static Employee employee = EmployeeFactory.createEmployee(name, "Password123");
 
