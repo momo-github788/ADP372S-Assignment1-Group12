@@ -1,6 +1,6 @@
 package za.ac.cput.vehicledealership.controller;
 /* AddonsControllerTest.java
-   Test class for User controller class
+   Test class for UserContact controller class
    Author: George Tapiwa Charimba (220073465)
    Date: 17 June 2023
  */
@@ -15,44 +15,44 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import za.ac.cput.vehicledealership.domain.*;
-import za.ac.cput.vehicledealership.factory.AddonsFactory;
-
-import java.time.LocalDateTime;
-
+import za.ac.cput.vehicledealership.factory.ContactFactory;
+import za.ac.cput.vehicledealership.factory.UserContactFactory;
 import static org.junit.jupiter.api.Assertions.*;
+
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class AddonsControllerTest {
+class UserContactControllerTest {
 
-    private static Addons addons = AddonsFactory.createAddons("Sunroof", "Panoramic", LocalDateTime.now(), AddonType.DETAILINGADDON, 1500, 12, 5000);
+    private static Contact contact = ContactFactory.createContact("062930280", "geocharimba@gmail.com");
+    private static UserContact userContact = UserContactFactory.createUserContact(contact);
 
-    private final String BASE_URL = "http://localhost:8080/addons";
+    private final String BASE_URL = "http://localhost:8080/userContact";
     private RestTemplate restTemplate = new RestTemplate();
 
     @Test
     @Order(1)
     void create() {
         String url = BASE_URL + "/create";
-        ResponseEntity<Addons> postResponse = restTemplate.postForEntity(url, addons, Addons.class);
+        ResponseEntity<UserContact> postResponse = restTemplate.postForEntity(url, userContact, UserContact.class);
         assertNotNull(postResponse);
         assertNotNull(postResponse.getBody());
 
-        Addons savedAddons = postResponse.getBody();
+        UserContact savedUserContact = postResponse.getBody();
 
-        System.out.println("Saved data: " + savedAddons);
-        assertEquals(addons.getAddonId(), savedAddons.getAddonId());
+        System.out.println("Saved data: " + savedUserContact);
+        assertEquals(userContact.getUserId(), savedUserContact.getUserId());
     }
 
     @Test
     @Order(2)
     void read() {
-        String url = BASE_URL + "/read/" + addons.getAddonId();
+        String url = BASE_URL + "/read/" + userContact.getUserId();
         System.out.println("URL: " + url);
-        ResponseEntity<Addons> getResponse = restTemplate.getForEntity(url, Addons.class);
-        Addons readAddons = getResponse.getBody();
-        assertEquals(addons.getAddonId(), readAddons.getAddonId());
+        ResponseEntity<UserContact> getResponse = restTemplate.getForEntity(url, UserContact.class);
+        UserContact readUserContact = getResponse.getBody();
+        assertEquals(userContact.getUserId(), readUserContact.getUserId());
 
-        System.out.println("Read: " + readAddons);
+        System.out.println("Read: " + readUserContact);
 
 
     }
@@ -62,21 +62,20 @@ class AddonsControllerTest {
     void update() {
         String url = BASE_URL + "/update";
 
-        Addons updateAddons = new Addons.Builder()
-                .copy(addons)
-                .setName("Towbar")
+        UserContact updateUserContact = new UserContact.Builder()
+                .copy(userContact)
                 .build();
 
         System.out.println("URL: " + url);
-        System.out.println("POST data: " + updateAddons);
-        ResponseEntity<Addons> response = restTemplate.postForEntity(url, updateAddons, Addons.class);
+        System.out.println("POST data: " + updateUserContact);
+        ResponseEntity<UserContact> response = restTemplate.postForEntity(url, updateUserContact, UserContact.class);
         assertNotNull(response.getBody());
     }
 
     @Test
     @Order(5)
     void delete() {
-        String url = BASE_URL + "/delete/" + addons.getAddonId();
+        String url = BASE_URL + "/delete/" + userContact.getUserId();
         System.out.println("URL: " + url);
         restTemplate.delete(url);
 

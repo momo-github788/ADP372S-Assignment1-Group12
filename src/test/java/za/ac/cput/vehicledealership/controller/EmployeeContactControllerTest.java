@@ -1,6 +1,6 @@
 package za.ac.cput.vehicledealership.controller;
-/* AddonsControllerTest.java
-   Test class for User controller class
+/* EmployeeContactControllerTest.java
+   Test class for EmployeeContact controller class
    Author: George Tapiwa Charimba (220073465)
    Date: 17 June 2023
  */
@@ -14,45 +14,45 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
-import za.ac.cput.vehicledealership.domain.*;
-import za.ac.cput.vehicledealership.factory.AddonsFactory;
-
-import java.time.LocalDateTime;
-
+import za.ac.cput.vehicledealership.domain.Contact;
+import za.ac.cput.vehicledealership.domain.EmployeeContact;
+import za.ac.cput.vehicledealership.factory.ContactFactory;
+import za.ac.cput.vehicledealership.factory.EmployeeContactFactory;
 import static org.junit.jupiter.api.Assertions.*;
+
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class AddonsControllerTest {
+class EmployeeContactControllerTest {
+    private static Contact contact = ContactFactory.createContact("062930280", "geocharimba@gmail.com");
+    private static EmployeeContact employeeContact = EmployeeContactFactory.createEmployeeContact(contact);
 
-    private static Addons addons = AddonsFactory.createAddons("Sunroof", "Panoramic", LocalDateTime.now(), AddonType.DETAILINGADDON, 1500, 12, 5000);
-
-    private final String BASE_URL = "http://localhost:8080/addons";
+    private final String BASE_URL = "http://localhost:8080/employeeContact";
     private RestTemplate restTemplate = new RestTemplate();
 
     @Test
     @Order(1)
     void create() {
         String url = BASE_URL + "/create";
-        ResponseEntity<Addons> postResponse = restTemplate.postForEntity(url, addons, Addons.class);
+        ResponseEntity<EmployeeContact> postResponse = restTemplate.postForEntity(url, employeeContact, EmployeeContact.class);
         assertNotNull(postResponse);
         assertNotNull(postResponse.getBody());
 
-        Addons savedAddons = postResponse.getBody();
+        EmployeeContact savedEmployeeContact = postResponse.getBody();
 
-        System.out.println("Saved data: " + savedAddons);
-        assertEquals(addons.getAddonId(), savedAddons.getAddonId());
+        System.out.println("Saved data: " + savedEmployeeContact);
+        assertEquals(employeeContact.getEmployeeNumber(), savedEmployeeContact.getEmployeeNumber());
     }
 
     @Test
     @Order(2)
     void read() {
-        String url = BASE_URL + "/read/" + addons.getAddonId();
+        String url = BASE_URL + "/read/" + employeeContact.getEmployeeNumber();
         System.out.println("URL: " + url);
-        ResponseEntity<Addons> getResponse = restTemplate.getForEntity(url, Addons.class);
-        Addons readAddons = getResponse.getBody();
-        assertEquals(addons.getAddonId(), readAddons.getAddonId());
+        ResponseEntity<EmployeeContact> getResponse = restTemplate.getForEntity(url, EmployeeContact.class);
+        EmployeeContact readEmployeeContact = getResponse.getBody();
+        assertEquals(employeeContact.getEmployeeNumber(), readEmployeeContact.getEmployeeNumber());
 
-        System.out.println("Read: " + readAddons);
+        System.out.println("Read: " + readEmployeeContact);
 
 
     }
@@ -62,24 +62,22 @@ class AddonsControllerTest {
     void update() {
         String url = BASE_URL + "/update";
 
-        Addons updateAddons = new Addons.Builder()
-                .copy(addons)
-                .setName("Towbar")
+        EmployeeContact updateEmployeeContact = new EmployeeContact.Builder()
+                .copy(employeeContact)
                 .build();
 
         System.out.println("URL: " + url);
-        System.out.println("POST data: " + updateAddons);
-        ResponseEntity<Addons> response = restTemplate.postForEntity(url, updateAddons, Addons.class);
+        System.out.println("POST data: " + updateEmployeeContact);
+        ResponseEntity<EmployeeContact> response = restTemplate.postForEntity(url, updateEmployeeContact, EmployeeContact.class);
         assertNotNull(response.getBody());
     }
 
     @Test
     @Order(5)
     void delete() {
-        String url = BASE_URL + "/delete/" + addons.getAddonId();
+        String url = BASE_URL + "/delete/" + employeeContact.getEmployeeNumber();
         System.out.println("URL: " + url);
         restTemplate.delete(url);
-
     }
 
     @Test
@@ -94,5 +92,4 @@ class AddonsControllerTest {
         System.out.println(response);
         System.out.println(response.getBody());
     }
-
 }
