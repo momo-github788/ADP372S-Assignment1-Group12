@@ -8,15 +8,18 @@ package za.ac.cput.vehicledealership.factory;
 */
 
 import org.junit.jupiter.api.Test;
+import za.ac.cput.vehicledealership.domain.City;
 import za.ac.cput.vehicledealership.domain.Location;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class LocationFactoryTest {
 
+    private static City city = CityFactory.createCity("Cape Town");
+
     @Test
     public void testCreateLocationSuccess() {
-        Location location = LocationFactory.createLocation(27, "Daisy Street", "Cape Town", "7850", "Western Cape");
+        Location location = LocationFactory.createLocation(27, "Daisy Street", city, "7850", "Western Cape");
 
         System.out.println(location);
         assertNotNull(location);
@@ -25,7 +28,7 @@ class LocationFactoryTest {
 
     @Test
     public void testCreateLocationWithNullValue() {
-        Location location = LocationFactory.createLocation(27, "", "Cape Town", "7850", "Western Cape");
+        Location location = LocationFactory.createLocation(27, "", city, "7850", "Western Cape");
 
         System.out.println(location);
         assertNull(location);
@@ -35,7 +38,7 @@ class LocationFactoryTest {
     public void testCreateLocationExceptionWithNegativeStreetNumber() {
 
         Exception exception = assertThrows(IllegalArgumentException.class,
-                () -> LocationFactory.createLocation(-999, "Daisy Street", "Cape Town", "7850", "Western Cape"));
+                () -> LocationFactory.createLocation(-999, "Daisy Street", city, "7850", "Western Cape"));
         System.out.println(exception);
 
         assertTrue(exception.getMessage().contentEquals("Street number cannot be a negative value"));

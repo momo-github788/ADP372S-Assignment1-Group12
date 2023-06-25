@@ -1,16 +1,23 @@
 package za.ac.cput.vehicledealership.domain;
 
+import jakarta.persistence.Embedded;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+@Entity
 public class Employee {
-    private long employeeNumber;
 
+    @Id
+    private long employeeNumber;
+    @Embedded
     private Name name;
     private LocalDateTime dateJoined;
     private String password;
 
-    private Employee() {
+    protected Employee() {
 
     }
 

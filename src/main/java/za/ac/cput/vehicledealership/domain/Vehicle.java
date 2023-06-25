@@ -6,17 +6,27 @@ package za.ac.cput.vehicledealership.domain;
     Date: 2 April 2023
 */
 
+import jakarta.persistence.*;
+
 import java.util.Objects;
 
+@Entity
+@Table(name = "vehicle")
 public class Vehicle {
+    @Id
     protected String vehicleId;
     protected String make;
     protected String model;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "vehicle_condition")
     protected VehicleCondition condition;
+    @Enumerated(EnumType.STRING)
     protected FuelType fuelType;
     protected String colour;
     protected int year;
     protected int mileage;
+    @OneToOne(mappedBy = "vehicle")
+    protected Post post;
 
     protected Vehicle() {
 
@@ -31,6 +41,7 @@ public class Vehicle {
         this.colour = builder.colour;
         this.year = builder.year;
         this.mileage = builder.mileage;
+
     }
 
     public String getVehicleId() {

@@ -6,6 +6,7 @@ package za.ac.cput.vehicledealership.factory;
     Date: 3 April 2023
 */
 
+import za.ac.cput.vehicledealership.domain.City;
 import za.ac.cput.vehicledealership.domain.Location;
 import za.ac.cput.vehicledealership.util.Helper;
 
@@ -13,7 +14,7 @@ import static za.ac.cput.vehicledealership.util.Helper.generateId;
 
 public class LocationFactory {
 
-    public static Location createLocation(int streetNumber, String streetName, String city, String postalCode, String province) {
+    public static Location createLocation(int streetNumber, String streetName, City city, String postalCode, String province) {
 
         if(Helper.isNullOrEmpty(String.valueOf(streetNumber)) || Helper.isNullOrEmpty(streetName) || Helper.isNullOrEmpty(city) || Helper.isNullOrEmpty(postalCode) || Helper.isNullOrEmpty(province)) {
             return null;
@@ -24,7 +25,6 @@ public class LocationFactory {
         }
 
         return new Location.Builder()
-                .setLocationId(generateId())
                 .setStreetNumber(streetNumber)
                 .setStreetName(streetName)
                 .setCity(city)
