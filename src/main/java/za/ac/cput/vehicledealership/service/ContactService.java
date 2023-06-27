@@ -7,8 +7,9 @@ package za.ac.cput.vehicledealership.service;
         */
 import za.ac.cput.vehicledealership.domain.Contact;
 
+import java.util.List;
 import java.util.Set;
 
 public interface ContactService extends IService<Contact,String> {
-    Set<Contact> getAll();
+    List<Contact> getAll();
 }

@@ -5,14 +5,18 @@ package za.ac.cput.vehicledealership.domain;
     Junaid Cedrass - 219090912
     03 April 2023
  */
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Contact {
-
+@Entity
+public class Contact implements Serializable {
+    @Id
     private String contactNumber;
     private String emailAddress;
 
-    private Contact(){
+    protected Contact(){
 
     }
     public Contact(ContactBuilder builder){
