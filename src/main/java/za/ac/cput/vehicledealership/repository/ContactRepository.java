@@ -4,11 +4,11 @@ package za.ac.cput.vehicledealership.repository;
     Author: Junaid Cedrass (219090912)
     Date: 8 April 2023
 */
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 import za.ac.cput.vehicledealership.domain.Contact;
 
 import java.util.Set;
-
-public interface ContactRepository extends IRepository<Contact, String> {
-
-    public Set<Contact> getAll();
+@Repository
+public interface ContactRepository extends JpaRepository<Contact, String> {
 }

@@ -4,11 +4,18 @@ package za.ac.cput.vehicledealership.domain;
     Junaid Cedrass - 219090912
     04 April 2023
  */
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
 
-public class User {
+
+@Entity
+public class User implements Serializable {
+    @Id
     private String userId;
     private String firstName;
     private String lastName;
@@ -16,7 +23,7 @@ public class User {
     private String password;
     private Contact contact;
 
-    private User() {
+    protected User() {
 
     }
 

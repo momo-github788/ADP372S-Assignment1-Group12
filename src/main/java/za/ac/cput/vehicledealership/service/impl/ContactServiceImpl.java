@@ -5,50 +5,50 @@ package za.ac.cput.vehicledealership.service.impl;
    Date: 11 June 2023
  */
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import za.ac.cput.vehicledealership.domain.Contact;
-import za.ac.cput.vehicledealership.repository.impl.ContactRepositoryImpl;
+import za.ac.cput.vehicledealership.repository.ContactRepository;
 import za.ac.cput.vehicledealership.service.ContactService;
-
-import java.util.Set;
+import java.util.List;
 
 @Service
 public class ContactServiceImpl implements ContactService {
-
-    private static ContactServiceImpl contactService = null;
-
-    private ContactRepositoryImpl contactRepositoryImpl = null;
-
-    public ContactServiceImpl(){this.contactRepositoryImpl = ContactRepositoryImpl.getContactRepository();}
-
-    public static ContactServiceImpl getContactService(){
-        if(contactService ==null){
-            contactService = new ContactServiceImpl();
-        }
-        return contactService;
-    }
+    private ContactRepository repository;
+    @Autowired
+    private ContactServiceImpl(ContactRepository repository){
+        this.repository = repository;
+    };
 
     @Override
     public Contact create(Contact contact) {
-        return contactRepositoryImpl.create(contact);
+        return this.repository.save(contact);
     }
 
     @Override
     public Contact read(String contactNumber) {
-        return contactRepositoryImpl.read(contactNumber);
+        return this.repository.findById(contactNumber).orElse(null);
     }
 
     @Override
     public Contact update(Contact contact) {
-        return contactRepositoryImpl.update(contact);
+        if (this.repository.existsById(contact.getContactNumber()))
+         return this.repository.save(contact);
+        return null;
     }
 
     @Override
     public boolean delete(String contactNumber) {
-        return contactRepositoryImpl.delete(contactNumber);
+        if (this.repository.existsById(contactNumber)){
+            this.repository.existsById(contactNumber);
+            return true;
+        }
+        return false;
     }
+
     @Override
-    public Set<Contact> getAll() {
-        return contactRepositoryImpl.getAll();
+    public List<Contact> getAll() {
+        return this.repository.findAll();
     }
 }
+
