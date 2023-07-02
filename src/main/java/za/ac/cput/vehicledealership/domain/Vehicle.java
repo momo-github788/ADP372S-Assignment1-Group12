@@ -6,12 +6,19 @@ package za.ac.cput.vehicledealership.domain;
     Date: 2 April 2023
 */
 
+import jakarta.persistence.Column;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+
 import java.util.Objects;
 
 public class Vehicle {
     protected String vehicleId;
     protected String make;
     protected String model;
+
+    //@Enumerated(EnumType.STRING)
+    @Column(name = "vehicle_condition")
     protected VehicleCondition condition;
     protected FuelType fuelType;
     protected String colour;

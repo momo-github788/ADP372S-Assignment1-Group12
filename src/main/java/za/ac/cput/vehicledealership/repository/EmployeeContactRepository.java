@@ -5,11 +5,11 @@ package za.ac.cput.vehicledealership.repository;
     Date: 18 June 2023
 */
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 import za.ac.cput.vehicledealership.domain.EmployeeContact;
 
 import java.util.Set;
-
-public interface EmployeeContactRepository extends IRepository<EmployeeContact, Long>{
-
-    Set<EmployeeContact> getAll();
+@Repository
+public interface EmployeeContactRepository extends JpaRepository<EmployeeContact, Long> {
 }

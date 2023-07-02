@@ -6,10 +6,12 @@
 
 package za.ac.cput.vehicledealership.repository;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 import za.ac.cput.vehicledealership.domain.Car;
 
 import java.util.Set;
+@Repository
+public interface CarRepository extends JpaRepository<Car, String> {
 
-public interface CarRepository extends IRepository<Car, String> {
-    Set<Car> getAll();
 }

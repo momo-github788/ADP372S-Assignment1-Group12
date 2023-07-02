@@ -6,19 +6,27 @@ package za.ac.cput.vehicledealership.domain;
     Date: 2 April 2023
 */
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToOne;
+
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+@Entity
 public class Post {
     private String postId;
     private String title;
     private String description;
     private double price;
+
+    @OneToOne
     private Vehicle vehicle;
+    @OneToOne
     private Branch branch;
     private LocalDateTime createdAt;
     private LocalDateTime expiredAt;
     private boolean isActive;
+
 
     private Post() {
 

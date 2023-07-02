@@ -1,12 +1,13 @@
 package za.ac.cput.vehicledealership.domain;
 
+import jakarta.persistence.Embeddable;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
 import java.util.Objects;
 
-@Entity
+@Embeddable
 @Table(name = "name")
 public class Name {
 

@@ -1,8 +1,11 @@
 package za.ac.cput.vehicledealership.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import za.ac.cput.vehicledealership.domain.Employee;
+import za.ac.cput.vehicledealership.domain.Vehicle;
 import za.ac.cput.vehicledealership.service.EmployeeService;
 
 import java.util.List;
@@ -16,13 +19,22 @@ public class EmployeeController {
     private EmployeeService employeeService;
 
     @PostMapping("/create")
-    public Employee create(@RequestBody Employee employee) {
-        return employeeService.create(employee);
+    public ResponseEntity<?> create(@RequestBody Employee employee) {
+        Employee createdEmployee = employeeService.update(employee);
+        if(createdEmployee == null) {
+            return ResponseEntity.badRequest().body("Error creating record.. Please try again later");
+        }
+        return new ResponseEntity<>(createdEmployee, HttpStatus.CREATED);
     }
 
     @GetMapping("read/{id}")
-    public Employee get(@PathVariable long id) {
-        return employeeService.read(id);
+    public ResponseEntity<?> get(@PathVariable long id) {
+        Employee employee = employeeService.read(id);
+
+        if(employee == null) {
+            return ResponseEntity.badRequest().body("Employee with id " + id + " not found.");
+        }
+        return ResponseEntity.ok(employee);
     }
 
     @GetMapping("/all")
@@ -31,12 +43,21 @@ public class EmployeeController {
     }
 
     @PostMapping("/update")
-    public Employee update(@RequestBody Employee employee) {
-        return employeeService.update(employee);
+    public ResponseEntity<?> update(@RequestBody Employee employee) {
+        Employee updatedEmployee = employeeService.update(employee);
+        if(updatedEmployee == null) {
+            return ResponseEntity.badRequest().body("Error updating record.. Please try again later");
+        }
+        return ResponseEntity.ok(updatedEmployee);
     }
 
     @DeleteMapping("/delete/{id}")
-    public boolean delete(@PathVariable long id) {
-        return employeeService.delete(id);
+    public ResponseEntity<String> delete(@PathVariable long id) {
+        boolean status = employeeService.delete(id);
+
+        if(!status) {
+            return ResponseEntity.badRequest().body("Employee " + id + " deleted successfully.");
+        }
+        return ResponseEntity.badRequest().body("Employee deleted successfully.");
     }
 }

@@ -6,25 +6,31 @@
  * */
 package za.ac.cput.vehicledealership.domain;
 
-public class WatchListPost {
-    private String watchListPostId;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.IdClass;
+import jakarta.persistence.Table;
+
+import java.io.Serializable;
+
+@Entity
+@Table(name="watchlist_post")
+@IdClass(WatchlistPostId.class)
+public class WatchListPost implements Serializable {
+    @Id
     private String postId;
+    @Id
     private String userId;
 
+    protected WatchListPost() {
+
+    }
+
     private WatchListPost(Builder builder) {
-        this.watchListPostId = builder.watchListPostId;
         this.postId = builder.postId;
         this.userId = builder.userId;
     }
 
-
-    public String getWatchListPostId() {
-        return watchListPostId;
-    }
-
-    public void setWatchListPostId(String watchListPostId) {
-        this.watchListPostId = watchListPostId;
-    }
 
     public String getPostId() {
         return postId;
@@ -45,21 +51,15 @@ public class WatchListPost {
     @Override
     public String toString() {
         return "WatchListPost{" +
-                "watchListPostId=" + watchListPostId +
                 ", postId='" + postId + '\'' +
                 ", userId='" + userId + '\'' +
                 '}';
     }
 
     public static class Builder {
-        private String watchListPostId;
         private String postId;
         private String userId;
 
-        public Builder setWatchListPostId(String watchListPostId) {
-            this.watchListPostId = watchListPostId;
-            return this;
-        }
 
         public Builder setPostId(String postId) {
             this.postId = postId;
@@ -71,23 +71,8 @@ public class WatchListPost {
             return this;
         }
 
-        public Builder withWatchListPostId(String watchListPostId) {
-            this.watchListPostId = watchListPostId;
-            return this;
-        }
-
-        public Builder withPostId(String postId) {
-            this.postId = postId;
-            return this;
-        }
-
-        public Builder withUserId(String userId) {
-            this.userId = userId;
-            return this;
-        }
 
         private Builder copy(WatchListPost watchListPost) {
-            this.watchListPostId = watchListPost.watchListPostId;
             this.postId = watchListPost.postId;
             this.userId = watchListPost.userId;
 

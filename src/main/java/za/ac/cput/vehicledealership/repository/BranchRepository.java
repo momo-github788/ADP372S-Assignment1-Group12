@@ -6,11 +6,11 @@
 
 package za.ac.cput.vehicledealership.repository;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 import za.ac.cput.vehicledealership.domain.Branch;
 
 import java.util.Set;
-
-public interface BranchRepository extends IRepository<Branch, String >{
-
-    Set<Branch> getAll();
+@Repository
+public interface BranchRepository extends JpaRepository<Branch, String > {
 }

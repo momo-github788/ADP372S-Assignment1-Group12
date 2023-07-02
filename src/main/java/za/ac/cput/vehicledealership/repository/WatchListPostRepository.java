@@ -6,10 +6,13 @@
 
 package za.ac.cput.vehicledealership.repository;
 
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 import za.ac.cput.vehicledealership.domain.WatchListPost;
 
 import java.util.Set;
 
-public interface WatchListPostRepository extends IRepository<WatchListPost, String >{
-    Set<WatchListPost> getAll();
+@Repository
+public interface WatchListPostRepository extends JpaRepository<WatchListPost, String > {
 }
