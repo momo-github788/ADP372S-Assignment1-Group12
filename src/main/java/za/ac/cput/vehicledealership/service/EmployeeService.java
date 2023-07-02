@@ -10,6 +10,7 @@ import za.ac.cput.vehicledealership.domain.Employee;
 
 import java.util.List;
 
+
 public interface EmployeeService extends IService<Employee, Long> {
     List<Employee> getAll();
 }

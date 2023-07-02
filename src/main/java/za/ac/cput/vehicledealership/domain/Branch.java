@@ -9,15 +9,24 @@ package za.ac.cput.vehicledealership.domain;
 
 
 import jakarta.persistence.Embedded;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 
+@Entity
 public class Branch {
+
+    @Id
     private String branchId;
     private String branchName;
     private int yearOpened;
     @Embedded
     private Location location;
 
-    private Branch() {
+    @OneToOne(mappedBy = "branch")
+    private Post post;
+
+    protected Branch() {
 
     }
 

@@ -8,27 +8,31 @@ package za.ac.cput.vehicledealership.domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
 public class Post {
+
+    @Id
     private String postId;
     private String title;
     private String description;
     private double price;
-
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "vehicle_id", referencedColumnName = "vehicle_id")
     private Vehicle vehicle;
-    @OneToOne
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "branch_id",  referencedColumnName = "branch_id")
     private Branch branch;
     private LocalDateTime createdAt;
     private LocalDateTime expiredAt;
     private boolean isActive;
 
-
-    private Post() {
+    protected Post() {
 
     }
 

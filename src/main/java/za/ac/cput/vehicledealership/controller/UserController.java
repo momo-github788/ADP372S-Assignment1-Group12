@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import za.ac.cput.vehicledealership.domain.User;
 import za.ac.cput.vehicledealership.service.UserService;
+
+import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -26,7 +28,7 @@ public class UserController {
     public User get(@PathVariable String id){return userService.read(id);}
 
     @GetMapping("/all")
-    public Set<User> getAll() {return userService.getAll();}
+    public List<User> getAll() {return userService.getAll();}
 
     @PostMapping("/update")
     public User update(@RequestBody User user){return userService.update(user);}

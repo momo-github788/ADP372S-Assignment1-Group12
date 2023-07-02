@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import za.ac.cput.vehicledealership.domain.Contact;
 import za.ac.cput.vehicledealership.service.ContactService;
+
+import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -29,7 +31,7 @@ public class ContactController {
     }
 
     @GetMapping("/all")
-    public Set<Contact> getAll() {
+    public List<Contact> getAll() {
         return contactService.getAll();
     }
     @PostMapping("/update")

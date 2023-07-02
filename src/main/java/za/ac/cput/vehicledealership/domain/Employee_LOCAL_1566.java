@@ -12,6 +12,7 @@ public class Employee {
 
     @Id
     private long employeeNumber;
+
     @Embedded
     private Name name;
     private LocalDateTime dateJoined;

@@ -4,40 +4,72 @@ import jakarta.persistence.Embeddable;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.util.Objects;
 
 @Embeddable
-@Table(name = "name")
 public class Name {
 
     // Reference to Id class
-    @EmbeddedId
-    private NameId nameId;
+//    @EmbeddedId
+//    private NameId nameId;
+
+    @Column(name = "first_name")
+    private String firstName;
+    @Column(name = "middle_name")
+    private String middleName;
+    @Column(name = "last_name")
+    private String lastName;
 
     protected Name() {
 
     }
 
     private Name(Builder builder) {
-        this.nameId = new NameId(builder.firstName, builder.middleName, builder.lastName);
+        this.firstName = builder.firstName;
+        this.middleName = builder.middleName;
+        this.lastName = builder.lastName;
+        //this.nameId = new NameId(builder.firstName, builder.middleName, builder.lastName);
     }
 
-    public NameId getNameId() {
-        return nameId;
+    public String getFirstName() {
+        return firstName;
     }
+
+    public String getMiddleName() {
+        return middleName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    //public NameId getNameId() {
+    //  return nameId;
+    //}
+
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Name name = (Name) o;
-        return Objects.equals(nameId, name.nameId);
+        return Objects.equals(firstName, name.firstName) && Objects.equals(middleName, name.middleName) && Objects.equals(lastName, name.lastName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(nameId);
+        return Objects.hash(firstName, middleName, lastName);
+    }
+
+    @Override
+    public String toString() {
+        return "Name{" +
+                "firstName='" + firstName + '\'' +
+                ", middleName='" + middleName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                '}';
     }
 
     public static class Builder {
@@ -62,9 +94,9 @@ public class Name {
         }
 
         public Builder copy(Name name) {
-            this.firstName = name.nameId.getFirstName();
-            this.middleName = name.nameId.getMiddleName();
-            this.lastName = name.nameId.getLastName();
+            this.firstName = name.getFirstName();
+            this.middleName = name.getMiddleName();
+            this.lastName = name.getLastName();
             return this;
         }
 

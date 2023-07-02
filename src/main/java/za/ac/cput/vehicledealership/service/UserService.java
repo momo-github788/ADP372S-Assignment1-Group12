@@ -10,5 +10,5 @@ import java.util.List;
 import java.util.Set;
 
 public interface UserService extends IService<User, String>{
-    Set<User> getAll();
+    List<User> getAll();
 }

@@ -9,9 +9,16 @@ import java.util.Objects;
 
 @Entity
 public class Employee {
+<<<<<<< HEAD
 
     @Id
     private long employeeNumber;
+
+=======
+
+    @Id
+    private long employeeNumber;
+>>>>>>> c12400dbad58babc28ad9c551fd8cd109f97dec0
     @Embedded
     private Name name;
     private LocalDateTime dateJoined;

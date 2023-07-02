@@ -14,7 +14,7 @@ import java.util.Objects;
 public class Location {
     private int streetNumber;
     private String streetName;
-    private String city;
+    private City city;
     private String postalCode;
     private String province;
 
@@ -46,11 +46,11 @@ public class Location {
         this.streetName = streetName;
     }
 
-    public String getCity() {
+    public City getCity() {
         return city;
     }
 
-    public void setCity(String city) {
+    public void setCity(City city) {
         this.city = city;
     }
 
@@ -97,7 +97,7 @@ public class Location {
     public static class Builder {
         private int streetNumber;
         private String streetName;
-        private String city;
+        private City city;
         private String postalCode;
         private String province;
 
@@ -111,7 +111,7 @@ public class Location {
             return this;
         }
 
-        public Builder setCity(String city) {
+        public Builder setCity(City city) {
             this.city = city;
             return this;
         }

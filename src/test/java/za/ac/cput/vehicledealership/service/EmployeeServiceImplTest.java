@@ -23,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class EmployeeServiceImplTest {
 
     @Autowired
-    private EmployeeService employeeService;
+    private EmployeeServiceImpl employeeService;
     private static Name name = NameFactory.createName("Mary", "", "Anne");
     private static Employee employee = EmployeeFactory.createEmployee(name, "Password123");
 
