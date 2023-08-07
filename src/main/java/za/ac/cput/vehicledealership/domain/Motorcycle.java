@@ -5,14 +5,20 @@
 */
 package za.ac.cput.vehicledealership.domain;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+
 import java.util.Objects;
-
+@Entity
+@Table(name = "motorcycle")
 public class Motorcycle extends Vehicle {
-    private boolean hasSideCar;
+    @Column(name = "side_car")
+    protected boolean hasSideCar;
 
-    private Motorcycle() {}
+    protected Motorcycle() {}
 
-    private Motorcycle(MotorcycleBuilder builder) {
+    protected Motorcycle(MotorcycleBuilder builder) {
         super(builder);
         this.hasSideCar = builder.hasSideCar;
     }

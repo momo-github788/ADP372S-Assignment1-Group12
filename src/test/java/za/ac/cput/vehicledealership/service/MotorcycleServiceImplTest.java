@@ -9,6 +9,7 @@ import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.springframework.beans.factory.annotation.Autowired;
 import za.ac.cput.vehicledealership.domain.*;
 import za.ac.cput.vehicledealership.factory.MotorcycleFactory;
 import za.ac.cput.vehicledealership.service.impl.MotorcycleServiceImpl;
@@ -17,7 +18,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class MotorcycleServiceImplTest {
-    private static MotorcycleServiceImpl motorcycleService = MotorcycleServiceImpl.getMotorcycleService();
+
+    @Autowired
+    private MotorcycleServiceImpl motorcycleService;
     private static Motorcycle motorcycle = MotorcycleFactory.createMotorcycle("Harley-Davidson", "Vittorio Brumotti - Sportster S", VehicleCondition.NEW,
             FuelType.PETROL,"Navy blue", 2022, 0, false);
     @Order(1)

@@ -7,8 +7,8 @@ package za.ac.cput.vehicledealership.service;
 
 import za.ac.cput.vehicledealership.domain.Motorcycle;
 
-import java.util.Set;
+import java.util.List;
 
 public interface MotorcycleService extends IService<Motorcycle, String>{
-    Set<Motorcycle> getAll();
+    List<Motorcycle> getAll();
 }
