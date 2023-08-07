@@ -7,47 +7,46 @@ package za.ac.cput.vehicledealership.service.impl;
 
 import org.springframework.stereotype.Service;
 import za.ac.cput.vehicledealership.domain.Truck;
-import za.ac.cput.vehicledealership.repository.impl.TruckRepositoryImpl;
+import za.ac.cput.vehicledealership.repository.TruckRepository;
 import za.ac.cput.vehicledealership.service.TruckService;
 
-import java.util.Set;
+import java.util.List;
 
 @Service
 public class TruckServiceImpl implements TruckService {
-    private static TruckServiceImpl truckService = null;
-    private TruckRepositoryImpl truckRepository = null;
+    private TruckRepository truckRepository;
 
-    public TruckServiceImpl() { this.truckRepository = TruckRepositoryImpl.getRepository();}
-
-    public static TruckServiceImpl getTruckService() {
-        if(truckService == null) {
-            truckService = new TruckServiceImpl();
-        }
-        return truckService;
-    }
-
+    public TruckServiceImpl(TruckRepository truckRepository) { this.truckRepository = truckRepository;}
 
     @Override
     public Truck create(Truck truck) {
-        return truckRepository.create(truck);
+        return truckRepository.save(truck);
     }
 
 
     @Override
-    public Truck read(String vehicleId) { return truckRepository.read(vehicleId);}
+    public Truck read(String vehicleId) {
+        return truckRepository.findById(vehicleId).orElse(null);
+    }
 
     @Override
     public Truck update(Truck truck) {
-        return truckRepository.update(truck);
+        if(truckRepository.existsById(truck.getVehicleId())) {
+            return this.truckRepository.save(truck);
+        }
+        return null;
     }
 
     @Override
     public boolean delete(String vehicleId) {
-        return truckRepository.delete(vehicleId);
+        if(truckRepository.existsById(vehicleId)) {
+            this.truckRepository.deleteById(vehicleId);
+        }
+        return false;
     }
 
     @Override
-    public Set<Truck> getAll() {
-        return truckRepository.getAll();
+    public List<Truck> getAll() {
+        return truckRepository.findAll();
     }
 }

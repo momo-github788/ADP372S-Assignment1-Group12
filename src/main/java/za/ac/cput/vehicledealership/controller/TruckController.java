@@ -6,11 +6,13 @@
 package za.ac.cput.vehicledealership.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import za.ac.cput.vehicledealership.domain.Truck;
 import za.ac.cput.vehicledealership.service.TruckService;
 
-import java.util.Set;
+import java.util.List;
 
 @RestController
 @RequestMapping("/truck")
@@ -20,17 +22,42 @@ public class TruckController {
     private TruckService truckService;
 
     @PostMapping("/create")
-    public Truck create(@RequestBody Truck truck) { return truckService.create(truck); }
+    public ResponseEntity<?> create(@RequestBody Truck truck) {
+        Truck createdTruck = truckService.update(truck);
+        if(createdTruck == null) {
+            return ResponseEntity.badRequest().body("Error creating record, please try again later.");
+        }
+        return new ResponseEntity<>(createdTruck, HttpStatus.CREATED);
+    }
 
     @GetMapping("/read/{id}")
-    public Truck read(@PathVariable String id) { return truckService.read(id); }
+    public ResponseEntity<?> read(@PathVariable String id) {
+        Truck truck = truckService.read(id);
+        if(truck == null) {
+            return ResponseEntity.badRequest().body("Truck with id " + id + " not found.");
+        }
+        return ResponseEntity.ok(truck);
+    }
 
     @GetMapping("/all")
-    public Set<Truck> getAll() { return truckService.getAll(); }
+    public List<Truck> getAll() { return truckService.getAll(); }
 
     @PostMapping("/update")
-    public Truck update(@RequestBody Truck truck) { return truckService.update(truck); }
+    public ResponseEntity<?> update(@RequestBody Truck truck) {
+        Truck updatedTruck = truckService.update(truck);
+        if(updatedTruck == null) {
+            return ResponseEntity.badRequest().body("Error updating record, please try again later.");
+        }
+        return ResponseEntity.ok(updatedTruck);
+    }
 
     @DeleteMapping("/delete/{id}")
-    public boolean delete(@PathVariable String id) {return truckService.delete(id); }
+    public ResponseEntity<String> delete(@PathVariable String id) {
+        boolean status = truckService.delete(id);
+
+        if(!status) {
+            return ResponseEntity.badRequest().body("Truck " + id + " deleted successfully.");
+        }
+        return ResponseEntity.badRequest().body("Truck deleted successfully.");
+    }
 }

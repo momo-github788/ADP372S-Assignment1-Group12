@@ -7,8 +7,8 @@ package za.ac.cput.vehicledealership.service;
 
 import za.ac.cput.vehicledealership.domain.Truck;
 
-import java.util.Set;
+import java.util.List;
 
 public interface TruckService extends IService<Truck, String>{
-    Set<Truck> getAll();
+    List<Truck> getAll();
 }

@@ -5,16 +5,22 @@
 */
 package za.ac.cput.vehicledealership.domain;
 
+import jakarta.persistence.*;
+
 import java.util.Objects;
-
+@Entity
+@Table(name = "car")
 public class Car extends Vehicle {
-    private boolean hasTowBar;
+    @Column(name = "tow_bar")
+    protected boolean hasTowBar;
 
-    private BodyType bodyType;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "body_type")
+    protected BodyType bodyType;
 
-    private Car() {}
+    protected Car() {}
 
-    private Car(CarBuilder builder) {
+    protected Car(CarBuilder builder) {
         super(builder);
         this.hasTowBar = builder.hasTowBar;
         this.bodyType = builder.bodyType;

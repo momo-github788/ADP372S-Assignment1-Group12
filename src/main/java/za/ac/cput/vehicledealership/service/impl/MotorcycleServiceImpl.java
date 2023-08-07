@@ -7,46 +7,46 @@ package za.ac.cput.vehicledealership.service.impl;
 
 import org.springframework.stereotype.Service;
 import za.ac.cput.vehicledealership.domain.Motorcycle;
-import za.ac.cput.vehicledealership.repository.impl.MotorcycleRepositoryImpl;
+import za.ac.cput.vehicledealership.repository.MotorcycleRepository;
 import za.ac.cput.vehicledealership.service.MotorcycleService;
 
-import java.util.Set;
+import java.util.List;
 
 @Service
 public class MotorcycleServiceImpl implements MotorcycleService {
-    private static MotorcycleServiceImpl motorcycleService = null;
-    private MotorcycleRepositoryImpl motorcycleRepository = null;
+    private MotorcycleRepository motorcycleRepository;
 
-    public MotorcycleServiceImpl() { this.motorcycleRepository = MotorcycleRepositoryImpl.getRepository();}
-
-    public static MotorcycleServiceImpl getMotorcycleService() {
-        if(motorcycleService == null) {
-            motorcycleService = new MotorcycleServiceImpl();
-        }
-        return motorcycleService;
-    }
+    public MotorcycleServiceImpl(MotorcycleRepository motorcycleRepository) { this.motorcycleRepository = motorcycleRepository;}
 
     @Override
     public Motorcycle create(Motorcycle motorcycle) {
-        return motorcycleRepository.create(motorcycle);
+        return motorcycleRepository.save(motorcycle);
     }
 
 
     @Override
-    public Motorcycle read(String vehicleId) { return motorcycleRepository.read(vehicleId);}
+    public Motorcycle read(String vehicleId) {
+        return motorcycleRepository.findById(vehicleId).orElse(null);
+    }
 
     @Override
     public Motorcycle update(Motorcycle motorcycle) {
-        return motorcycleRepository.update(motorcycle);
+        if(motorcycleRepository.existsById(motorcycle.getVehicleId())) {
+            return this.motorcycleRepository.save(motorcycle);
+        }
+        return null;
     }
 
     @Override
-    public boolean delete(String locationId) {
-        return motorcycleRepository.delete(locationId);
+    public boolean delete(String vehicleId) {
+        if(motorcycleRepository.existsById(vehicleId)) {
+            this.motorcycleRepository.deleteById(vehicleId);
+        }
+        return false;
     }
 
     @Override
-    public Set<Motorcycle> getAll() {
-        return motorcycleRepository.getAll();
+    public List<Motorcycle> getAll() {
+        return motorcycleRepository.findAll();
     }
 }
