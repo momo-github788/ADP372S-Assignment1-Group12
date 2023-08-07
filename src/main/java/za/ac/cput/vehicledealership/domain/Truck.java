@@ -5,13 +5,20 @@
 */
 package za.ac.cput.vehicledealership.domain;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+
 import java.util.Objects;
-
+@Entity
+@Table(name = "truck")
 public class Truck extends Vehicle {
-    private int numOfWheels;
-    private double maxLoadCapacity;
+    @Column(name = "number_of_wheels")
+    protected int numOfWheels;
+    @Column(name = "maximum_load_capacity")
+    protected double maxLoadCapacity;
 
-    private  Truck() {}
+    protected Truck() {}
 
     private Truck(TruckBuilder builder) {
         super(builder);

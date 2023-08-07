@@ -9,6 +9,7 @@ import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.springframework.beans.factory.annotation.Autowired;
 import za.ac.cput.vehicledealership.domain.*;
 import za.ac.cput.vehicledealership.factory.TruckFactory;
 import za.ac.cput.vehicledealership.service.impl.TruckServiceImpl;
@@ -17,7 +18,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class TruckServiceImplTest {
-    private static TruckServiceImpl truckService = TruckServiceImpl.getTruckService();
+
+    @Autowired
+    private TruckServiceImpl truckService;
     private static Truck truck = TruckFactory.createTruck("Mercedes Benz", "Actros", VehicleCondition.USED, FuelType.DIESEL,"red",
             2023, 1006, 6, 13607.8);
 
