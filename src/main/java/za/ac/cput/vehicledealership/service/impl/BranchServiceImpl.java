@@ -7,7 +7,7 @@
 package za.ac.cput.vehicledealership.service.impl;
 
 import za.ac.cput.vehicledealership.domain.Branch;
-import za.ac.cput.vehicledealership.repository.impl.BranchRepositoryImpl;
+
 import za.ac.cput.vehicledealership.service.BranchService;
 
 import java.util.Set;

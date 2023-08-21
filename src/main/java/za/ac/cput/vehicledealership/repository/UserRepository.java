@@ -6,16 +6,13 @@ package za.ac.cput.vehicledealership.repository;
 */
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import za.ac.cput.vehicledealership.domain.Employee;
 import za.ac.cput.vehicledealership.domain.User;
 
 import java.util.Set;
-<<<<<<< HEAD
 
 @Repository
 public interface UserRepository extends JpaRepository<User, String> {
-
-=======
-@Repository
-public interface UserRepository extends JpaRepository<User, String> {
->>>>>>> c12400dbad58babc28ad9c551fd8cd109f97dec0
+    User findUserByContact_EmailAddress(String emailAddress);
+    Boolean existsByContact_EmailAddress(String emailAddress);
 }

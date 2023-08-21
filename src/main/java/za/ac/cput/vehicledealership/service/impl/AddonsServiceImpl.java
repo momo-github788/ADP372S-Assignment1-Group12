@@ -6,54 +6,52 @@ package za.ac.cput.vehicledealership.service.impl;
 */
 import org.springframework.stereotype.Service;
 import za.ac.cput.vehicledealership.domain.Addons;
-import za.ac.cput.vehicledealership.repository.impl.AddonsRepositoryImpl;
+import za.ac.cput.vehicledealership.repository.AddonsRepository;
 import za.ac.cput.vehicledealership.service.AddonsService;
 
+import java.util.List;
 import java.util.Set;
 
 @Service
 public class AddonsServiceImpl implements AddonsService {
 
-    private static AddonsServiceImpl addonsService = null;
-    private AddonsRepositoryImpl addonsRepository = null;
+    private AddonsRepository addonsRepository;
 
-    public AddonsServiceImpl() {
-        this.addonsRepository = AddonsRepositoryImpl.getAddonsRepository();
+    public AddonsServiceImpl(AddonsRepository addonsRepository) {
+        this.addonsRepository = addonsRepository;
     }
-
-    public static AddonsServiceImpl getAddonsServiceService() {
-        if(addonsService == null) {
-            addonsService = new AddonsServiceImpl();
-        }
-        return addonsService;
-    }
-
 
     @Override
     public Addons create(Addons addons) {
-        return addonsRepository.create(addons);
+        return addonsRepository.save(addons);
     }
 
 
     @Override
     public Addons read(String addonsId) {
-        return addonsRepository.read(addonsId);
+        return addonsRepository.findById(addonsId).orElse(null);
     }
 
     @Override
     public Addons update(Addons addons) {
-        return addonsRepository.update(addons);
+        if(addonsRepository.existsById(addons.getAddonId())) {
+            return this.addonsRepository.save(addons);
+        }
+        return null;
     }
 
 
     @Override
     public boolean delete(String addonsId) {
-        return addonsRepository.delete(addonsId);
+        if(addonsRepository.existsById(addonsId)) {
+            this.addonsRepository.deleteById(addonsId);
+        }
+        return false;
     }
 
     @Override
-    public Set<Addons> getAll() {
-        return addonsRepository.getAll();
+    public List<Addons> getAll() {
+        return addonsRepository.findAll();
     }
 }
 

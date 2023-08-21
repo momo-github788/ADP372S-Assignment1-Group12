@@ -25,13 +25,13 @@ class EmployeeServiceImplTest {
     @Autowired
     private EmployeeServiceImpl employeeService;
     private static Name name = NameFactory.createName("Mary", "", "Anne");
-    private static Employee employee = EmployeeFactory.createEmployee(name, "Password123");
+    private static Employee employee = EmployeeFactory.createEmployee(name, "Password123", "mary@gmail.com");
 
 
     @Order(1)
     @Test
     void create() {
-        Employee createdEmployee = employeeService.create(employee);
+        Employee createdEmployee = employeeService.register(employee);
         assertNotNull(createdEmployee);
         System.out.println("Create: " + createdEmployee);
     }

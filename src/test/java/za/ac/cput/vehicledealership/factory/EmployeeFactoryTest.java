@@ -12,7 +12,7 @@ class EmployeeFactoryTest {
     @Test
     void testCreateEmployeeSuccess() {
         Name name = NameFactory.createName("Mary", "", "Anne");
-        Employee employee = EmployeeFactory.createEmployee(name, "Password123");
+        Employee employee = EmployeeFactory.createEmployee(name, "Password123", "Mary@gmail.com");
 
         assertNotNull(employee);
     }
@@ -22,7 +22,7 @@ class EmployeeFactoryTest {
 
         // This is an invalid password being used
         Exception exception = assertThrows(RuntimeException.class,
-                () ->  EmployeeFactory.createEmployee(name, "password"));
+                () ->  EmployeeFactory.createEmployee(name, "password", "Mary@gmail.com"));
         System.out.println(exception);
 
         assertTrue(exception.getMessage().contentEquals(

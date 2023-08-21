@@ -5,15 +5,18 @@ import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.*;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 
 import java.util.Objects;
 
 @Embeddable
+@Getter
+@ToString
+@EqualsAndHashCode
 public class Name {
-
-    // Reference to Id class
-//    @EmbeddedId
-//    private NameId nameId;
 
     @Column(name = "first_name")
     private String firstName;
@@ -30,46 +33,6 @@ public class Name {
         this.firstName = builder.firstName;
         this.middleName = builder.middleName;
         this.lastName = builder.lastName;
-        //this.nameId = new NameId(builder.firstName, builder.middleName, builder.lastName);
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getMiddleName() {
-        return middleName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    //public NameId getNameId() {
-    //  return nameId;
-    //}
-
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Name name = (Name) o;
-        return Objects.equals(firstName, name.firstName) && Objects.equals(middleName, name.middleName) && Objects.equals(lastName, name.lastName);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(firstName, middleName, lastName);
-    }
-
-    @Override
-    public String toString() {
-        return "Name{" +
-                "firstName='" + firstName + '\'' +
-                ", middleName='" + middleName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                '}';
     }
 
     public static class Builder {
@@ -104,6 +67,4 @@ public class Name {
             return new Name(this);
         }
     }
-
-
 }

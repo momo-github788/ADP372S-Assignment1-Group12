@@ -1,50 +1,46 @@
 package za.ac.cput.vehicledealership.domain;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@EqualsAndHashCode
+@Getter
+@ToString
 public class Inventory {
 
     private String inventoryId;
     private int quantity;
     private InventoryType inventoryType;
-    private Vehicle Vehicle;
+
+    @JoinColumn(name = "branch_id",  referencedColumnName = "branch_id")
+    @OneToOne
+    private Branch branch;
+
+
 
 
     public Inventory(Builder builder) {
         this.inventoryId = builder.inventoryId;
         this.quantity =  builder.quantity;
         this.inventoryType =  builder.inventoryType;
-       this. Vehicle = builder.Vehicle;
     }
 
 
-    public String getInventoryId() {
-        return inventoryId;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public InventoryType getInventoryType() {
-        return inventoryType;
-    }
-    public Vehicle getVehicle() {
-        return Vehicle;
-    }
-    @Override
-    public String toString() {
-        return "Inventory{" +
-                "inventoryId='" + inventoryId + '\'' +
-                ", quantity=" + quantity +
-                ", inventoryType='" + inventoryType + '\'' +
-                ", Vehicle=" + Vehicle +
-                '}';
-    }
     public static class Builder {
 
         private String inventoryId;
         private int quantity;
         private InventoryType inventoryType;
-        private Vehicle Vehicle;
+        private List<Vehicle> vehicles;
 
         public Builder setInventoryId(String inventoryId) {
             this.inventoryId = inventoryId;

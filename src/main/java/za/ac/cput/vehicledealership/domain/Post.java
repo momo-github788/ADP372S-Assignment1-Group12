@@ -6,24 +6,47 @@ package za.ac.cput.vehicledealership.domain;
     Date: 2 April 2023
 */
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
+import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
-public class Post {
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode
+public class Post implements Serializable {
+
+    @Transient
+    @JsonIgnore
+    private long EXPIRATION_TIME_MONTHS = 1;
 
     @Id
     private String postId;
+
     private String title;
+
     private String description;
     private double price;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "vehicle_id", referencedColumnName = "vehicle_id")
     private Vehicle vehicle;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="employee_id")
+    private Employee employee;
+
+    @Column(name="post_creator_email")
+    private String postCreatorEmail;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "branch_id",  referencedColumnName = "branch_id")
@@ -46,70 +69,25 @@ public class Post {
         this.createdAt = builder.createdAt;
         this.expiredAt = builder.expiredAt;
         this.isActive = builder.isActive;
+        this.employee = builder.employee;
+        this.postCreatorEmail = builder.postCreatorEmail;
     }
 
-    public String getPostId() {
-        return postId;
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = LocalDateTime.now();
+        this.expiredAt = calculateExpiryDate(createdAt);
+
     }
 
-    public String getTitle() {
-        return title;
+    private LocalDateTime calculateExpiryDate(LocalDateTime createdAt) {
+        return createdAt.plusMonths(EXPIRATION_TIME_MONTHS);
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public Vehicle getVehicle() {
-        return vehicle;
-    }
-
-    public Branch getBranch() {
-        return branch;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public LocalDateTime getExpiredAt() {
-        return expiredAt;
-    }
-
-    public boolean isActive() {
-        return isActive;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Post post = (Post) o;
-        return Double.compare(post.price, price) == 0 && isActive == post.isActive && Objects.equals(postId, post.postId) && Objects.equals(title, post.title) && Objects.equals(description, post.description) && Objects.equals(vehicle, post.vehicle) && Objects.equals(branch, post.branch) && Objects.equals(createdAt, post.createdAt) && Objects.equals(expiredAt, post.expiredAt);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(postId, title, description, price, vehicle, branch, createdAt, expiredAt, isActive);
-    }
-
-    @Override
-    public String toString() {
-        return "Post{" +
-                "postId='" + postId + '\'' +
-                ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                ", price=" + price +
-                ", vehicle=" + vehicle +
-                ", branch=" + branch +
-                ", createdAt=" + createdAt +
-                ", expiredAt=" + expiredAt +
-                ", isActive=" + isActive +
-                '}';
+    @JsonIgnore
+    public boolean isPostExpired() {
+        LocalDateTime current = LocalDateTime.now();
+        return current.isAfter(getExpiredAt());
     }
 
     public static class Builder {
@@ -122,6 +100,8 @@ public class Post {
         private LocalDateTime createdAt;
         private LocalDateTime expiredAt;
         private boolean isActive;
+        private Employee employee;
+        private String postCreatorEmail;
 
         public Builder setPostId(String postId) {
             this.postId = postId;
@@ -168,6 +148,16 @@ public class Post {
             return this;
         }
 
+        public Builder setEmployee(Employee employee) {
+            this.employee = employee;
+            return this;
+        }
+
+        public Builder setPostCreatorEmail(String postCreatorEmail) {
+            this.postCreatorEmail = postCreatorEmail;
+            return this;
+        }
+
         public Builder copy(Post post){
             this.postId = post.postId;
             this.title = post.title;
@@ -178,6 +168,8 @@ public class Post {
             this.createdAt = post.createdAt;
             this.expiredAt = post.expiredAt;
             this.isActive = post.isActive;
+            this.employee = post.employee;
+            this.postCreatorEmail = post.postCreatorEmail;
             return this;
         }
 

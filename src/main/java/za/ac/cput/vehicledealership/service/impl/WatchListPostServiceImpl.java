@@ -1,58 +1,89 @@
 /*  WatchListPostServiceImpl.java
     Implementation of the WatchListPostService
-    Author: Simphiwe Kahlana (220162891)
+    Author: Muhammed Luqmaan Hoosain (220162891)
     Date: 09 June 2023
 */
 
 package za.ac.cput.vehicledealership.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import za.ac.cput.vehicledealership.domain.User;
+import za.ac.cput.vehicledealership.domain.Post;
+import za.ac.cput.vehicledealership.domain.User;
 import za.ac.cput.vehicledealership.domain.WatchListPost;
-import za.ac.cput.vehicledealership.repository.impl.WatchListPostRepositoryimpl;
+import za.ac.cput.vehicledealership.factory.WatchListPostFactory;
+import za.ac.cput.vehicledealership.repository.UserRepository;
+import za.ac.cput.vehicledealership.repository.PostRepository;
+import za.ac.cput.vehicledealership.repository.WatchListPostRepository;
 import za.ac.cput.vehicledealership.service.WatchListPostService;
 
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
-public class WatchListPostServiceImpl implements WatchListPostService {
-    private static WatchListPostServiceImpl watchListPostService = null;
-    private WatchListPostRepositoryimpl watchListPostRepository = null;
+public class WatchListPostServiceImpl {
 
-    public WatchListPostServiceImpl() {
-        this.watchListPostRepository = WatchListPostRepositoryimpl.getWatchListPostRepository();
+
+    private WatchListPostRepository watchListPostRepository;
+    private UserRepository userRepository;
+    private PostRepository postRepository;
+
+
+    @Autowired
+    public WatchListPostServiceImpl(WatchListPostRepository watchListPostRepository, UserRepository userRepository, PostRepository postRepository) {
+        this.watchListPostRepository = watchListPostRepository;
+        this.userRepository = userRepository;
+        this.postRepository = postRepository;
     }
 
-    public static WatchListPostServiceImpl getWatchListPostService() {
-        if(watchListPostService == null) {
-            watchListPostService = new WatchListPostServiceImpl();
+
+    public WatchListPost addToWatchlistPost(String postId, String emailAddress) {
+        User user = userRepository.findUserByContact_EmailAddress(emailAddress);
+        Post post = postRepository.findPostByPostId(postId);
+
+        WatchListPost watchlistPost = WatchListPostFactory.createWatchListPost(post.getPostId(), user.getUserId());
+
+        if (emailAddress.equals(post.getPostCreatorEmail())) {
+            throw new RuntimeException("You cannot Watchlist your own post");
         }
-        return watchListPostService;
+
+        watchListPostRepository.save(watchlistPost);
+
+        return watchlistPost;
+    }
+
+    public boolean delete(String watchListPostId, String emailAddress) {
+        User user = userRepository.findUserByContact_EmailAddress(emailAddress);
+        WatchListPost watchlistPost = watchListPostRepository.findFirstByPostIdAndUserId(watchListPostId, user.getUserId());
+
+        if (watchlistPost == null) {
+            return false;
+        }
+
+        watchListPostRepository.delete(watchlistPost);
+        return true;
     }
 
 
-    @Override
-    public WatchListPost create(WatchListPost watchListPost) {
-        return watchListPostRepository.create(watchListPost);
-    }
+    public List<Post> getUserWatchListPosts(String emailAddress) {
+        User user = userRepository.findUserByContact_EmailAddress(emailAddress);
+
+        List<WatchListPost> watchListPostIdList = watchListPostRepository.findAllByUserId(user.getUserId());
+
+        List<Post> posts = postRepository.findAllByPostIdIn(watchListPostIdList.stream()
+                .map(post -> post.getPostId())
+                .collect(Collectors.toList())
+        );
+
+        if (posts.isEmpty()) {
+            return Collections.EMPTY_LIST;
+        }
 
 
-    @Override
-    public WatchListPost read(String watchListPostId) {
-        return watchListPostRepository.read(watchListPostId);
-    }
-
-    @Override
-    public WatchListPost update(WatchListPost watchListPost) {
-        return watchListPostRepository.update(watchListPost);
-    }
-
-
-    @Override
-    public boolean delete(String watchListPostId) {
-        return watchListPostRepository.delete(watchListPostId);
-    }
-
-    @Override
-    public Set<WatchListPost> getAll() {
-        return watchListPostRepository.getAll();
+        return posts;
     }
 }

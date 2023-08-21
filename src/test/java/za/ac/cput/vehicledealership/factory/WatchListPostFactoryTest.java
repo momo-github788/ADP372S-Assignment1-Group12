@@ -9,6 +9,7 @@ package za.ac.cput.vehicledealership.factory;
 
 import org.junit.jupiter.api.Test;
 import za.ac.cput.vehicledealership.domain.WatchListPost;
+import za.ac.cput.vehicledealership.util.Helper;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -17,8 +18,7 @@ public class WatchListPostFactoryTest {
 
     @Test
     public void testCreateWatchListPost() {
-        WatchListPost watchListPost = WatchListPostFactory.createWatchListPost();
-        assertNotNull(watchListPost.getWatchListPostId());
+        WatchListPost watchListPost = WatchListPostFactory.createWatchListPost(Helper.generateId(), Helper.generateId());
         assertNotNull(watchListPost.getPostId());
         assertNotNull(watchListPost.getUserId());
 

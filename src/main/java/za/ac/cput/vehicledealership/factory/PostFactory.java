@@ -7,6 +7,7 @@ package za.ac.cput.vehicledealership.factory;
 */
 
 import za.ac.cput.vehicledealership.domain.Branch;
+import za.ac.cput.vehicledealership.domain.Employee;
 import za.ac.cput.vehicledealership.domain.Post;
 import za.ac.cput.vehicledealership.domain.Vehicle;
 import za.ac.cput.vehicledealership.util.Helper;
@@ -17,9 +18,11 @@ import java.time.LocalDateTime;
 public class PostFactory {
 
 
-    public static Post createPost(String title, String description, double price, Vehicle vehicle, Branch branch, boolean isActive) {
+    public static Post createPost(String title, String description, double price, Vehicle vehicle, Branch branch, boolean isActive, Employee employee,  String postCreatorEmail) {
 
-        if(Helper.isNullOrEmpty(title) || Helper.isNullOrEmpty(description) || Helper.isNullOrEmpty(price) || Helper.isNullOrEmpty(vehicle) || Helper.isNullOrEmpty(branch) || Helper.isNullOrEmpty(isActive)) {
+        if(Helper.isNullOrEmpty(title) || Helper.isNullOrEmpty(description) || Helper.isNullOrEmpty(price) ||
+                Helper.isNullOrEmpty(vehicle) || Helper.isNullOrEmpty(branch) || Helper.isNullOrEmpty(isActive) ||
+                Helper.isNullOrEmpty(employee) || Helper.isNullOrEmpty(postCreatorEmail)) {
             return null;
         }
 
@@ -33,6 +36,8 @@ public class PostFactory {
                 .setCreatedAt(LocalDateTime.now())
                 .setExpiredAt(LocalDateTime.now().plusMonths(2))
                 .setActive(isActive)
+                .setPostCreatorEmail(postCreatorEmail)
+                .setEmployee(employee)
                 .build();
     }
 }

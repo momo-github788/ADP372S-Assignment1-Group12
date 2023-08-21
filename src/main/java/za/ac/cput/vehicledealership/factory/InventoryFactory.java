@@ -14,6 +14,8 @@ import za.ac.cput.vehicledealership.util.Helper;
 
 public class InventoryFactory {
     public static Inventory createInventoryFactory(int quantity, InventoryType inventoryType, Vehicle vehicle) {
+
+
       String id = Helper.generateId();
         if(Helper.isNullOrEmpty(quantity) || Helper.isNullOrEmpty(inventoryType) ) {
             throw new IllegalArgumentException("quantity or inventoryType is empty ");

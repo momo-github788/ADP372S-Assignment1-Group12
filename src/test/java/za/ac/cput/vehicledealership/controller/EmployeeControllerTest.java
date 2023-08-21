@@ -25,7 +25,7 @@ class EmployeeControllerTest {
 
 
     private static Name name = NameFactory.createName("Mary", "", "Anne");
-    private static Employee employee = EmployeeFactory.createEmployee(name, "Password123");
+    private static Employee employee = EmployeeFactory.createEmployee(name, "Password123", "Mary@gmail.com");
 
     private final String BASE_URL = "http://localhost:8080/employee";
     private RestTemplate restTemplate = new RestTemplate();
@@ -64,6 +64,7 @@ class EmployeeControllerTest {
         String url = BASE_URL + "/update";
 
         Name middleName = NameFactory.createName("Julian");
+
         Employee updateEmployee = new Employee.Builder()
                 .copy(employee)
                 .setName(middleName)

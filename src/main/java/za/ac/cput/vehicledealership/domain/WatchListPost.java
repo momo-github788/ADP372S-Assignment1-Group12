@@ -10,10 +10,16 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.IdClass;
 import jakarta.persistence.Table;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 
 import java.io.Serializable;
 
 @Entity
+@Getter
+@ToString
+@EqualsAndHashCode
 @Table(name="watchlist_post")
 @IdClass(WatchlistPostId.class)
 public class WatchListPost implements Serializable {
@@ -29,31 +35,6 @@ public class WatchListPost implements Serializable {
     private WatchListPost(Builder builder) {
         this.postId = builder.postId;
         this.userId = builder.userId;
-    }
-
-
-    public String getPostId() {
-        return postId;
-    }
-
-    public void setPostId(String postId) {
-        this.postId = postId;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    @Override
-    public String toString() {
-        return "WatchListPost{" +
-                ", postId='" + postId + '\'' +
-                ", userId='" + userId + '\'' +
-                '}';
     }
 
     public static class Builder {

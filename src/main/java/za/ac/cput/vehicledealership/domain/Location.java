@@ -7,13 +7,24 @@ package za.ac.cput.vehicledealership.domain;
 */
 
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToOne;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 
 import java.util.Objects;
 
+@Getter
+@ToString
+@EqualsAndHashCode
 @Embeddable
 public class Location {
     private int streetNumber;
     private String streetName;
+
+    @OneToOne
     private City city;
     private String postalCode;
     private String province;
@@ -28,70 +39,6 @@ public class Location {
         this.city = builder.city;
         this.postalCode = builder.postalCode;
         this.province = builder.province;
-    }
-
-    public int getStreetNumber() {
-        return streetNumber;
-    }
-
-    public void setStreetNumber(int streetNumber) {
-        this.streetNumber = streetNumber;
-    }
-
-    public String getStreetName() {
-        return streetName;
-    }
-
-    public void setStreetName(String streetName) {
-        this.streetName = streetName;
-    }
-
-    public City getCity() {
-        return city;
-    }
-
-    public void setCity(City city) {
-        this.city = city;
-    }
-
-    public String getPostalCode() {
-        return postalCode;
-    }
-
-    public void setPostalCode(String postalCode) {
-        this.postalCode = postalCode;
-    }
-
-    public String getProvince() {
-        return province;
-    }
-
-    public void setProvince(String province) {
-        this.province = province;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Location location = (Location) o;
-        return streetNumber == location.streetNumber && Objects.equals(streetName, location.streetName) && Objects.equals(city, location.city) && Objects.equals(postalCode, location.postalCode) && Objects.equals(province, location.province);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(streetNumber, streetName, city, postalCode, province);
-    }
-
-    @Override
-    public String toString() {
-        return "Location{" +
-                "streetNumber=" + streetNumber +
-                ", streetName='" + streetName + '\'' +
-                ", city='" + city + '\'' +
-                ", postalCode='" + postalCode + '\'' +
-                ", province='" + province + '\'' +
-                '}';
     }
 
     public static class Builder {

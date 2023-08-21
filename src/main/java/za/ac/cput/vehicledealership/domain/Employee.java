@@ -1,21 +1,36 @@
 package za.ac.cput.vehicledealership.domain;
 
-import jakarta.persistence.Embedded;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import lombok.*;
+
 
 import java.time.LocalDateTime;
-import java.util.Objects;
+import java.util.ArrayList;
+
+import java.util.List;
+
 
 @Entity
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode
 public class Employee {
 
     @Id
-    private long employeeNumber;
+    private String employeeNumber;
     @Embedded
     private Name name;
     private LocalDateTime dateJoined;
+
+    @Email(message = "Email format is invalid")
+    private String emailAddress;
     private String password;
+
+
+    @OneToMany(mappedBy = "employee")
+    private List<Post> posts;
 
     protected Employee() {
 
@@ -26,55 +41,18 @@ public class Employee {
         this.name = builder.name;
         this.dateJoined = builder.dateJoined;
         this.password = builder.password;
-    }
-
-    public long getEmployeeNumber() {
-        return employeeNumber;
-    }
-
-    public Name getName() {
-        return name;
-    }
-
-    public LocalDateTime getDateJoined() {
-        return dateJoined;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Employee employee = (Employee) o;
-        return employeeNumber == employee.employeeNumber && Objects.equals(name, employee.name) && Objects.equals(dateJoined, employee.dateJoined) && Objects.equals(password, employee.password);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(employeeNumber, name, dateJoined, password);
-    }
-
-    @Override
-    public String toString() {
-        return "Employee{" +
-                "employeeNumber=" + employeeNumber +
-                ", name=" + name +
-                ", dateJoined=" + dateJoined +
-                ", password='" + password + '\'' +
-                '}';
+        this.emailAddress = builder.emailAddress;
     }
 
     public static class Builder {
-        private long employeeNumber;
+        private String employeeNumber;
         private Name name;
         private LocalDateTime dateJoined;
         private String password;
+        private String emailAddress;
 
 
-        public Builder setEmployeeNumber(long employeeNumber) {
+        public Builder setEmployeeNumber(String employeeNumber) {
             this.employeeNumber = employeeNumber;
             return this;
         }
@@ -94,11 +72,17 @@ public class Employee {
             return this;
         }
 
+        public Builder setEmailAddress(String emailAddress) {
+            this.emailAddress = emailAddress;
+            return this;
+        }
+
         public Builder copy(Employee employee) {
             this.employeeNumber = employee.employeeNumber;
             this.name = employee.name;
             this.dateJoined = employee.dateJoined;
             this.password = employee.password;
+            this.emailAddress = employee.emailAddress;
             return this;
         }
 
@@ -106,4 +90,5 @@ public class Employee {
             return new Employee(this);
         }
     }
+
 }

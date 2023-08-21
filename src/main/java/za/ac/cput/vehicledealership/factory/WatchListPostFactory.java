@@ -11,11 +11,10 @@ import za.ac.cput.vehicledealership.domain.WatchListPost;
 import za.ac.cput.vehicledealership.util.Helper;
 
 public class WatchListPostFactory {
-    public static WatchListPost createWatchListPost() {
+    public static WatchListPost createWatchListPost(String postId, String userId) {
         return new WatchListPost.Builder()
-                .setWatchListPostId(Helper.generateId())
-                .setPostId(Helper.generateId())
-                .setUserId(Helper.generateId())
+                .setPostId(postId)
+                .setUserId(userId)
                 .build();
     }
 }

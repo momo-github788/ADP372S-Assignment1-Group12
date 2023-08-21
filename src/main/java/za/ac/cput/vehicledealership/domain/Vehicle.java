@@ -10,18 +10,23 @@ import jakarta.persistence.Column;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.*;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 
 import java.util.Objects;
 
 @Entity
+@Getter
+@ToString
+@EqualsAndHashCode
 @Table(name = "vehicle")
 public class Vehicle {
     @Id
     protected String vehicleId;
     protected String make;
     protected String model;
-
-    //@Enumerated(EnumType.STRING)
     @Enumerated(EnumType.STRING)
     @Column(name = "vehicle_condition")
     protected VehicleCondition condition;
@@ -30,8 +35,9 @@ public class Vehicle {
     protected String colour;
     protected int year;
     protected int mileage;
-    @OneToOne(mappedBy = "vehicle")
-    protected Post post;
+
+    @OneToOne
+    private Inventory inventory;
 
     protected Vehicle() {
 
@@ -47,64 +53,6 @@ public class Vehicle {
         this.year = builder.year;
         this.mileage = builder.mileage;
 
-    }
-
-    public String getVehicleId() {
-        return vehicleId;
-    }
-
-    public String getMake() {
-        return make;
-    }
-
-    public String getModel() {
-        return model;
-    }
-
-    public VehicleCondition getCondition() {
-        return condition;
-    }
-
-    public FuelType getFuelType() {
-        return fuelType;
-    }
-
-    public String getColour() {
-        return colour;
-    }
-
-    public int getYear() {
-        return year;
-    }
-
-    public int getMileage() {
-        return mileage;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Vehicle vehicle = (Vehicle) o;
-        return year == vehicle.year && mileage == vehicle.mileage && Objects.equals(vehicleId, vehicle.vehicleId) && Objects.equals(make, vehicle.make) && Objects.equals(model, vehicle.model) && condition == vehicle.condition && fuelType == vehicle.fuelType && Objects.equals(colour, vehicle.colour);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(vehicleId, make, model, condition, fuelType, colour, year, mileage);
-    }
-
-    @Override
-    public String toString() {
-        return "Vehicle{" +
-                "vehicleId='" + vehicleId + '\'' +
-                ", make='" + make + '\'' +
-                ", model='" + model + '\'' +
-                ", condition=" + condition +
-                ", fuelType=" + fuelType +
-                ", colour='" + colour + '\'' +
-                ", year=" + year +
-                ", mileage=" + mileage + ", ";
     }
 
     public static class Builder<T extends Builder<T>> {

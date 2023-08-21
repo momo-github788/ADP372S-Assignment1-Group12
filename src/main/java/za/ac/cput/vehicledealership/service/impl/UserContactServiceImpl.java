@@ -1,9 +1,12 @@
 package za.ac.cput.vehicledealership.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import za.ac.cput.vehicledealership.domain.UserContact;
-import za.ac.cput.vehicledealership.repository.impl.UserContactRepositoryImpl;
+import za.ac.cput.vehicledealership.repository.UserContactRepository;
 import za.ac.cput.vehicledealership.service.UserContactService;
+
+import java.util.List;
 import java.util.Set;
 
 /*  UserContactServiceImpl.java
@@ -13,44 +16,44 @@ import java.util.Set;
 */
 @Service
 public class UserContactServiceImpl implements UserContactService {
-    private static UserContactServiceImpl userContactService = null;
-    private UserContactRepositoryImpl userContactRepository = null;
 
-    public UserContactServiceImpl() {
-        this.userContactRepository = UserContactRepositoryImpl.getUserContactRepository();
+
+    private UserContactRepository userContactRepository;
+
+    @Autowired
+    public UserContactServiceImpl(UserContactRepository userContactRepository) {
+        this.userContactRepository = userContactRepository;
     }
-
-    public static UserContactServiceImpl getUserContactService() {
-        if(userContactService == null) {
-            userContactService = new UserContactServiceImpl();
-        }
-        return userContactService;
-    }
-
 
     @Override
     public UserContact create(UserContact userContact) {
-        return userContactRepository.create(userContact);
+        return userContactRepository.save(userContact);
     }
 
     @Override
     public UserContact read(String userId) {
-        return userContactRepository.read(userId);
+        return userContactRepository.findById(userId).orElse(null);
     }
 
     @Override
     public UserContact update(UserContact userContact) {
-        return userContactRepository.update(userContact);
+        if(userContactRepository.existsById(userContact.getUserId())) {
+            return this.userContactRepository.save(userContact);
+        }
+        return null;
     }
 
     @Override
     public boolean delete(String userId) {
-        return userContactRepository.delete(userId);
+        if(userContactRepository.existsById(userId)) {
+            this.userContactRepository.deleteById(userId);
+        }
+        return false;
     }
 
     @Override
-    public Set<UserContact> getAll() {
-        return userContactRepository.getAll();
+    public List<UserContact> getAll() {
+        return userContactRepository.findAll();
     }
 }
 

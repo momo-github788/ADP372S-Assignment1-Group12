@@ -20,15 +20,18 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class PostControllerTest {
 
+    private static Name name = NameFactory.createName("Mary", "", "Anne");
+    private static Employee employee = EmployeeFactory.createEmployee(name, "Password123", "Mary@gmail.com");
+    private static City city = CityFactory.createCity("Cape Town");
 
-    private static Location location = LocationFactory.createLocation(27, "Daisy Street", "Cape Town",
+    private static Location location = LocationFactory.createLocation(27, "Daisy Street", city,
             "7850", "Western Cape");
     private static Vehicle vehicle = VehicleFactory.createVehicle("Audi", "A4", VehicleCondition.USED, FuelType.PETROL,
             "White", 2019, 23000);
     private static Branch branch = BranchFactory.createBranch("Cape town branch", 2017, location);
 
     private static Post post = PostFactory.createPost("Audi A4 For sale", "Car is in good condition. License up to date", 249999.99,
-            vehicle, branch, true);
+            vehicle, branch, true, employee, employee.getEmailAddress());
 
     private final String BASE_URL = "http://localhost:8080/post";
     private RestTemplate restTemplate = new RestTemplate();

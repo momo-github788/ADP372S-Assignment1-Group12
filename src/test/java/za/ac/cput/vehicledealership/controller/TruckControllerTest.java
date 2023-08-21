@@ -16,7 +16,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import za.ac.cput.vehicledealership.domain.*;
-import za.ac.cput.vehicledealership.factory.CarFactory;
 import za.ac.cput.vehicledealership.factory.TruckFactory;
 
 import static org.junit.jupiter.api.Assertions.*;
