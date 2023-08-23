@@ -14,28 +14,17 @@ import za.ac.cput.vehicledealership.util.Helper;
 
 public class InventoryFactory {
     public static Inventory createInventoryFactory(int quantity, InventoryType inventoryType, Vehicle vehicle) {
-
-
-      String id = Helper.generateId();
         if(Helper.isNullOrEmpty(quantity) || Helper.isNullOrEmpty(inventoryType) ) {
             throw new IllegalArgumentException("quantity or inventoryType is empty ");
         }
-        Vehicle vehicle1=VehicleFactory.createVehicle(vehicle.getMake(),
-                vehicle.getModel(),vehicle.getCondition(),vehicle.getFuelType(),
-                vehicle.getColour(),vehicle.getYear(),vehicle.getMileage());
-
-
-
-        return new Inventory.Builder()
-                .setInventoryId(id)
-                .setQuantity(quantity)
-                .setInventoryType(inventoryType)
-                .setVehicle(vehicle1).build();
+         return new Inventory.Builder().setQuantity(quantity) .setInventoryType(inventoryType) .setVehicle(vehicle).build();
     }
-
-
-
-
+    public static Inventory updateInventoryFactorywithid(String id,int quantity, InventoryType inventoryType, Vehicle vehicle) {
+        if(Helper.isNullOrEmpty(quantity) || Helper.isNullOrEmpty(inventoryType) ) {
+            throw new IllegalArgumentException("quantity or inventoryType is empty ");
+        }
+        return new Inventory.Builder().setInventoryId(id).setQuantity(quantity) .setInventoryType(inventoryType) .setVehicle(vehicle).build();
     }
+}
 
 
