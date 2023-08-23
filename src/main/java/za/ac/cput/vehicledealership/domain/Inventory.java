@@ -1,46 +1,68 @@
 package za.ac.cput.vehicledealership.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
+import jakarta.persistence.*;
 
-import java.util.ArrayList;
-import java.util.List;
+/*  Addons.java
+    Entity for Inventory
+    Author: Serge kalala
 
+*/
 @Entity
-@EqualsAndHashCode
-@Getter
-@ToString
 public class Inventory {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "InventoryAccount")
+    @SequenceGenerator(name = "InventoryAccount", sequenceName = "ORACLE_DB_SEQ",
+            allocationSize = 1, initialValue = 9904)
     private String inventoryId;
     private int quantity;
+    @Enumerated(EnumType.STRING)
     private InventoryType inventoryType;
-
-    @JoinColumn(name = "branch_id",  referencedColumnName = "branch_id")
-    @OneToOne
-    private Branch branch;
-
-
+    @OneToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "vehicleId")
+    private Vehicle Vehicle;
 
 
     public Inventory(Builder builder) {
         this.inventoryId = builder.inventoryId;
         this.quantity =  builder.quantity;
         this.inventoryType =  builder.inventoryType;
+       this. Vehicle = builder.Vehicle;
+    }
+
+    public Inventory() {
+
     }
 
 
+    public String getInventoryId() {
+        return inventoryId;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public InventoryType getInventoryType() {
+        return inventoryType;
+    }
+    public Vehicle getVehicle() {
+        return Vehicle;
+    }
+    @Override
+    public String toString() {
+        return "Inventory{" +
+                "inventoryId='" + inventoryId + '\'' +
+                ", quantity=" + quantity +
+                ", inventoryType='" + inventoryType + '\'' +
+                ", Vehicle=" + Vehicle +
+                '}';
+    }
     public static class Builder {
 
         private String inventoryId;
         private int quantity;
         private InventoryType inventoryType;
-        private List<Vehicle> vehicles;
+        private Vehicle Vehicle;
 
         public Builder setInventoryId(String inventoryId) {
             this.inventoryId = inventoryId;
@@ -73,9 +95,5 @@ public class Inventory {
             return new Inventory(this);
         }
     }
-
-
-
-
     }
 

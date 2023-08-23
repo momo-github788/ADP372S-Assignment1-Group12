@@ -1,9 +1,28 @@
 package za.ac.cput.vehicledealership.domain;
 
+import jakarta.persistence.*;
+import lombok.Data;
+
+/*  Addons.java
+    Entity for VehicleAddons
+    Author: Serge kalala
+*/
+@Data
 public class VehicleAddons {
-    private String vehicleId;
-    private  String addonId;
-    public String getVehicleId() {
+    @OneToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "vehicleId")
+    @MapsId
+    private Vehicle vehicleId;
+    @OneToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "addons_id")
+    @MapsId
+    private  Addons addonId;
+
+    public VehicleAddons() {
+
+    }
+
+    public Vehicle getVehicleId() {
         return vehicleId;
     }
 
@@ -12,34 +31,30 @@ public class VehicleAddons {
         this.addonId = builder.addonId;
     }
 
-    public String getAddonId() {
+    public Addons getAddons() {
         return addonId;
     }
     @Override
     public String toString() {
         return "VehicleAddons{" +
                 "vehicleId='" + vehicleId + '\'' +
-                ", addonId='" + addonId + '\'' +
+                ", Addons='" + addonId + '\'' +
                 '}';
     }
 
     public static class Builder {
 
-        private String vehicleId;
-        private String addonId;
-        public Builder setVehicleId(String vehicleId) {
+        private Vehicle vehicleId;
+        private Addons addonId;
+        public Builder setVehicleId(Vehicle vehicleId) {
             this.vehicleId = vehicleId;
             return this;
         }
 
-        public Builder setAddonId(String addonId) {
+        public Builder setAddons(Addons addonId) {
             this.addonId = addonId;
             return this;
         }
-
-
-
-
         public Builder copy(VehicleAddons vehicleAddons){
             this.vehicleId =vehicleAddons.vehicleId;
             this.addonId= vehicleAddons.addonId;
