@@ -12,12 +12,14 @@ import jakarta.persistence.IdClass;
 import jakarta.persistence.Table;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 import java.io.Serializable;
 
 @Entity
 @Getter
+@Setter
 @ToString
 @EqualsAndHashCode
 @Table(name="watchlist_post")

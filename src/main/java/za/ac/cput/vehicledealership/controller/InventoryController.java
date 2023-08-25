@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import za.ac.cput.vehicledealership.domain.Inventory;
-import za.ac.cput.vehicledealership.service.impl.InventoryService;
+import za.ac.cput.vehicledealership.service.impl.InventoryServiceImpl;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ import java.util.List;
 public class InventoryController {
 
     @Autowired
-    private InventoryService inventoryService;
+    private InventoryServiceImpl inventoryService;
 
     @PostMapping("/create")
     public ResponseEntity<?> create(@RequestBody Inventory inventory) {

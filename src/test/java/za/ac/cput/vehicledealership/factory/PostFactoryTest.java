@@ -26,14 +26,17 @@ class PostFactoryTest {
     @Test
     void testCreatePostSuccess() {
 
+
+        City city = CityFactory.createCity("Cape Town");
         Vehicle vehicle = VehicleFactory.createVehicle("Audi", "A4", VehicleCondition.USED, FuelType.PETROL, "White", 2019, 23000);
 
-        Location location = LocationFactory.createLocation(27, "Daisy Street", "Cape Town", "7850", "Western Cape");
+        Location location = LocationFactory.createLocation(27, "Daisy Street", city, "7850", "Western Cape");
 
         Branch branch = BranchFactory.createBranch("Cape town branch", 2017, location);
-
+        Name name = NameFactory.createName("Mary", "", "Anne");
+        Employee employee = EmployeeFactory.createEmployee(name, "Password123", "Mary@gmail.com");
         Post post = PostFactory.createPost("Audi A4 For sale", "Car is in good condition. License up to date", 249999.99,
-                vehicle, branch, true);
+                vehicle, branch, true, employee, employee.getEmailAddress());
 
         System.out.println(post);
         assertNotNull(post);
@@ -43,7 +46,7 @@ class PostFactoryTest {
     void testCreatePostWithNullValue() {
 
         Post post = PostFactory.createPost("Audi A4 For sale", "Car is in good condition. License up to date", 249999.99,
-                null, null, true);
+                null, null, true, null, null);
 
         System.out.println(post);
         assertNull(post);

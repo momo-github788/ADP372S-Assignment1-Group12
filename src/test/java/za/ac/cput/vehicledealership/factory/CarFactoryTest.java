@@ -16,6 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 class CarFactoryTest {
     @Test
     void testCreateCarSuccess() {
+
         Car car = CarFactory.createCar("Ford", "Fiesta", VehicleCondition.DEMO,
                 FuelType.ELECTRIC,"White", 2021, 150, true, BodyType.HATCHBACK);
         System.out.println(car);

@@ -1,13 +1,17 @@
 package za.ac.cput.vehicledealership.service.impl;
 
+import za.ac.cput.vehicledealership.domain.Contact;
+import za.ac.cput.vehicledealership.domain.Employee;
 import za.ac.cput.vehicledealership.domain.EmployeeContact;
+import za.ac.cput.vehicledealership.repository.ContactRepository;
 import za.ac.cput.vehicledealership.repository.EmployeeContactRepository;
-import za.ac.cput.vehicledealership.repository.impl.EmployeeContactRepositoryImpl;
+import za.ac.cput.vehicledealership.service.ContactService;
 import za.ac.cput.vehicledealership.service.EmployeeContactService;
 
 import java.util.List;
 import java.util.Set;
 import org.springframework.stereotype.Service;
+import za.ac.cput.vehicledealership.service.EmployeeService;
 
 
 
@@ -21,19 +25,36 @@ import org.springframework.stereotype.Service;
 public class EmployeeContactServiceImpl implements EmployeeContactService {
 
     private EmployeeContactRepository employeeContactRepository;
+    private ContactService contactService;
+    private EmployeeService employeeService;
 
-    public EmployeeContactServiceImpl(EmployeeContactRepository employeeContactRepository) {
+    public EmployeeContactServiceImpl(EmployeeContactRepository employeeContactRepository, ContactService contactService, EmployeeService employeeService) {
         this.employeeContactRepository = employeeContactRepository;
+        this.contactService = contactService;
+        this.employeeService = employeeService;
     }
 
 
     @Override
     public EmployeeContact create(EmployeeContact employeeContact) {
-        return employeeContactRepository.save(employeeContact);
+        Employee employee = employeeService.read(employeeContact.getEmployeeNumber());
+        Contact contact = contactService.read(employeeContact.getContactId());
+
+        if(employee != null && contact != null) {
+            return employeeContactRepository.save(employeeContact);
+        }
+        return null;
+
     }
 
     @Override
-    public EmployeeContact read(Long employeeNumber) {
+    public EmployeeContact read(EmployeeContact employeeContact) {
+
+        Employee employee = employeeService.read(employeeContact.getEmployeeNumber());
+        Contact contact = contactService.read(employeeContact.getContactId());
+
+
+
         return employeeContactRepository.findById(employeeNumber).orElse(null);
     }
 

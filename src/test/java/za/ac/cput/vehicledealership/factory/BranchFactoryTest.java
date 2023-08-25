@@ -10,6 +10,7 @@ package za.ac.cput.vehicledealership.factory;
 
 import org.junit.jupiter.api.Test;
 import za.ac.cput.vehicledealership.domain.Branch;
+import za.ac.cput.vehicledealership.domain.City;
 import za.ac.cput.vehicledealership.domain.Location;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -18,7 +19,9 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 public class BranchFactoryTest {
     @Test
     public void testCreateBranch() {
-        Location location = LocationFactory.createLocation(89974, "Main Road", "Paarl", "7626", "Western Cape");
+
+        City city = CityFactory.createCity("Cape Town");
+        Location location = LocationFactory.createLocation(89974, "Main Road", city, "7626", "Western Cape");
 
         Branch branch = BranchFactory.createBranch("Paarl Auto",2008,location);
 

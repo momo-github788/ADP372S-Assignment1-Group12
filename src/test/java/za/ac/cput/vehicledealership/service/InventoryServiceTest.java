@@ -8,14 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import za.ac.cput.vehicledealership.domain.*;
 import za.ac.cput.vehicledealership.factory.InventoryFactory;
 import za.ac.cput.vehicledealership.factory.VehicleFactory;
-import za.ac.cput.vehicledealership.service.impl.InventoryService;
+import za.ac.cput.vehicledealership.service.impl.InventoryServiceImpl;
 
 import static org.junit.jupiter.api.Assertions.*;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class InventoryServiceTest {
 
     @Autowired
-    private static InventoryService inventoryService;
+    private static InventoryServiceImpl inventoryService;
     private static   Vehicle vehicle = VehicleFactory.createVehicle("Audi", "A4", VehicleCondition.USED, FuelType.PETROL, "White", 2019, 23000);
 
     private static  Inventory inventory= InventoryFactory.createInventoryFactory(43, InventoryType.USED_INVENTORY,vehicle);

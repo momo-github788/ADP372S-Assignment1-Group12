@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import za.ac.cput.vehicledealership.domain.VehicleAddons;
-import za.ac.cput.vehicledealership.service.impl.ServiceVehicleAddons;
+import za.ac.cput.vehicledealership.service.impl.VehicleServiceAddons;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ public class VehicleAddonsController {
 
 
     @Autowired
-    private ServiceVehicleAddons serviceVehicleAddons;
+    private VehicleServiceAddons serviceVehicleAddons;
 
     @PostMapping("/create")
     public ResponseEntity<?> create(@RequestBody VehicleAddons vehicleAddons) {

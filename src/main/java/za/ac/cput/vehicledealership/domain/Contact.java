@@ -5,69 +5,61 @@ package za.ac.cput.vehicledealership.domain;
     Junaid Cedrass - 219090912
     03 April 2023
  */
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.Serializable;
 import java.util.Objects;
 
+@EqualsAndHashCode
+@Getter
+@ToString
 @Entity
-public class Contact implements Serializable {
+public class Contact  {
     @Id
-    private String contactNumber;
-    private String emailAddress;
+    private String contactId;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "contact_type")
+    private ContactType contactType;
+    private String value;
+
 
     protected Contact(){
 
     }
     public Contact(ContactBuilder builder){
-        this.contactNumber = builder.contactNumber;
-        this.emailAddress = builder.emailAddress;
+        this.contactId = builder.contactId;
+        this.contactType = builder.contactType;
+        this.value = builder.value;
     }
 
-    public String getContactNumber() {
-        return contactNumber;
-    }
 
-    public String getEmailAddress() {
-        return emailAddress;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Contact contact)) return false;
-        return Objects.equals(contactNumber, contact.contactNumber) && Objects.equals(emailAddress, contact.emailAddress);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(contactNumber, emailAddress);
-    }
-
-    @Override
-    public String toString() {
-        return "Contact{" +
-                "contactNumber='" + contactNumber + '\'' +
-                ", emailAddress='" + emailAddress + '\'' +
-                '}';
-    }
     public static class ContactBuilder {
-        private String contactNumber;
-        private String emailAddress;
+        private String contactId;
+        private ContactType contactType;
+        private String value;
 
-        public ContactBuilder setContactNumber(String contactNumber) {
-            this.contactNumber = contactNumber;
+        public ContactBuilder setContactId(String contactId) {
+            this.contactId = contactId;
             return this;
         }
 
-        public ContactBuilder setEmailAddress(String emailAddress) {
-            this.emailAddress = emailAddress;
+        public ContactBuilder setContactType(ContactType contactType) {
+            this.contactType = contactType;
+            return this;
+        }
+
+        public ContactBuilder setValue(String value) {
+            this.value = value;
             return this;
         }
 
         public ContactBuilder copy(Contact contact){
-            this.contactNumber = contact.contactNumber;
-            this.emailAddress = contact.emailAddress;
+            this.contactId = contact.contactId;
+            this.contactType = contact.contactType;
+            this.value = contact.value;
             return this;
         }
 

@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import za.ac.cput.vehicledealership.service.AddonsService;
 import za.ac.cput.vehicledealership.domain.Addons;
+
+import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -29,7 +31,7 @@ public class AddonsController {
     }
 
     @GetMapping("/all")
-    public Set<Addons> getAll() {
+    public List<Addons> getAll() {
         return addonsService.getAll();
     }
 

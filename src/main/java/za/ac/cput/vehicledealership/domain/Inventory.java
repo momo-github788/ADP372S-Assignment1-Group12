@@ -17,7 +17,7 @@ public class Inventory {
     private int quantity;
     @Enumerated(EnumType.STRING)
     private InventoryType inventoryType;
-    @OneToOne(cascade = CascadeType.MERGE)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "vehicleId")
     private Vehicle Vehicle;
 

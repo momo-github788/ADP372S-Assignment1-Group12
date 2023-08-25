@@ -23,8 +23,8 @@ public class Branch {
     @Embedded
     private Location location;
 
-    @OneToOne(mappedBy = "branch")
-    private Post post;
+//    @OneToOne(mappedBy = "branch")
+//    private Post post;
 
     protected Branch() {
 

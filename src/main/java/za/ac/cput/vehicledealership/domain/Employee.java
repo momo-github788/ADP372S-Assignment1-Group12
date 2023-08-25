@@ -23,9 +23,6 @@ public class Employee {
     @Embedded
     private Name name;
     private LocalDateTime dateJoined;
-
-    @Email(message = "Email format is invalid")
-    private String emailAddress;
     private String password;
 
 
@@ -41,7 +38,6 @@ public class Employee {
         this.name = builder.name;
         this.dateJoined = builder.dateJoined;
         this.password = builder.password;
-        this.emailAddress = builder.emailAddress;
     }
 
     public static class Builder {
@@ -49,7 +45,6 @@ public class Employee {
         private Name name;
         private LocalDateTime dateJoined;
         private String password;
-        private String emailAddress;
 
 
         public Builder setEmployeeNumber(String employeeNumber) {
@@ -72,17 +67,12 @@ public class Employee {
             return this;
         }
 
-        public Builder setEmailAddress(String emailAddress) {
-            this.emailAddress = emailAddress;
-            return this;
-        }
 
         public Builder copy(Employee employee) {
             this.employeeNumber = employee.employeeNumber;
             this.name = employee.name;
             this.dateJoined = employee.dateJoined;
             this.password = employee.password;
-            this.emailAddress = employee.emailAddress;
             return this;
         }
 

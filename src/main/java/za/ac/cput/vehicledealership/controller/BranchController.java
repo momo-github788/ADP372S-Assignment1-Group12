@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import za.ac.cput.vehicledealership.domain.Branch;
 import za.ac.cput.vehicledealership.service.BranchService;
+
+import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -24,7 +26,7 @@ public class BranchController {
     }
 
     @GetMapping("/all")
-    public Set<Branch> getAll() {
+    public List<Branch> getAll() {
         return branchService.getAll();
     }
 

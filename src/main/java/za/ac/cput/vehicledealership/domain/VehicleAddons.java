@@ -1,69 +1,59 @@
 package za.ac.cput.vehicledealership.domain;
 
-import jakarta.persistence.*;
-import lombok.Data;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.IdClass;
+import jakarta.persistence.Table;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-/*  Addons.java
-    Entity for VehicleAddons
-    Author: Serge kalala
-*/
-@Data
+
+@Entity
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode
+@Table(name = "vehicle_addons")
+@IdClass(VehicleAddonsId.class)
 public class VehicleAddons {
-    @OneToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "vehicleId")
-    @MapsId
-    private Vehicle vehicleId;
-    @OneToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "addons_id")
-    @MapsId
-    private  Addons addonId;
+    @Id
+    private String vehicleId;
+    @Id
+    private String addonId;
 
     public VehicleAddons() {
-
-    }
-
-    public Vehicle getVehicleId() {
-        return vehicleId;
     }
 
     public VehicleAddons(Builder builder) {
-        this.vehicleId =builder.vehicleId;
+        this.vehicleId = builder.vehicleId;
         this.addonId = builder.addonId;
     }
 
-    public Addons getAddons() {
-        return addonId;
-    }
-    @Override
-    public String toString() {
-        return "VehicleAddons{" +
-                "vehicleId='" + vehicleId + '\'' +
-                ", Addons='" + addonId + '\'' +
-                '}';
-    }
 
     public static class Builder {
+        private String vehicleId;
+        private String addonId;
 
-        private Vehicle vehicleId;
-        private Addons addonId;
-        public Builder setVehicleId(Vehicle vehicleId) {
+        public Builder setVehicleId(String vehicleId) {
             this.vehicleId = vehicleId;
             return this;
         }
 
-        public Builder setAddons(Addons addonId) {
+        public Builder setAddonId(String addonId) {
             this.addonId = addonId;
             return this;
         }
-        public Builder copy(VehicleAddons vehicleAddons){
-            this.vehicleId =vehicleAddons.vehicleId;
-            this.addonId= vehicleAddons.addonId;
+
+        public Builder copy(VehicleAddons vehicleAddons) {
+            this.vehicleId = vehicleAddons.vehicleId;
+            this.addonId = vehicleAddons.addonId;
             return this;
         }
-        public VehicleAddons build(){
+
+        public VehicleAddons build() {
             return new VehicleAddons(this);
         }
-        }
     }
-
-
+}

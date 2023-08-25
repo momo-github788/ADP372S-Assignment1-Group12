@@ -9,9 +9,10 @@ package za.ac.cput.vehicledealership.service;
 
 import za.ac.cput.vehicledealership.domain.Branch;
 
+import java.util.List;
 import java.util.Set;
 
-public interface BranchService  extends IService<Branch, String> {
-    Set<Branch> getAll();
+public interface BranchService extends IService<Branch, String> {
+    List<Branch> getAll();
 
 }

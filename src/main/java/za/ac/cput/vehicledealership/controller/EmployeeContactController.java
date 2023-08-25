@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import za.ac.cput.vehicledealership.domain.EmployeeContact;
 import za.ac.cput.vehicledealership.service.EmployeeContactService;
+
+import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -29,7 +31,7 @@ public class EmployeeContactController {
         }
 
         @GetMapping("/all")
-        public Set<EmployeeContact> getAll() {
+        public List<EmployeeContact> getAll() {
             return employeeContactService.getAll();
         }
 

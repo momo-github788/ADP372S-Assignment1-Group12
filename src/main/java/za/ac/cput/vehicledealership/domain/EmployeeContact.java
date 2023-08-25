@@ -4,65 +4,56 @@ package za.ac.cput.vehicledealership.domain;
     Author: George Tapiwa Charimba (220073465)
     Date: 18 June 2023
 */
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.IdClass;
+import jakarta.persistence.Table;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 import java.util.Objects;
 
+@Entity
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode
+@Table(name = "employee_contact")
+@IdClass(EmployeeContactId.class)
 public class EmployeeContact {
-    private long employeeNumber;
-    private Contact contact;
+    @Id
+    private String employeeNumber;
+    @Id
+    private String contactId;
 
     public EmployeeContact() {
     }
 
     public EmployeeContact(Builder builder) {
         this.employeeNumber = builder.employeeNumber;
-        this.contact = builder.contact;
+        this.contactId = builder.contactId;
     }
 
-    public long getEmployeeNumber() {
-        return employeeNumber;
-    }
-
-    public Contact getContact() {
-        return contact;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof EmployeeContact that)) return false;
-        return getEmployeeNumber() == that.getEmployeeNumber() && Objects.equals(getContact(), that.getContact());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getEmployeeNumber(), getContact());
-    }
-
-    @Override
-    public String toString() {
-        return "EmployeContact{" +
-                "employeeNumber=" + employeeNumber +
-                ", contact=" + contact +
-                '}';
-    }
 
     public static class Builder {
-        private long employeeNumber;
-        private Contact contact;
+        private String employeeNumber;
+        private String contactId;
 
-        public Builder setEmployeeNumber(long employeeNumber) {
+        public Builder setEmployeeNumber(String employeeNumber) {
             this.employeeNumber = employeeNumber;
             return this;
         }
 
-        public Builder setContact(Contact contact) {
-            this.contact = contact;
+        public Builder setContactId(String contactId) {
+            this.contactId = contactId;
             return this;
         }
 
         public EmployeeContact.Builder copy(EmployeeContact employeeContact) {
             this.employeeNumber = employeeContact.employeeNumber;
-            this.contact = employeeContact.contact;
+            this.contactId = employeeContact.contactId;
             return this;
         }
 

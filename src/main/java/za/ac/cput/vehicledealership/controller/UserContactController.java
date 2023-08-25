@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import za.ac.cput.vehicledealership.domain.UserContact;
 import za.ac.cput.vehicledealership.service.UserContactService;
+
+import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -26,7 +28,7 @@ public class UserContactController {
     public UserContact get(@PathVariable String id){return userContactService.read(id);}
 
     @GetMapping("/all")
-    public Set<UserContact> getAll() {return userContactService.getAll();}
+    public List<UserContact> getAll() {return userContactService.getAll();}
 
     @PostMapping("/update")
     public UserContact update(@RequestBody UserContact userContact){return userContactService.update(userContact);}

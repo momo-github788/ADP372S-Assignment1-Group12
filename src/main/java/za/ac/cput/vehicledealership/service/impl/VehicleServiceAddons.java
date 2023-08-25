@@ -9,7 +9,7 @@ import za.ac.cput.vehicledealership.service.VehicleAddonsService;
 import java.util.List;
 @Service
 @RequiredArgsConstructor
-public class ServiceVehicleAddons implements VehicleAddonsService {
+public class VehicleServiceAddons implements VehicleAddonsService {
 
     private final VehicleAddonsRepository repository;
 

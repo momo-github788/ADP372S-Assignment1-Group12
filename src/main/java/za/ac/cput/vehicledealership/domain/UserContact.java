@@ -1,72 +1,58 @@
 package za.ac.cput.vehicledealership.domain;
-/*  UserContact.java
-    Entity for user contact
-    Author: George Tapiwa Charimba (220073465)
-    Date: 18 June 2023
-*/
 
-import java.util.Objects;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.IdClass;
+import jakarta.persistence.Table;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import za.ac.cput.vehicledealership.domain.UserContactId;
 
-public class UserContact{
+@Entity
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode
+@Table(name = "user_contact")
+@IdClass(UserContactId.class)
+public class UserContact {
+    @Id
     private String userId;
-    private Contact contact;
+    @Id
+    private String contactId;
 
-    private UserContact(){};
+    public UserContact() {
+    }
 
     public UserContact(Builder builder) {
         this.userId = builder.userId;
-        this.contact = builder.contact;
+        this.contactId = builder.contactId;
     }
 
-    public String getUserId() {
-        return userId;
-    }
 
-    public Contact getContact() {
-        return contact;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof UserContact that)) return false;
-        return Objects.equals(getUserId(), that.getUserId()) && Objects.equals(getContact(), that.getContact());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getUserId(), getContact());
-    }
-
-    @Override
-    public String toString() {
-        return "UserContact{" +
-                "userId='" + userId + '\'' +
-                ", contact=" + contact +
-                '}';
-    }
-
-    public static class Builder{
+    public static class Builder {
         private String userId;
-        private Contact contact;
+        private String contactId;
 
         public Builder setUserId(String userId) {
             this.userId = userId;
             return this;
         }
 
-        public Builder setContact(Contact contact) {
-            this.contact = contact;
+        public Builder setContactId(String contactId) {
+            this.contactId = contactId;
             return this;
         }
 
-        public UserContact.Builder copy(UserContact userContact) {
+        public Builder copy(UserContact userContact) {
             this.userId = userContact.userId;
-            this.contact = userContact.contact;
+            this.contactId = userContact.contactId;
             return this;
         }
 
-        public UserContact build(){
+        public UserContact build() {
             return new UserContact(this);
         }
     }

@@ -7,12 +7,13 @@ import za.ac.cput.vehicledealership.domain.Vehicle;
 import za.ac.cput.vehicledealership.factory.InventoryFactory;
 import za.ac.cput.vehicledealership.repository.InventoryRepository;
 import za.ac.cput.vehicledealership.repository.VehicleRepository;
-import za.ac.cput.vehicledealership.service.ServiceInventory;
+import za.ac.cput.vehicledealership.service.InventoryService;
+
 
 import java.util.List;
 @Service
 @RequiredArgsConstructor
-public class InventoryService implements ServiceInventory {
+public class InventoryServiceImpl implements InventoryService {
 
 
     private final InventoryRepository inventoryRepository;

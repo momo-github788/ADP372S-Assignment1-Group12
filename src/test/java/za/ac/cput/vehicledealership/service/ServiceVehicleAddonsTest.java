@@ -9,8 +9,7 @@ import za.ac.cput.vehicledealership.domain.*;
 import za.ac.cput.vehicledealership.factory.AddonsFactory;
 import za.ac.cput.vehicledealership.factory.VehicleAddonsFactory;
 import za.ac.cput.vehicledealership.factory.VehicleFactory;
-import za.ac.cput.vehicledealership.service.impl.PostServiceImpl;
-import za.ac.cput.vehicledealership.service.impl.ServiceVehicleAddons;
+import za.ac.cput.vehicledealership.service.impl.VehicleServiceAddons;
 
 import java.time.LocalDateTime;
 
@@ -19,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ServiceVehicleAddonsTest {
 
     @Autowired
-    private ServiceVehicleAddons serviceVehicleAddons;
+    private VehicleServiceAddons serviceVehicleAddons;
     private static Vehicle vehicle = VehicleFactory.createVehicle("Audi", "A4", VehicleCondition.USED,
             FuelType.PETROL, "White", 2019, 23000);
     private static Addons addons = AddonsFactory.createAddons("Audi", "A4", LocalDateTime.now(), AddonType.DETAILINGADDON, 15000, 12, 12);
