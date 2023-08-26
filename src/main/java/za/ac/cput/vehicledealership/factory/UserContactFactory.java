@@ -11,13 +11,13 @@ import za.ac.cput.vehicledealership.util.Helper;
 */
 public class UserContactFactory {
 
-    public static UserContact createUserContact(Contact contact){
-        if(Helper.isNullOrEmpty(contact) ){
+    public static UserContact createUserContact(String userId, String contactId){
+        if(Helper.isNullOrEmpty(userId) || Helper.isNullOrEmpty(contactId)){
             return null;
         }
         return new UserContact.Builder()
-                .setUserId(Helper.generateId())
-                .setContact(contact)
+                .setUserId(userId)
+                .setContactId(contactId)
                 .build();
     }
 

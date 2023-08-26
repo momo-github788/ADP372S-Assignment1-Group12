@@ -7,6 +7,7 @@
 //*/
 //
 //
+//import org.junit.jupiter.api.Disabled;
 //import org.junit.jupiter.api.Test;
 //import za.ac.cput.vehicledealership.domain.Branch;
 //import za.ac.cput.vehicledealership.domain.Location;
@@ -15,7 +16,7 @@
 //import za.ac.cput.vehicledealership.repository.impl.BranchRepositoryImpl;
 //
 //import static org.junit.jupiter.api.Assertions.*;
-//
+//@Disabled
 //public class BranchServiceImplTest {
 //    private static BranchRepositoryImpl repository = BranchRepositoryImpl.getBranchRepository();
 //

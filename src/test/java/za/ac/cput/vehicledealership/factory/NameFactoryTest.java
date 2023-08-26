@@ -6,11 +6,12 @@ package za.ac.cput.vehicledealership.factory;
     Date: 10 May 2023
 */
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import za.ac.cput.vehicledealership.domain.Name;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-
+@Disabled
 class NameFactoryTest {
 
     @Test

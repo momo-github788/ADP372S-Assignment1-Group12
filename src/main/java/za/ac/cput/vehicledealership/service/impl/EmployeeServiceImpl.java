@@ -35,9 +35,9 @@ public class EmployeeServiceImpl  {
         //employee.setPassword(passwordEncoder.encode(employee.getPassword()));
         //employee.setConfirmPassword("");
 
-        if (employeeRepository.existsByEmailAddress(employee.getEmailAddress())) {
-            throw new RuntimeException("Account already exists with this email address");
-        }
+//        if (employeeRepository.existsByEmailAddress(employee.getEmailAddress())) {
+//            throw new RuntimeException("Account already exists with this email address");
+//        }
         return employeeRepository.save(employee);
     }
 

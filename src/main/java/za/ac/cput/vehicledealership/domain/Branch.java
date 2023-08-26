@@ -8,15 +8,19 @@
 package za.ac.cput.vehicledealership.domain;
 
 
-import jakarta.persistence.Embedded;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 
 @Entity
+@Getter
+@EqualsAndHashCode
+@ToString
 public class Branch {
 
     @Id
+    @Column(name = "branch_id")
     private String branchId;
     private String branchName;
     private int yearOpened;
@@ -30,37 +34,11 @@ public class Branch {
 
     }
 
-    public String getBranchId() {
-        return branchId;
-    }
-
-    public String getBranchName() {
-        return branchName;
-    }
-
-    public int getYearOpened() {
-        return yearOpened;
-    }
-
-    public Location getLocation() {
-        return location;
-    }
-
     private Branch (BranchBuilder branchBuilder){
         this.branchId = branchBuilder.branchId;
         this.branchName = branchBuilder.branchName;
         this.yearOpened = branchBuilder.yearOpened;
         this.location = branchBuilder.location;
-    }
-
-    @Override
-    public String toString() {
-        return "Branch{" +
-                "branchId='" + branchId + '\'' +
-                ", branchName='" + branchName + '\'' +
-                ", yearOpened=" + yearOpened +
-                ", location=" + location +
-                '}';
     }
 
     public static class BranchBuilder {

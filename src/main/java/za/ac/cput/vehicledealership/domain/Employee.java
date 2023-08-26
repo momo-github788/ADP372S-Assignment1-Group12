@@ -19,6 +19,7 @@ import java.util.List;
 public class Employee {
 
     @Id
+    @Column(name = "employee_number")
     private String employeeNumber;
     @Embedded
     private Name name;

@@ -7,10 +7,12 @@ package za.ac.cput.vehicledealership.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import za.ac.cput.vehicledealership.domain.Addons;
+import za.ac.cput.vehicledealership.domain.Addon;
+import za.ac.cput.vehicledealership.domain.Contact;
 
-import java.util.Set;
+import java.util.List;
+
 @Repository
-public interface AddonsRepository extends JpaRepository<Addons, String> {
-
+public interface AddonRepository extends JpaRepository<Addon, String> {
+    List<Addon> findAllByAddonIdIn(List<String> addonIdList);
 }

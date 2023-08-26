@@ -24,6 +24,7 @@ import java.util.Objects;
 @Table(name = "vehicle")
 public class Vehicle {
     @Id
+    @Column(name = "vehicle_id")
     protected String vehicleId;
     protected String make;
     protected String model;

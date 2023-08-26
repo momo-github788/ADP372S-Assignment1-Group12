@@ -15,15 +15,17 @@ import za.ac.cput.vehicledealership.util.Helper;
 public class BranchFactory {
     public static Branch createBranch(String branchName, int yearOpened, Location location) {
 
-        if (Helper.isNullOrEmpty(branchName) || yearOpened <= 0 || location == null) {
+        if (Helper.isNullOrEmpty(branchName) || yearOpened <= 0) {
             return null;
         }
+        Location createdLocation = LocationFactory.createLocation(location.getStreetNumber(), location.getStreetName(),
+                location.getCity(), location.getPostalCode(), location.getProvince());
 
         return new Branch.BranchBuilder()
                 .setBranchId(Helper.generateId())
                 .setBranchName(branchName)
                 .setYearOpened(yearOpened)
-                .setLocation(location)
+                .setLocation(createdLocation)
                 .build();
 
     }

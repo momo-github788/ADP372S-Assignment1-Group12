@@ -10,6 +10,6 @@ import za.ac.cput.vehicledealership.service.IService;
 import java.util.List;
 import java.util.Set;
 
-public interface EmployeeContactService extends IService<EmployeeContact, Long> {
+public interface EmployeeContactService extends IService<EmployeeContact, String> {
     List<EmployeeContact> getAll();
 }

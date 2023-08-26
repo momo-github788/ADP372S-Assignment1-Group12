@@ -8,13 +8,14 @@
 //
 //import org.junit.jupiter.api.Assertions;
 //import org.junit.jupiter.api.BeforeEach;
+//import org.junit.jupiter.api.Disabled;
 //import org.junit.jupiter.api.Test;
 //import za.ac.cput.vehicledealership.domain.WatchListPost;
 //import za.ac.cput.vehicledealership.factory.WatchListPostFactory;
 //
 //
 //import java.util.Set;
-//
+//@Disabled
 //public class WatchListPostServiceImplTest {
 //    private za.ac.cput.vehicledealership.repository.impl.WatchListPostRepositoryimpl WatchListPostRepositoryimpl;
 //

@@ -5,20 +5,22 @@ package za.ac.cput.vehicledealership.factory;
     Date: 18 June 2023
 */
 import za.ac.cput.vehicledealership.domain.Contact;
+import za.ac.cput.vehicledealership.domain.Employee;
 import za.ac.cput.vehicledealership.domain.EmployeeContact;
+import za.ac.cput.vehicledealership.domain.EmployeeContactId;
 import za.ac.cput.vehicledealership.util.Helper;
 
-import static za.ac.cput.vehicledealership.util.Helper.generateNumericId;
+import static za.ac.cput.vehicledealership.util.Helper.*;
 
 public class EmployeeContactFactory {
 
-    public static EmployeeContact createEmployeeContact(Contact contact){
-        if(Helper.isNullOrEmpty(contact)){
+    public static EmployeeContact createEmployeeContact(String employeeNumber, String contactId){
+        if(Helper.isNullOrEmpty(contactId) || isNullOrEmpty(employeeNumber)){
             return null;
         }
         return new EmployeeContact.Builder()
-                .setEmployeeNumber(generateNumericId())
-                .setContact(contact)
+                .setEmployeeNumber(employeeNumber)
+                .setContactId(contactId)
                 .build();
     }
 }

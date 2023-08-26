@@ -5,5 +5,5 @@ package za.ac.cput.vehicledealership.domain;
     Date: 2 April 2023
 */
 public enum AddonType {
-    SERVICINGADDON, DETAILINGADDON, EXTENDEDWARRANTYADDON
+    SERVICING, DETAILING, WARRANTY
 }

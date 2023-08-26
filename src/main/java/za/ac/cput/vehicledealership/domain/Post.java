@@ -24,13 +24,14 @@ import java.util.Objects;
 @Setter
 @ToString
 @EqualsAndHashCode
-public class Post implements Serializable {
+public class Post {
 
     @Transient
     @JsonIgnore
     private long EXPIRATION_TIME_MONTHS = 1;
 
     @Id
+    @Column(name = "post_id")
     private String postId;
 
     private String title;
@@ -42,7 +43,7 @@ public class Post implements Serializable {
     private Vehicle vehicle;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="employee_id")
+    @JoinColumn(name="employee_number")
     private Employee employee;
 
     @Column(name="post_creator_email")

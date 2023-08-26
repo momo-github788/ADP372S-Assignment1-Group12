@@ -9,6 +9,7 @@ import za.ac.cput.vehicledealership.domain.Post;
 import za.ac.cput.vehicledealership.domain.Vehicle;
 import za.ac.cput.vehicledealership.service.PostService;
 import za.ac.cput.vehicledealership.service.PostService;
+import za.ac.cput.vehicledealership.service.impl.PostServiceImpl;
 
 import java.util.List;
 import java.util.Set;
@@ -18,7 +19,7 @@ import java.util.Set;
 public class PostController {
 
     @Autowired
-    private PostService postService;
+    private PostServiceImpl postService;
 
     @PostMapping("/create")
     public ResponseEntity<?> create(@RequestBody Post post) {
@@ -55,7 +56,7 @@ public class PostController {
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> delete(@PathVariable String id) {
-        boolean status = postService.delete(id);
+        boolean status = postService.delete(id, "john@gmail.com");
 
         if(!status) {
             return ResponseEntity.badRequest().body("Post " + id + " deleted successfully.");

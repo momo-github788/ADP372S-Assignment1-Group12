@@ -23,9 +23,7 @@ import java.util.Objects;
 public class Location {
     private int streetNumber;
     private String streetName;
-
-    @OneToOne
-    private City city;
+    private String city;
     private String postalCode;
     private String province;
 
@@ -44,7 +42,7 @@ public class Location {
     public static class Builder {
         private int streetNumber;
         private String streetName;
-        private City city;
+        private String city;
         private String postalCode;
         private String province;
 
@@ -58,7 +56,7 @@ public class Location {
             return this;
         }
 
-        public Builder setCity(City city) {
+        public Builder setCity(String city) {
             this.city = city;
             return this;
         }

@@ -4,6 +4,7 @@ package za.ac.cput.vehicledealership.domain;
     Junaid Cedrass - 219090912
     04 April 2023
  */
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.EqualsAndHashCode;
@@ -22,6 +23,7 @@ import java.util.Objects;
 @ToString
 public class User  {
     @Id
+    @Column(name = "user_id")
     private String userId;
     private String firstName;
     private String lastName;

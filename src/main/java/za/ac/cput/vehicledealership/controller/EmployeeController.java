@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import za.ac.cput.vehicledealership.domain.Employee;
 import za.ac.cput.vehicledealership.domain.Vehicle;
 import za.ac.cput.vehicledealership.service.EmployeeService;
+import za.ac.cput.vehicledealership.service.impl.EmployeeServiceImpl;
 
 import java.util.List;
 
@@ -16,7 +17,11 @@ import java.util.List;
 public class EmployeeController {
 
     @Autowired
-    private EmployeeService employeeService;
+    private EmployeeServiceImpl employeeService;
+
+    public EmployeeController(EmployeeServiceImpl employeeService) {
+        this.employeeService = employeeService;
+    }
 
     @PostMapping("/create")
     public ResponseEntity<?> create(@RequestBody Employee employee) {
@@ -28,7 +33,7 @@ public class EmployeeController {
     }
 
     @GetMapping("read/{id}")
-    public ResponseEntity<?> get(@PathVariable long id) {
+    public ResponseEntity<?> get(@PathVariable String id) {
         Employee employee = employeeService.read(id);
 
         if(employee == null) {
@@ -52,7 +57,7 @@ public class EmployeeController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> delete(@PathVariable long id) {
+    public ResponseEntity<String> delete(@PathVariable String id) {
         boolean status = employeeService.delete(id);
 
         if(!status) {

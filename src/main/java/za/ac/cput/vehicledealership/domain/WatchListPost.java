@@ -6,10 +6,7 @@
  * */
 package za.ac.cput.vehicledealership.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.IdClass;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,8 +23,10 @@ import java.io.Serializable;
 @IdClass(WatchlistPostId.class)
 public class WatchListPost implements Serializable {
     @Id
+    @Column(name = "post_id")
     private String postId;
     @Id
+    @Column(name = "user_id")
     private String userId;
 
     protected WatchListPost() {

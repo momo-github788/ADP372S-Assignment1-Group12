@@ -5,35 +5,34 @@ package za.ac.cput.vehicledealership.service.impl;
     Date: 12 June 2023
 */
 import org.springframework.stereotype.Service;
-import za.ac.cput.vehicledealership.domain.Addons;
-import za.ac.cput.vehicledealership.repository.AddonsRepository;
+import za.ac.cput.vehicledealership.domain.Addon;
+import za.ac.cput.vehicledealership.repository.AddonRepository;
 import za.ac.cput.vehicledealership.service.AddonsService;
 
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class AddonsServiceImpl implements AddonsService {
 
-    private AddonsRepository addonsRepository;
+    private AddonRepository addonsRepository;
 
-    public AddonsServiceImpl(AddonsRepository addonsRepository) {
+    public AddonsServiceImpl(AddonRepository addonsRepository) {
         this.addonsRepository = addonsRepository;
     }
 
     @Override
-    public Addons create(Addons addons) {
+    public Addon create(Addon addons) {
         return addonsRepository.save(addons);
     }
 
 
     @Override
-    public Addons read(String addonsId) {
+    public Addon read(String addonsId) {
         return addonsRepository.findById(addonsId).orElse(null);
     }
 
     @Override
-    public Addons update(Addons addons) {
+    public Addon update(Addon addons) {
         if(addonsRepository.existsById(addons.getAddonId())) {
             return this.addonsRepository.save(addons);
         }
@@ -50,7 +49,7 @@ public class AddonsServiceImpl implements AddonsService {
     }
 
     @Override
-    public List<Addons> getAll() {
+    public List<Addon> getAll() {
         return addonsRepository.findAll();
     }
 }

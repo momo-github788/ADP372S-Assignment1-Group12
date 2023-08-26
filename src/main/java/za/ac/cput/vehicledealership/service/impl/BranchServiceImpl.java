@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import za.ac.cput.vehicledealership.domain.Branch;
 
+import za.ac.cput.vehicledealership.domain.Location;
+import za.ac.cput.vehicledealership.factory.BranchFactory;
+import za.ac.cput.vehicledealership.factory.LocationFactory;
 import za.ac.cput.vehicledealership.repository.BranchRepository;
 import za.ac.cput.vehicledealership.service.BranchService;
 
@@ -18,8 +21,6 @@ import java.util.Set;
 
 @Service
 public class BranchServiceImpl implements BranchService {
-
-    private static BranchServiceImpl branchService = null;
 
     private BranchRepository branchRepository;
 
@@ -31,7 +32,10 @@ public class BranchServiceImpl implements BranchService {
 
     @Override
     public Branch create(Branch branch) {
-        return branchRepository.save(branch);
+        Location createdLocation = LocationFactory.createLocation(branch.getLocation().getStreetNumber(), branch.getLocation().getStreetName(),
+                branch.getLocation().getCity(), branch.getLocation().getPostalCode(), branch.getLocation().getProvince());
+        Branch createdBranch = BranchFactory.createBranch(branch.getBranchName(), branch.getYearOpened(), createdLocation);
+        return branchRepository.save(createdBranch);
     }
 
 
@@ -43,7 +47,10 @@ public class BranchServiceImpl implements BranchService {
     @Override
     public Branch update(Branch branch) {
         if(this.branchRepository.existsById(branch.getBranchId())) {
-            return this.branchRepository.save(branch);
+            Location updatedLocation = LocationFactory.createLocation(branch.getLocation().getStreetNumber(), branch.getLocation().getStreetName(),
+                    branch.getLocation().getCity(), branch.getLocation().getPostalCode(), branch.getLocation().getProvince());
+            Branch updatedBranch = BranchFactory.createBranch(branch.getBranchName(), branch.getYearOpened(), updatedLocation);
+            return this.branchRepository.save(updatedBranch);
         }
         return null;
     }

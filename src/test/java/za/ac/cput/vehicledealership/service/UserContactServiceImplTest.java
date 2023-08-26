@@ -4,17 +4,14 @@
 //    Author: George Tapiwa Charimba (220073465)
 //    Date: 11 June 2023
 //*/
-//import org.junit.jupiter.api.MethodOrderer;
-//import org.junit.jupiter.api.Order;
-//import org.junit.jupiter.api.Test;
-//import org.junit.jupiter.api.TestMethodOrder;
+//import org.junit.jupiter.api.*;
 //import za.ac.cput.vehicledealership.domain.*;
 //import za.ac.cput.vehicledealership.factory.ContactFactory;
 //import za.ac.cput.vehicledealership.factory.UserContactFactory;
 //import za.ac.cput.vehicledealership.service.impl.UserContactServiceImpl;
 //
 //import static org.junit.jupiter.api.Assertions.*;
-//
+//@Disabled
 //@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 //class UserContactServiceImplTest {
 //

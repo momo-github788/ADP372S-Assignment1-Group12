@@ -15,18 +15,18 @@ import lombok.ToString;
 @Setter
 @ToString
 @EqualsAndHashCode
-@Table(name = "vehicle_addons")
-@IdClass(VehicleAddonsId.class)
-public class VehicleAddons {
+@Table(name = "vehicle_addon")
+@IdClass(VehicleAddonId.class)
+public class VehicleAddon {
     @Id
     private String vehicleId;
     @Id
     private String addonId;
 
-    public VehicleAddons() {
+    public VehicleAddon() {
     }
 
-    public VehicleAddons(Builder builder) {
+    public VehicleAddon(Builder builder) {
         this.vehicleId = builder.vehicleId;
         this.addonId = builder.addonId;
     }
@@ -46,14 +46,14 @@ public class VehicleAddons {
             return this;
         }
 
-        public Builder copy(VehicleAddons vehicleAddons) {
-            this.vehicleId = vehicleAddons.vehicleId;
-            this.addonId = vehicleAddons.addonId;
+        public Builder copy(VehicleAddon vehicleAddon) {
+            this.vehicleId = vehicleAddon.vehicleId;
+            this.addonId = vehicleAddon.addonId;
             return this;
         }
 
-        public VehicleAddons build() {
-            return new VehicleAddons(this);
+        public VehicleAddon build() {
+            return new VehicleAddon(this);
         }
     }
 }

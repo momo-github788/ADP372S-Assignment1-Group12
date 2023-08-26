@@ -1,15 +1,19 @@
 package za.ac.cput.vehicledealership.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import za.ac.cput.vehicledealership.domain.Contact;
 import za.ac.cput.vehicledealership.domain.Employee;
 import za.ac.cput.vehicledealership.domain.EmployeeContact;
 import za.ac.cput.vehicledealership.repository.ContactRepository;
 import za.ac.cput.vehicledealership.repository.EmployeeContactRepository;
+import za.ac.cput.vehicledealership.repository.EmployeeRepository;
 import za.ac.cput.vehicledealership.service.ContactService;
 import za.ac.cput.vehicledealership.service.EmployeeContactService;
 
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Service;
 import za.ac.cput.vehicledealership.service.EmployeeService;
 
@@ -21,63 +25,48 @@ import za.ac.cput.vehicledealership.service.EmployeeService;
     Date: 18 June 2023
 */
 
+
 @Service
-public class EmployeeContactServiceImpl implements EmployeeContactService {
+public class EmployeeContactServiceImpl {
 
     private EmployeeContactRepository employeeContactRepository;
-    private ContactService contactService;
-    private EmployeeService employeeService;
+    private ContactRepository contactRepository;
+    private EmployeeRepository employeeRepository;
 
-    public EmployeeContactServiceImpl(EmployeeContactRepository employeeContactRepository, ContactService contactService, EmployeeService employeeService) {
+    @Autowired
+    public EmployeeContactServiceImpl(EmployeeContactRepository employeeContactRepository, ContactRepository contactRepository, EmployeeRepository employeeRepository) {
         this.employeeContactRepository = employeeContactRepository;
-        this.contactService = contactService;
-        this.employeeService = employeeService;
+        this.contactRepository = contactRepository;
+        this.employeeRepository = employeeRepository;
     }
 
+    private Employee findById(String employeeNumber) {
+        return employeeRepository.findById(employeeNumber).orElse(null);
+    }
 
-    @Override
     public EmployeeContact create(EmployeeContact employeeContact) {
-        Employee employee = employeeService.read(employeeContact.getEmployeeNumber());
-        Contact contact = contactService.read(employeeContact.getContactId());
+        findById(employeeContact.getEmployeeNumber());
+        contactRepository.findById(employeeContact.getContactId()).orElse(null);
 
-        if(employee != null && contact != null) {
-            return employeeContactRepository.save(employeeContact);
-        }
-        return null;
+        return employeeContactRepository.save(employeeContact);
 
     }
 
-    @Override
-    public EmployeeContact read(EmployeeContact employeeContact) {
+    public List<Contact> readAllContactsForEmployee(String employeeNumber) {
 
-        Employee employee = employeeService.read(employeeContact.getEmployeeNumber());
-        Contact contact = contactService.read(employeeContact.getContactId());
+        findById(employeeNumber);
 
+        List<EmployeeContact> employeeContacts = employeeContactRepository.findAllByEmployeeNumber(employeeNumber);
 
+        List<Contact> contactList = contactRepository.findAllByContactIdIn(
+                employeeContacts.stream().map(contact -> contact.getContactId()).collect(Collectors.toList()));
 
-        return employeeContactRepository.findById(employeeNumber).orElse(null);
+        System.out.println(contactList);
+
+        return contactList;
     }
 
-    @Override
-    public EmployeeContact update(EmployeeContact employeeContact) {
-        if(employeeContactRepository.existsById(employeeContact.getEmployeeNumber())) {
-            return this.employeeContactRepository.save(employeeContact);
-        }
-        return null;
-    }
 
-    @Override
-    public boolean delete(Long employeeNumber) {
-        if(this.employeeContactRepository.existsById(employeeNumber)) {
-            this.employeeContactRepository.deleteById(employeeNumber);
-            return true;
-        }
-        return false;
-    }
 
-    @Override
-    public List<EmployeeContact> getAll() {
-        return employeeContactRepository.findAll();
-    }
 }
 

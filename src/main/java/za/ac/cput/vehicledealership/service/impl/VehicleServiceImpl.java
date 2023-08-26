@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import za.ac.cput.vehicledealership.domain.Vehicle;
 import za.ac.cput.vehicledealership.domain.Vehicle;
+import za.ac.cput.vehicledealership.factory.VehicleFactory;
 import za.ac.cput.vehicledealership.repository.VehicleRepository;
 import za.ac.cput.vehicledealership.service.VehicleService;
 
@@ -29,20 +30,28 @@ public class VehicleServiceImpl implements VehicleService {
 
 
     @Override
-    public Vehicle create(Vehicle post) {
-        return vehicleRepository.save(post);
+    public Vehicle create(Vehicle vehicle) {
+        Vehicle created = VehicleFactory.createVehicle(vehicle.getMake(), vehicle.getModel(), vehicle.getCondition(),
+                vehicle.getFuelType(), vehicle.getColour(), vehicle.getYear(), vehicle.getMileage()
+        );
+
+        return vehicleRepository.save(created);
     }
 
     @Override
-    public Vehicle read(String postId) {
-        return vehicleRepository.findById(postId)
+    public Vehicle read(String vehicleId) {
+        return vehicleRepository.findById(vehicleId)
                 .orElse(null);
     }
 
     @Override
     public Vehicle update(Vehicle vehicle) {
         if(this.vehicleRepository.existsById(vehicle.getVehicleId())) {
-            return this.vehicleRepository.save(vehicle);
+            Vehicle updated = VehicleFactory.createVehicle(vehicle.getMake(), vehicle.getModel(), vehicle.getCondition(),
+                    vehicle.getFuelType(), vehicle.getColour(), vehicle.getYear(), vehicle.getMileage()
+            );
+
+            return this.vehicleRepository.save(updated);
         }
         return null;
     }

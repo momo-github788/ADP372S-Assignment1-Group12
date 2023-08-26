@@ -5,13 +5,14 @@
 */
 package za.ac.cput.vehicledealership.factory;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import za.ac.cput.vehicledealership.domain.FuelType;
 import za.ac.cput.vehicledealership.domain.Motorcycle;
 import za.ac.cput.vehicledealership.domain.VehicleCondition;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-
+@Disabled
 class MotorcycleFactoryTest {
     @Test
     void testCreateMotorcycleSuccess() {

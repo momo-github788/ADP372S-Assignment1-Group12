@@ -1,6 +1,9 @@
 package za.ac.cput.vehicledealership.domain;
 
 import jakarta.persistence.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 
 /*  Addons.java
     Entity for Inventory
@@ -8,17 +11,18 @@ import jakarta.persistence.*;
 
 */
 @Entity
+@Getter
+@ToString
+@EqualsAndHashCode
 public class Inventory {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "InventoryAccount")
-    @SequenceGenerator(name = "InventoryAccount", sequenceName = "ORACLE_DB_SEQ",
-            allocationSize = 1, initialValue = 9904)
+    @Column(name = "inventory_id")
     private String inventoryId;
     private int quantity;
     @Enumerated(EnumType.STRING)
     private InventoryType inventoryType;
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "vehicleId")
+    @JoinColumn(name = "vehicle_id")
     private Vehicle Vehicle;
 
 
@@ -26,7 +30,7 @@ public class Inventory {
         this.inventoryId = builder.inventoryId;
         this.quantity =  builder.quantity;
         this.inventoryType =  builder.inventoryType;
-       this. Vehicle = builder.Vehicle;
+        this. Vehicle = builder.Vehicle;
     }
 
     public Inventory() {
@@ -34,29 +38,6 @@ public class Inventory {
     }
 
 
-    public String getInventoryId() {
-        return inventoryId;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public InventoryType getInventoryType() {
-        return inventoryType;
-    }
-    public Vehicle getVehicle() {
-        return Vehicle;
-    }
-    @Override
-    public String toString() {
-        return "Inventory{" +
-                "inventoryId='" + inventoryId + '\'' +
-                ", quantity=" + quantity +
-                ", inventoryType='" + inventoryType + '\'' +
-                ", Vehicle=" + Vehicle +
-                '}';
-    }
     public static class Builder {
 
         private String inventoryId;

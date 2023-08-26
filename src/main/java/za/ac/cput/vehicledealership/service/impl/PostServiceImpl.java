@@ -30,21 +30,21 @@ public class PostServiceImpl {
     }
 
 
-    public Post create(Post post, String emailAddress) {
-        Employee employee = employeeRepository.findEmployeeByEmailAddress(emailAddress);
-        post.setPostCreatorEmail(emailAddress);
-        post.setEmployee(employee);
-        post.setActive(true);
-
-        if(postRepository.existsByTitle(post.getTitle())) {
-            throw new RuntimeException("Post with title " + post.getTitle() + " already exists");
-        }
-
-        employeeRepository.save(employee);
-        postRepository.save(post);
-        return post;
-
-    }
+//    public Post create(Post post, String emailAddress) {
+//        Employee employee = employeeRepository.findEmployeeByEmailAddress(emailAddress);
+//        post.setPostCreatorEmail(emailAddress);
+//        post.setEmployee(employee);
+//        post.setActive(true);
+//
+//        if(postRepository.existsByTitle(post.getTitle())) {
+//            throw new RuntimeException("Post with title " + post.getTitle() + " already exists");
+//        }
+//
+//        employeeRepository.save(employee);
+//        postRepository.save(post);
+//        return post;
+//
+//    }
 
     public Post read(String postId) {
         return postRepository.findById(postId)

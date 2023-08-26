@@ -9,19 +9,14 @@ import static za.ac.cput.vehicledealership.util.Helper.*;
 
 public class EmployeeFactory {
 
-    public static Employee createEmployee(Name name, String password, String emailAddress) {
+    public static Employee createEmployee(Name name, String password) {
 
-        if(isNullOrEmpty(password) || isNullOrEmpty(name) || isNullOrEmpty(emailAddress)) {
+        if(isNullOrEmpty(password) || isNullOrEmpty(name)) {
             return null;
         }
 
         if(password.length() < 6) {
             throw new RuntimeException("Password must be atleast 6 characters");
-        }
-
-        if(!isValidEmail(emailAddress)) {
-            throw new RuntimeException("Email format is invalid");
-
         }
 
         if(!isValidPassword(password)) {
@@ -33,7 +28,6 @@ public class EmployeeFactory {
                 .setName(name)
                 .setDateJoined(LocalDateTime.now())
                 .setPassword(password)
-                .setEmailAddress(emailAddress)
                 .build();
 
     }

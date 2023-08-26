@@ -11,19 +11,20 @@ import za.ac.cput.vehicledealership.domain.User;
 import za.ac.cput.vehicledealership.util.Helper;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 
 public class UserFactory {
-    public static User createUser(String firstName, String lastName, LocalDate dateJoined, String password, Contact contact){
-        if (Helper.isNullOrEmpty(firstName) || Helper.isNullOrEmpty(lastName) || Helper.isNullOrEmpty(dateJoined) || Helper.isValidPassword(password) || Helper.isNullOrEmpty(contact)){
+    public static User createUser(String firstName, String lastName, String password){
+        if (Helper.isNullOrEmpty(firstName) || Helper.isNullOrEmpty(lastName) ||
+                Helper.isValidPassword(password)){
             return null;
         }
         return new User.UserBuilder().setUserId(Helper.generateId())
                 .setFirstName(firstName)
                 .setLastName(lastName)
-                .setDateJoined(dateJoined)
+                .setDateJoined(LocalDate.now())
                 .setPassword(password)
-                .setContact(contact)
                 .build();
     }
 }

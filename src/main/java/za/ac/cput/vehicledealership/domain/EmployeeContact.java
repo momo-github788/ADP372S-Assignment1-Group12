@@ -4,10 +4,7 @@ package za.ac.cput.vehicledealership.domain;
     Author: George Tapiwa Charimba (220073465)
     Date: 18 June 2023
 */
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.IdClass;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,8 +21,10 @@ import java.util.Objects;
 @IdClass(EmployeeContactId.class)
 public class EmployeeContact {
     @Id
+    @Column(name = "employee_number")
     private String employeeNumber;
     @Id
+    @Column(name = "contact_id")
     private String contactId;
 
     public EmployeeContact() {

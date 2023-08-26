@@ -5,6 +5,7 @@
 */
 package za.ac.cput.vehicledealership.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import za.ac.cput.vehicledealership.domain.Car;
 import za.ac.cput.vehicledealership.repository.CarRepository;
@@ -14,8 +15,10 @@ import java.util.List;
 
 @Service
 public class CarServiceImpl implements CarService {
+
     private CarRepository carRepository = null;
 
+    @Autowired
     public CarServiceImpl(CarRepository carRepository) { this.carRepository = carRepository;}
 
     @Override

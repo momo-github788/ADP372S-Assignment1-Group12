@@ -27,7 +27,7 @@ public class Helper {
     }
 
     public static boolean isValidMobileNo(String contactNumber){
-        Pattern ptrn = Pattern.compile("(0/91)?[7-9][0-9]{9}");
+        Pattern ptrn = Pattern.compile("^(\\+27|0)[67]\\d{8}$");
         Matcher match = ptrn.matcher(contactNumber);
         return (match.find() && match.group().equals(contactNumber));
     }
