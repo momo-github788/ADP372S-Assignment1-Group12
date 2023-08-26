@@ -44,6 +44,7 @@ public class EmployeeContactServiceImpl {
         return employeeRepository.findById(employeeNumber).orElse(null);
     }
 
+
     public EmployeeContact create(EmployeeContact employeeContact) {
         findById(employeeContact.getEmployeeNumber());
         contactRepository.findById(employeeContact.getContactId()).orElse(null);
@@ -60,8 +61,6 @@ public class EmployeeContactServiceImpl {
 
         List<Contact> contactList = contactRepository.findAllByContactIdIn(
                 employeeContacts.stream().map(contact -> contact.getContactId()).collect(Collectors.toList()));
-
-        System.out.println(contactList);
 
         return contactList;
     }

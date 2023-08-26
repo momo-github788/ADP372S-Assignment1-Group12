@@ -16,6 +16,7 @@ import za.ac.cput.vehicledealership.domain.UserContact;
 import za.ac.cput.vehicledealership.service.ContactService;
 import za.ac.cput.vehicledealership.service.EmployeeContactService;
 import za.ac.cput.vehicledealership.service.UserContactService;
+import za.ac.cput.vehicledealership.service.impl.ContactServiceImpl;
 import za.ac.cput.vehicledealership.service.impl.EmployeeContactServiceImpl;
 import za.ac.cput.vehicledealership.service.impl.UserContactServiceImpl;
 
@@ -28,11 +29,11 @@ import java.util.Set;
 public class ContactController {
 
     @Autowired
-    private ContactService contactService;
+    private ContactServiceImpl contactService;
     private UserContactServiceImpl userContactService;
     private EmployeeContactServiceImpl employeeContactService;
 
-    public ContactController(ContactService contactService, UserContactServiceImpl userContactService, EmployeeContactServiceImpl employeeContactService) {
+    public ContactController(ContactServiceImpl contactService, UserContactServiceImpl userContactService, EmployeeContactServiceImpl employeeContactService) {
         this.contactService = contactService;
         this.userContactService = userContactService;
         this.employeeContactService = employeeContactService;
@@ -40,7 +41,7 @@ public class ContactController {
 
     @PostMapping("/create")
     public Contact create(@RequestBody Contact contact){
-        return contactService.create(contact);
+        return contactService.create(contact.getContactType(), contact.getValue());
     }
 
     @GetMapping("read/{contactNumber}")

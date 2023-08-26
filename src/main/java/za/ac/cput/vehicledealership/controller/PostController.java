@@ -23,7 +23,7 @@ public class PostController {
 
     @PostMapping("/create")
     public ResponseEntity<?> create(@RequestBody Post post) {
-        Post createdPost = postService.update(post);
+        Post createdPost = postService.create(post,"46fef7e7-82db-4ea4-99f9-6dba605a9b31");
         if(createdPost == null) {
             return ResponseEntity.badRequest().body("Error creating record.. Please try again later");
         }

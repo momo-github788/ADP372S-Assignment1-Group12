@@ -4,6 +4,7 @@ package za.ac.cput.vehicledealership.domain;
     Author: George Tapiwa Charimba (220073465)
     Date: 18 June 2023
 */
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -26,6 +27,7 @@ public class EmployeeContact {
     @Id
     @Column(name = "contact_id")
     private String contactId;
+
 
     public EmployeeContact() {
     }

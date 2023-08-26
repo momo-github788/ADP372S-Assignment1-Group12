@@ -2,6 +2,7 @@ package za.ac.cput.vehicledealership.domain;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 
@@ -24,10 +25,11 @@ public class Employee {
     @Embedded
     private Name name;
     private LocalDateTime dateJoined;
+    @NotBlank(message = "Required")
     private String password;
 
 
-    @OneToMany(mappedBy = "employee")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "employee", cascade = CascadeType.ALL)
     private List<Post> posts;
 
     protected Employee() {

@@ -8,36 +8,48 @@ package za.ac.cput.vehicledealership.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import za.ac.cput.vehicledealership.domain.Contact;
+import za.ac.cput.vehicledealership.domain.ContactType;
+import za.ac.cput.vehicledealership.factory.ContactFactory;
 import za.ac.cput.vehicledealership.repository.ContactRepository;
 import za.ac.cput.vehicledealership.service.ContactService;
 import java.util.List;
 
 @Service
-public class ContactServiceImpl implements ContactService {
+public class ContactServiceImpl  {
     private ContactRepository repository;
+
+
     @Autowired
     private ContactServiceImpl(ContactRepository repository){
         this.repository = repository;
     };
 
-    @Override
-    public Contact create(Contact contact) {
-        return this.repository.save(contact);
+    public Contact create(ContactType contactType, String value) {
+
+        if(!existsByEmailAddress(value)) {
+            Contact createdContact = ContactFactory.createContact(contactType, value);
+            return repository.save(createdContact);
+        }
+        System.out.println("Contact with this value already exists");
+        return null;
+
+
     }
 
-    @Override
-    public Contact read(String contactNumber) {
-        return this.repository.findById(contactNumber).orElse(null);
+    public Contact read(String contactId) {
+        return this.repository.findById(contactId).orElse(null);
     }
 
-    @Override
+    public boolean existsByEmailAddress(String emailAddress) {
+        return repository.existsByValue(emailAddress);
+    }
+
     public Contact update(Contact contact) {
         if (this.repository.existsById(contact.getContactId()))
          return this.repository.save(contact);
         return null;
     }
 
-    @Override
     public boolean delete(String contactNumber) {
         if (this.repository.existsById(contactNumber)){
             this.repository.existsById(contactNumber);
@@ -46,7 +58,6 @@ public class ContactServiceImpl implements ContactService {
         return false;
     }
 
-    @Override
     public List<Contact> getAll() {
         return this.repository.findAll();
     }

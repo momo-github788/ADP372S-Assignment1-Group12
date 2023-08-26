@@ -42,8 +42,9 @@ public class Post {
     @JoinColumn(name = "vehicle_id", referencedColumnName = "vehicle_id")
     private Vehicle vehicle;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name="employee_number")
+    @JsonIgnore
     private Employee employee;
 
     @Column(name="post_creator_email")

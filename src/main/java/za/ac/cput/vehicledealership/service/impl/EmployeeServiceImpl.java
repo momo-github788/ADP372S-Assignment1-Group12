@@ -6,39 +6,50 @@ package za.ac.cput.vehicledealership.service.impl;
     Date: 10 June 2023
 */
 
+import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import za.ac.cput.vehicledealership.domain.Employee;
-import za.ac.cput.vehicledealership.domain.Name;
+import za.ac.cput.vehicledealership.domain.*;
+import za.ac.cput.vehicledealership.dto.EmployeeRegisterDTO;
+import za.ac.cput.vehicledealership.factory.EmployeeContactFactory;
+import za.ac.cput.vehicledealership.factory.EmployeeFactory;
 import za.ac.cput.vehicledealership.factory.NameFactory;
+import za.ac.cput.vehicledealership.payload.request.RegisterRequest;
 import za.ac.cput.vehicledealership.repository.EmployeeRepository;
-import za.ac.cput.vehicledealership.service.EmployeeService;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class EmployeeServiceImpl  {
 
 
+    private ModelMapper modelMapper;
     private EmployeeRepository employeeRepository;
+    private ContactServiceImpl contactService;
+    private EmployeeContactServiceImpl employeeContactService;
+
 
     @Autowired
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
+    public EmployeeServiceImpl(ModelMapper modelMapper, EmployeeRepository employeeRepository, ContactServiceImpl contactService, EmployeeContactServiceImpl employeeContactService) {
         this.employeeRepository = employeeRepository;
+        this.modelMapper = modelMapper;
+        this.contactService = contactService;
+        this.employeeContactService = employeeContactService;
     }
 
 
-    public Employee register(Employee employee) {
+    public Employee register(RegisterRequest request) {
 
-        //employee.setPassword(passwordEncoder.encode(employee.getPassword()));
-        //employee.setConfirmPassword("");
+        Contact emailContact = contactService.create(ContactType.EMAIL, request.getEmailAddress());
+        Employee createdEmployee = EmployeeFactory.createEmployee(request.getName(), request.getPassword());
+        EmployeeContact employeeContactEmail = EmployeeContactFactory.createEmployeeContact(createdEmployee.getEmployeeNumber(), emailContact.getContactId());
 
-//        if (employeeRepository.existsByEmailAddress(employee.getEmailAddress())) {
-//            throw new RuntimeException("Account already exists with this email address");
-//        }
-        return employeeRepository.save(employee);
+        employeeContactService.create(employeeContactEmail);
+        contactService.create(emailContact.getContactType(), emailContact.getValue());
+
+        return employeeRepository.save(createdEmployee);
+
     }
 
     public boolean login(Employee employee) {

@@ -14,4 +14,5 @@ import java.util.Set;
 @Repository
 public interface ContactRepository extends JpaRepository<Contact, String> {
     List<Contact> findAllByContactIdIn(List<String> contactIdList);
+    boolean existsByValue(String address);
 }

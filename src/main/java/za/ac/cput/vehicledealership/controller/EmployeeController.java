@@ -1,13 +1,18 @@
 package za.ac.cput.vehicledealership.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import za.ac.cput.vehicledealership.domain.Contact;
 import za.ac.cput.vehicledealership.domain.Employee;
 import za.ac.cput.vehicledealership.domain.Vehicle;
+import za.ac.cput.vehicledealership.payload.request.RegisterRequest;
 import za.ac.cput.vehicledealership.service.EmployeeService;
 import za.ac.cput.vehicledealership.service.impl.EmployeeServiceImpl;
+import za.ac.cput.vehicledealership.service.impl.ErrorValidationServiceImpl;
 
 import java.util.List;
 
@@ -16,16 +21,25 @@ import java.util.List;
 @RequestMapping("/employee")
 public class EmployeeController {
 
-    @Autowired
-    private EmployeeServiceImpl employeeService;
 
-    public EmployeeController(EmployeeServiceImpl employeeService) {
+    private EmployeeServiceImpl employeeService;
+    private ErrorValidationServiceImpl errorValidationService;
+
+    @Autowired
+    public EmployeeController(EmployeeServiceImpl employeeService, ErrorValidationServiceImpl errorValidationService) {
         this.employeeService = employeeService;
+        this.errorValidationService = errorValidationService;
     }
 
     @PostMapping("/create")
-    public ResponseEntity<?> create(@RequestBody Employee employee) {
-        Employee createdEmployee = employeeService.update(employee);
+    public ResponseEntity<?> create(@Valid @RequestBody RegisterRequest request, BindingResult result) {
+
+        ResponseEntity<?> errorMap = errorValidationService.validationService(result);
+
+        if(errorMap != null) return errorMap;
+
+
+        Employee createdEmployee = employeeService.register(request);
         if(createdEmployee == null) {
             return ResponseEntity.badRequest().body("Error creating record.. Please try again later");
         }
