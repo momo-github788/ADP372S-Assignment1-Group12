@@ -38,11 +38,20 @@
             <version>3.1.1</version>
             <scope>provided</scope>
         </dependency>
+
         <dependency>
-            <groupId>org.thymeleaf</groupId>
-            <artifactId>thymeleaf</artifactId>
-            <version>3.1.2.RELEASE</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+            <version>3.0.4</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-devtools -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <version>3.1.2</version>
+        </dependency>
+
+
         <!-- Includes dependencies for testing inside this dependency so no need to explicitly add Junit -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

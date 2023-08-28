@@ -23,7 +23,7 @@
 //    private static City city = CityFactory.createCity("Cape Town");
 //
 //    private static Location location = LocationFactory.createLocation(27, "Daisy Street", city,
-//            "7850", "Western Cape");
+//            7850, "Western Cape");
 //    private static Vehicle vehicle = VehicleFactory.createVehicle("Audi", "A4", VehicleCondition.USED, FuelType.PETROL,
 //            "White", 2019, 23000);
 //    private static Branch branch = BranchFactory.createBranch("Cape town branch", 2017, location);

@@ -22,7 +22,7 @@ class PostFactoryTest {
                 "White", 2019, 23000);
 
         Location location = LocationFactory.createLocation(27, "Daisy Street", "Cape Town",
-                "7850", "Western Cape");
+                7850, "Western Cape");
 
         Contact contact = ContactFactory.createContact(ContactType.EMAIL, "john@gmail.com");
         Branch branch = BranchFactory.createBranch("Cape town branch", 2017, location);

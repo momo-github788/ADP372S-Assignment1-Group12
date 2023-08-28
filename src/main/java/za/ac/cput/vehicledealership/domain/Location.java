@@ -24,7 +24,7 @@ public class Location {
     private int streetNumber;
     private String streetName;
     private String city;
-    private String postalCode;
+    private int postalCode;
     private String province;
 
     protected Location() {
@@ -43,7 +43,7 @@ public class Location {
         private int streetNumber;
         private String streetName;
         private String city;
-        private String postalCode;
+        private int postalCode;
         private String province;
 
         public Builder setStreetNumber(int streetNumber) {
@@ -61,7 +61,7 @@ public class Location {
             return this;
         }
 
-        public Builder setPostalCode(String postalCode) {
+        public Builder setPostalCode(int postalCode) {
             this.postalCode = postalCode;
             return this;
         }
