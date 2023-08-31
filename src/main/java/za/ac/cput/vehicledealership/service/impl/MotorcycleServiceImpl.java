@@ -41,6 +41,7 @@ public class MotorcycleServiceImpl implements MotorcycleService {
     public boolean delete(String vehicleId) {
         if(motorcycleRepository.existsById(vehicleId)) {
             this.motorcycleRepository.deleteById(vehicleId);
+            return true;
         }
         return false;
     }

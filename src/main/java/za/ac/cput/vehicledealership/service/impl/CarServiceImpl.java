@@ -8,6 +8,7 @@ package za.ac.cput.vehicledealership.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import za.ac.cput.vehicledealership.domain.Car;
+import za.ac.cput.vehicledealership.factory.CarFactory;
 import za.ac.cput.vehicledealership.repository.CarRepository;
 import za.ac.cput.vehicledealership.service.CarService;
 
@@ -16,7 +17,7 @@ import java.util.List;
 @Service
 public class CarServiceImpl implements CarService {
 
-    private CarRepository carRepository = null;
+    private CarRepository carRepository;
 
     @Autowired
     public CarServiceImpl(CarRepository carRepository) { this.carRepository = carRepository;}
@@ -43,6 +44,7 @@ public class CarServiceImpl implements CarService {
     public boolean delete(String vehicleId) {
         if(carRepository.existsById(vehicleId)) {
              this.carRepository.deleteById(vehicleId);
+             return true;
         }
         return false;
     }

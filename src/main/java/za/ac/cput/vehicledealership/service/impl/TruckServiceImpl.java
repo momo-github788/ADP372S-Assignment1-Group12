@@ -41,6 +41,7 @@ public class TruckServiceImpl implements TruckService {
     public boolean delete(String vehicleId) {
         if(truckRepository.existsById(vehicleId)) {
             this.truckRepository.deleteById(vehicleId);
+            return true;
         }
         return false;
     }
