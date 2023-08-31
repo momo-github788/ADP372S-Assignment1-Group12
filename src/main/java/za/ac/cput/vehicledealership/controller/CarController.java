@@ -24,7 +24,7 @@ public class CarController {
 
     @PostMapping("/create")
     public ResponseEntity<?> create(@RequestBody Car car) {
-        Car createdCar = carService.update(car);
+        Car createdCar = carService.create(car);
         if(createdCar == null) {
             return ResponseEntity.badRequest().body("Error creating record. PLease try again later.");
         }
@@ -40,7 +40,7 @@ public class CarController {
         return ResponseEntity.ok(car);
     }
 
-    @GetMapping("/all")
+    @GetMapping("/getAll")
     public List<Car> getAll() { return carService.getAll(); }
 
     @PostMapping("/update")
@@ -55,10 +55,13 @@ public class CarController {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> delete(@PathVariable String id) {
         boolean status = carService.delete(id);
-        if(!status) {
-            return ResponseEntity.badRequest().body("Car " + id + " deleted successfully.");
+        if(status) {
+            // 204 No Content for successful deletion
+            return ResponseEntity.noContent().build();
+        } else {
+            // 404 Not Found for unsuccessful deletion
+            return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.badRequest().body("Car deleted successfully.");
     }
 }
 

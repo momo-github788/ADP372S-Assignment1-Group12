@@ -23,7 +23,7 @@ public class MotorcycleController {
 
     @PostMapping("/create")
     public ResponseEntity<?> create(@RequestBody Motorcycle motorcycle) {
-        Motorcycle createdMotorcycle = motorcycleService.update(motorcycle);
+        Motorcycle createdMotorcycle = motorcycleService.create(motorcycle);
         if(createdMotorcycle == null) {
             return ResponseEntity.badRequest().body("Error creating record, please try again later.");
         }
@@ -39,7 +39,7 @@ public class MotorcycleController {
         return ResponseEntity.ok(motorcycle);
     }
 
-    @GetMapping("/all")
+    @GetMapping("/getAll")
     public List<Motorcycle> getAll() { return motorcycleService.getAll(); }
 
     @PostMapping("/update")
@@ -55,9 +55,12 @@ public class MotorcycleController {
     public ResponseEntity<String> delete(@PathVariable String id) {
         boolean status = motorcycleService.delete(id);
 
-        if(!status) {
-            return ResponseEntity.badRequest().body("Motorcycle " + id + " deleted successfully.");
+        if(status) {
+            // 204 No Content for successful deletion
+            return ResponseEntity.noContent().build();
+        } else {
+            // 404 Not Found for unsuccessful deletion
+            return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.badRequest().body("Motorcycle deleted successfully.");
     }
 }

@@ -34,19 +34,18 @@ public class Car extends Vehicle {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
         Car car = (Car) o;
         return hasTowBar == car.hasTowBar && bodyType == car.bodyType;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), hasTowBar, bodyType);
+        return Objects.hash(hasTowBar, bodyType);
     }
 
     @Override
     public String toString() {
-        return "Car{" +
+        return super.toString() +
                 "hasTowBar=" + hasTowBar +
                 ", bodyType=" + bodyType +
                 '}';
