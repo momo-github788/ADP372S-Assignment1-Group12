@@ -22,8 +22,6 @@ import java.util.Objects;
 @Entity
 @Getter
 @Setter
-@ToString
-@EqualsAndHashCode
 public class Post {
 
     @Transient
@@ -31,20 +29,23 @@ public class Post {
     private long EXPIRATION_TIME_MONTHS = 1;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "post_id")
-    private String postId;
+    private int postId;
 
     private String title;
 
     private String description;
     private double price;
-    @OneToOne(cascade = CascadeType.ALL)
+
+
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "vehicle_id", referencedColumnName = "vehicle_id")
     private Vehicle vehicle;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name="employee_number")
     @JsonIgnore
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="employee_number")
     private Employee employee;
 
     @Column(name="post_creator_email")
@@ -75,6 +76,35 @@ public class Post {
         this.postCreatorEmail = builder.postCreatorEmail;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Post post = (Post) o;
+        return EXPIRATION_TIME_MONTHS == post.EXPIRATION_TIME_MONTHS && postId == post.postId && Double.compare(post.price, price) == 0 && isActive == post.isActive && Objects.equals(title, post.title) && Objects.equals(description, post.description) && Objects.equals(vehicle, post.vehicle) && Objects.equals(employee, post.employee) && Objects.equals(postCreatorEmail, post.postCreatorEmail) && Objects.equals(branch, post.branch) && Objects.equals(createdAt, post.createdAt) && Objects.equals(expiredAt, post.expiredAt);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(EXPIRATION_TIME_MONTHS, postId, title, description, price, vehicle, employee, postCreatorEmail, branch, createdAt, expiredAt, isActive);
+    }
+
+    @Override
+    public String toString() {
+        return "Post{" +
+                "EXPIRATION_TIME_MONTHS=" + EXPIRATION_TIME_MONTHS +
+                ", postId=" + postId +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                ", postCreatorEmail='" + postCreatorEmail + '\'' +
+                ", branch=" + branch +
+                ", createdAt=" + createdAt +
+                ", expiredAt=" + expiredAt +
+                ", isActive=" + isActive +
+                '}';
+    }
+
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
@@ -93,7 +123,7 @@ public class Post {
     }
 
     public static class Builder {
-        private String postId;
+        private int postId;
         private String title;
         private String description;
         private double price;
@@ -105,7 +135,7 @@ public class Post {
         private Employee employee;
         private String postCreatorEmail;
 
-        public Builder setPostId(String postId) {
+        public Builder setPostId(int postId) {
             this.postId = postId;
             return this;
         }

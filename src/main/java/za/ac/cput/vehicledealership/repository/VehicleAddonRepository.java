@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 public interface VehicleAddonRepository extends JpaRepository<VehicleAddon, VehicleAddonId> {
-    VehicleAddon findFirstByVehicleIdAndAddonId(String vehicleId, String addonId);
-    List<VehicleAddon> findAllByVehicleId(String vehicleId);
+    VehicleAddon findFirstByVehicleIdAndAddonId(int vehicleId, String addonId);
+    List<VehicleAddon> findAllByVehicleId(int vehicleId);
 
 }

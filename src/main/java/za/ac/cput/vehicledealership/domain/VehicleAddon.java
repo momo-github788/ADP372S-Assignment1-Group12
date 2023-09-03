@@ -9,17 +9,17 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.Objects;
+
 
 @Entity
 @Getter
 @Setter
-@ToString
-@EqualsAndHashCode
 @Table(name = "vehicle_addon")
 @IdClass(VehicleAddonId.class)
 public class VehicleAddon {
     @Id
-    private String vehicleId;
+    private int vehicleId;
     @Id
     private String addonId;
 
@@ -31,12 +31,32 @@ public class VehicleAddon {
         this.addonId = builder.addonId;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        VehicleAddon that = (VehicleAddon) o;
+        return vehicleId == that.vehicleId && Objects.equals(addonId, that.addonId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(vehicleId, addonId);
+    }
+
+    @Override
+    public String toString() {
+        return "VehicleAddon{" +
+                "vehicleId=" + vehicleId +
+                ", addonId='" + addonId + '\'' +
+                '}';
+    }
 
     public static class Builder {
-        private String vehicleId;
+        private int vehicleId;
         private String addonId;
 
-        public Builder setVehicleId(String vehicleId) {
+        public Builder setVehicleId(int vehicleId) {
             this.vehicleId = vehicleId;
             return this;
         }

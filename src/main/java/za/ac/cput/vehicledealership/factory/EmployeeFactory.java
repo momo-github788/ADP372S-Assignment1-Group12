@@ -9,9 +9,9 @@ import static za.ac.cput.vehicledealership.util.Helper.*;
 
 public class EmployeeFactory {
 
-    public static Employee createEmployee(Name name, String password) {
+    public static Employee createEmployee(Name name, String emailAddress, String password) {
 
-        if(isNullOrEmpty(password) || isNullOrEmpty(name)) {
+        if(isNullOrEmpty(password) || isNullOrEmpty(name) || isNullOrEmpty(emailAddress)) {
             return null;
         }
 
@@ -20,12 +20,12 @@ public class EmployeeFactory {
         }
 
         if(!isValidPassword(password)) {
-            throw new RuntimeException("Password must contain atleast one uppercase letter, one lowercase letter and one digit.");
+            throw new RuntimeException("Password must contain at least one uppercase letter, one lowercase letter and one digit.");
         }
 
         return new Employee.Builder()
-                .setEmployeeNumber(generateId())
                 .setName(name)
+                .setEmailAddress(emailAddress)
                 .setDateJoined(LocalDateTime.now())
                 .setPassword(password)
                 .build();

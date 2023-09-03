@@ -8,15 +8,10 @@ package za.ac.cput.vehicledealership.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import za.ac.cput.vehicledealership.domain.Contact;
-import za.ac.cput.vehicledealership.domain.ContactType;
-import za.ac.cput.vehicledealership.domain.Employee;
-import za.ac.cput.vehicledealership.domain.Post;
+import za.ac.cput.vehicledealership.domain.*;
 import za.ac.cput.vehicledealership.repository.EmployeeRepository;
 import za.ac.cput.vehicledealership.repository.PostRepository;
-import za.ac.cput.vehicledealership.service.EmployeeContactService;
-import za.ac.cput.vehicledealership.service.EmployeeService;
-import za.ac.cput.vehicledealership.service.PostService;
+import za.ac.cput.vehicledealership.repository.VehicleRepository;
 
 import java.util.List;
 import java.util.Set;
@@ -27,43 +22,74 @@ public class PostServiceImpl {
 
     private PostRepository postRepository;
     private EmployeeServiceImpl employeeService;
-    private EmployeeContactServiceImpl employeeContactService;
+    private EmployeeRepository employeeRepository;
+    private VehicleRepository vehicleRepository;
+    private ContactDetailServiceImpl contactDetailService;
+    private VehicleServiceImpl vehicleService;
 
-    @Autowired
-    public PostServiceImpl(PostRepository postRepository, EmployeeServiceImpl employeeService, EmployeeContactServiceImpl employeeContactService) {
-        this.postRepository = postRepository;
-        this.employeeService = employeeService;
-        this.employeeContactService = employeeContactService;
+    public PostServiceImpl() {
+
     }
 
+    @Autowired
+    public PostServiceImpl(PostRepository postRepository, VehicleRepository vehicleRepository, VehicleServiceImpl vehicleService, EmployeeRepository employeeRepository, EmployeeServiceImpl employeeService, ContactDetailServiceImpl contactDetailService) {
+        this.postRepository = postRepository;
+        this.vehicleRepository = vehicleRepository;
+        this.employeeService = employeeService;
+        this.employeeRepository = employeeRepository;
+        this.vehicleService = vehicleService;
+        this.contactDetailService = contactDetailService;
+    }
 
-    public Post create(Post post, String employeeNumber) {
-        Employee employee = employeeService.read(employeeNumber);
+    public void deleteAll() {
+        employeeRepository.deleteAll();
+        postRepository.deleteAll();
+    }
 
-        System.out.println("contact list");
-        List<Contact> contactList = employeeContactService.readAllContactsForEmployee(employeeNumber);
+//
+//    User user = userRepository.findUserByEmailAddress(emailAddress);
+//        post.setPostCreatorEmail(emailAddress);
+//        post.setPostCreatorName(user.getFullName());
+//        post.setUser(user);
+//        post.setActive(true);
+//
+//        if(postRepository.existsByTitle(post.getTitle())) {
+//        throw new PostAlreadyExistsException("Post with title " + post.getTitle() + " already exists");
+//    }
+//
+//
+//        userRepository.save(user);
+//        postRepository.save(post);
+//        return post;
 
-        System.out.println(contactList);
-        Contact email = contactList.stream()
-                .filter(i -> i.getContactType().equals(ContactType.EMAIL))
-                .findFirst().orElse(null);
 
-        System.out.println(email);
-        post.setPostCreatorEmail(email.getValue());
+
+    public Post create(Post post, String emailAddress) {
+        System.out.println("Finding employee by " + emailAddress);
+        Employee employee = employeeService.readByEmail(emailAddress);
+
+        System.out.println("Found emp");
+        System.out.println(employee);
+
+        Vehicle vehicle = vehicleService.create(post.getVehicle());
+
+        post.setPostCreatorEmail(emailAddress);
         post.setEmployee(employee);
         post.setActive(true);
+        post.setVehicle(vehicle);
+//            post.setBranch();
 
         if(postRepository.existsByTitle(post.getTitle())) {
             throw new RuntimeException("Post with title " + post.getTitle() + " already exists");
         }
 
-        //employeeRepository.save(employee);
+        employeeRepository.save(employee);
+        vehicleRepository.save(vehicle);
         postRepository.save(post);
         return post;
-
     }
 
-    public Post read(String postId) {
+    public Post read(int postId) {
         return postRepository.findById(postId)
                 .orElse(null);
     }
@@ -76,9 +102,9 @@ public class PostServiceImpl {
     }
 
 
-    public boolean delete(String postId, String emailAddress) {
+    public boolean delete(int postId, String emailAddress) {
 
-        Post post = postRepository.findPostByPostId(postId);
+        Post post = postRepository.findByPostId(postId);
 
         if(post != null) {
 
@@ -90,6 +116,12 @@ public class PostServiceImpl {
         }
         return false;
     }
+
+
+    public List<Post> getAllByEmailAddress(String emailAddress) {
+        return postRepository.findAllByPostCreatorEmail(emailAddress);
+    }
+
 
     public Set<Post> getAll() {
         return postRepository.findAll().stream().collect(Collectors.toSet());

@@ -9,19 +9,19 @@ package za.ac.cput.vehicledealership.domain;
 
 
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
+
+import java.util.Objects;
 
 @Entity
 @Getter
-@EqualsAndHashCode
-@ToString
+@Setter
 public class Branch {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "branch_id")
-    private String branchId;
+    private int branchId;
     private String branchName;
     private int yearOpened;
     @Embedded
@@ -41,13 +41,36 @@ public class Branch {
         this.location = branchBuilder.location;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Branch branch = (Branch) o;
+        return yearOpened == branch.yearOpened && Objects.equals(branchId, branch.branchId) && Objects.equals(branchName, branch.branchName) && Objects.equals(location, branch.location);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(branchId, branchName, yearOpened, location);
+    }
+
+    @Override
+    public String toString() {
+        return "Branch{" +
+                "branchId='" + branchId + '\'' +
+                ", branchName='" + branchName + '\'' +
+                ", yearOpened=" + yearOpened +
+                ", location=" + location +
+                '}';
+    }
+
     public static class BranchBuilder {
-        private String branchId;
+        private int branchId;
         private String branchName;
         private int yearOpened;
         private Location location;
 
-        public BranchBuilder setBranchId(String branchId) {
+        public BranchBuilder setBranchId(int branchId) {
             this.branchId = branchId;
             return this;
         }

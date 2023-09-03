@@ -8,6 +8,7 @@ import za.ac.cput.vehicledealership.domain.Employee;
 import za.ac.cput.vehicledealership.domain.Post;
 import za.ac.cput.vehicledealership.domain.Vehicle;
 import za.ac.cput.vehicledealership.service.VehicleService;
+import za.ac.cput.vehicledealership.service.impl.VehicleServiceImpl;
 
 import java.util.List;
 import java.util.Set;
@@ -17,11 +18,12 @@ import java.util.Set;
 public class VehicleController {
 
     @Autowired
-    private VehicleService vehicleService;
+    private VehicleServiceImpl vehicleService;
 
     @PostMapping("/create")
     public ResponseEntity<?> create(@RequestBody Vehicle vehicle) {
-        Vehicle createdVehicle = vehicleService.update(vehicle);
+        Vehicle createdVehicle = vehicleService.create(vehicle);
+        System.out.println(createdVehicle);
         if(createdVehicle == null) {
             return ResponseEntity.badRequest().body("Error creating record.. Please try again later");
         }
@@ -29,7 +31,7 @@ public class VehicleController {
     }
 
     @GetMapping("read/{id}")
-    public ResponseEntity<?> get(@PathVariable String id) {
+    public ResponseEntity<?> get(@PathVariable int id) {
         Vehicle vehicle = vehicleService.read(id);
 
         if(vehicle == null) {
@@ -53,12 +55,8 @@ public class VehicleController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> delete(@PathVariable String id) {
+    public ResponseEntity<String> delete(@PathVariable int id) {
         boolean status = vehicleService.delete(id);
-
-        if(!status) {
-            return ResponseEntity.badRequest().body("Vehicle " + id + " deleted successfully.");
-        }
-        return ResponseEntity.badRequest().body("Vehicle deleted successfully.");
+        return ResponseEntity.noContent().build();
     }
 }

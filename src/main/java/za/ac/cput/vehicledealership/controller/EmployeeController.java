@@ -6,11 +6,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import za.ac.cput.vehicledealership.domain.Contact;
 import za.ac.cput.vehicledealership.domain.Employee;
-import za.ac.cput.vehicledealership.domain.Vehicle;
-import za.ac.cput.vehicledealership.payload.request.RegisterRequest;
-import za.ac.cput.vehicledealership.service.EmployeeService;
+import za.ac.cput.vehicledealership.dto.EmployeeRegisterDTO;
+
 import za.ac.cput.vehicledealership.service.impl.EmployeeServiceImpl;
 import za.ac.cput.vehicledealership.service.impl.ErrorValidationServiceImpl;
 
@@ -32,7 +30,7 @@ public class EmployeeController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<?> create(@Valid @RequestBody RegisterRequest request, BindingResult result) {
+    public ResponseEntity<?> create(@Valid @RequestBody EmployeeRegisterDTO request, BindingResult result) {
 
         ResponseEntity<?> errorMap = errorValidationService.validationService(result);
 
@@ -47,7 +45,7 @@ public class EmployeeController {
     }
 
     @GetMapping("read/{id}")
-    public ResponseEntity<?> get(@PathVariable String id) {
+    public ResponseEntity<?> get(@PathVariable int id) {
         Employee employee = employeeService.read(id);
 
         if(employee == null) {
@@ -71,11 +69,11 @@ public class EmployeeController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> delete(@PathVariable String id) {
+    public ResponseEntity<String> delete(@PathVariable int id) {
         boolean status = employeeService.delete(id);
 
-        if(!status) {
-            return ResponseEntity.badRequest().body("Employee " + id + " deleted successfully.");
+        if(status) {
+            return ResponseEntity.noContent().build();
         }
         return ResponseEntity.badRequest().body("Employee deleted successfully.");
     }

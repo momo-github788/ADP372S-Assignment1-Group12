@@ -8,6 +8,7 @@ package za.ac.cput.vehicledealership.factory;
 */
 
 
+import za.ac.cput.vehicledealership.domain.BodyType;
 import za.ac.cput.vehicledealership.domain.FuelType;
 import za.ac.cput.vehicledealership.domain.Vehicle;
 import za.ac.cput.vehicledealership.domain.VehicleCondition;
@@ -15,9 +16,10 @@ import za.ac.cput.vehicledealership.util.Helper;
 
 public class VehicleFactory {
 
-    public static Vehicle createVehicle(String make, String model, VehicleCondition condition, FuelType fuelType, String colour, int year, int mileage) {
+
+    public static Vehicle createVehicle(String make, String model, VehicleCondition condition, FuelType fuelType, BodyType bodyType, String colour, int year, int mileage) {
         if(Helper.isNullOrEmpty(make) || Helper.isNullOrEmpty(model) || Helper.isNullOrEmpty(condition) || Helper.isNullOrEmpty(fuelType) || Helper.isNullOrEmpty(colour)
-                || Helper.isNullOrEmpty(year) || Helper.isNullOrEmpty(mileage)) {
+                || Helper.isNullOrEmpty(year) || Helper.isNullOrEmpty(mileage) || Helper.isNullOrEmpty(bodyType)) {
             return null;
         }
 
@@ -26,13 +28,13 @@ public class VehicleFactory {
         }
 
         return new Vehicle.Builder()
-                .setVehicleId(Helper.generateId())
                 .setMake(make)
                 .setModel(model)
                 .setCondition(condition)
                 .setFuelType(fuelType)
                 .setColour(colour)
                 .setYear(year)
+                .setBodyType(bodyType)
                 .setMileage(mileage)
                 .build();
     }

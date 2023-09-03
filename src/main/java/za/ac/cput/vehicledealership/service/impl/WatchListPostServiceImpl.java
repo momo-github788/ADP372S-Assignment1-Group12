@@ -7,23 +7,15 @@
 package za.ac.cput.vehicledealership.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import za.ac.cput.vehicledealership.domain.*;
-import za.ac.cput.vehicledealership.domain.User;
 import za.ac.cput.vehicledealership.factory.WatchListPostFactory;
-import za.ac.cput.vehicledealership.repository.ContactRepository;
 import za.ac.cput.vehicledealership.repository.UserRepository;
 import za.ac.cput.vehicledealership.repository.PostRepository;
 import za.ac.cput.vehicledealership.repository.WatchListPostRepository;
-import za.ac.cput.vehicledealership.service.UserContactService;
-import za.ac.cput.vehicledealership.service.WatchListPostService;
 
-
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,40 +23,34 @@ public class WatchListPostServiceImpl {
 
 
     private WatchListPostRepository watchListPostRepository;
-    private UserRepository userRepository;
+    private UserServiceImpl userService;
     private PostRepository postRepository;
-    private UserContactServiceImpl userContactService;
 
     @Autowired
-    public WatchListPostServiceImpl(WatchListPostRepository watchListPostRepository, UserRepository userRepository, PostRepository postRepository,
-                            UserContactServiceImpl userContactService) {
+    public WatchListPostServiceImpl(WatchListPostRepository watchListPostRepository, UserServiceImpl userService, PostRepository postRepository) {
         this.watchListPostRepository = watchListPostRepository;
-        this.userRepository = userRepository;
+        this.userService = userService;
         this.postRepository = postRepository;
-        this.userContactService = userContactService;
     }
 
 
+    public WatchListPost create(int postId, String emailAddress) {
+        User user = userService.readByEmailAddress(emailAddress);
+        Post post = postRepository.findByPostId(postId);
 
+        WatchListPost watchlistPost = WatchListPostFactory.createWatchListPost(post.getPostId(), user.getUserId());
 
+        System.out.println("Watchlist to save");
+        System.out.println(watchlistPost);
+        if (emailAddress.equals(post.getPostCreatorEmail())) {
+            throw new RuntimeException("You cannot Watchlist your own post");
+        }
 
-//    public WatchListPost create(String postId, String emailAddress) {
-//        User user = userRepository.findUserByContact_EmailAddress(emailAddress);
-//        Post post = postRepository.findPostByPostId(postId);
-//
-//        WatchListPost watchlistPost = WatchListPostFactory.createWatchListPost(post.getPostId(), user.getUserId());
-//
-//        if (emailAddress.equals(post.getPostCreatorEmail())) {
-//            throw new RuntimeException("You cannot Watchlist your own post");
-//        }
-//
-//        watchListPostRepository.save(watchlistPost);
-//
-//        return watchlistPost;
-//    }
+        return watchListPostRepository.save(watchlistPost);
+    }
 
 //    public boolean delete(String watchListPostId, String emailAddress) {
-//        User user = userRepository.findUserByContact_EmailAddress(emailAddress);
+//        User user = userService.findUserByContact_EmailAddress(emailAddress);
 //        WatchListPost watchlistPost = watchListPostRepository.findFirstByPostIdAndUserId(watchListPostId, user.getUserId());
 //
 //        if (watchlistPost == null) {
@@ -76,8 +62,8 @@ public class WatchListPostServiceImpl {
 //    }
 
 
-//    public List<Post> readAllWatchlistPostsForUser(String userId) {
-//        List<Contact> userContacts = userContactService.readAllContactsForUser(userId);
+//    public List<Post> readAllWatchlistPostsForUser(int userId) {
+//        List<ContactDetail> userContacts = con.readAllContactsForUser(userId);
 //
 //        User user = userRepository.f
 //

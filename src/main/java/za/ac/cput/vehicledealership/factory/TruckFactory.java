@@ -19,7 +19,6 @@ public class TruckFactory {
         }
 
         return new Truck.TruckBuilder()
-                .setVehicleId(Helper.generateId())
                 .setMake(make)
                 .setModel(model)
                 .setCondition(condition)

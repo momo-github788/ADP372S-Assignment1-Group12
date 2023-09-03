@@ -9,6 +9,6 @@ import za.ac.cput.vehicledealership.domain.Truck;
 
 import java.util.List;
 
-public interface TruckService extends IService<Truck, String>{
+public interface TruckService extends IService<Truck, Integer>{
     List<Truck> getAll();
 }

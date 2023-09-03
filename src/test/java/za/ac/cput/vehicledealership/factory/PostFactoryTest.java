@@ -12,22 +12,22 @@ import za.ac.cput.vehicledealership.domain.*;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
-@Disabled
+
 class PostFactoryTest {
 
     @Test
     void testCreatePostSuccess() {
 
-        Vehicle vehicle = VehicleFactory.createVehicle("Audi", "A4", VehicleCondition.USED, FuelType.PETROL,
+        Vehicle vehicle = VehicleFactory.createVehicle("Audi", "A4", VehicleCondition.USED, FuelType.PETROL, BodyType.SEDAN,
                 "White", 2019, 23000);
 
         Location location = LocationFactory.createLocation(27, "Daisy Street", "Cape Town",
                 7850, "Western Cape");
 
-        Contact contact = ContactFactory.createContact(ContactType.EMAIL, "john@gmail.com");
+        ContactDetail contact = ContactDetailFactory.createContact(ContactType.EMAIL, "john@gmail.com");
         Branch branch = BranchFactory.createBranch("Cape town branch", 2017, location);
         Name name = NameFactory.createName("Mary", "", "Anne");
-        Employee employee = EmployeeFactory.createEmployee(name, "Password123");
+        Employee employee = EmployeeFactory.createEmployee(name, "john@gmail.com","Password123");
         Post post = PostFactory.createPost("Audi A4 For sale", "Car is in good condition. License up to date", 249999.99,
                 vehicle, branch, true, employee, contact.getValue());
 

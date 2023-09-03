@@ -25,7 +25,7 @@ public class MotorcycleServiceImpl implements MotorcycleService {
 
 
     @Override
-    public Motorcycle read(String vehicleId) {
+    public Motorcycle read(Integer vehicleId) {
         return motorcycleRepository.findById(vehicleId).orElse(null);
     }
 
@@ -38,7 +38,7 @@ public class MotorcycleServiceImpl implements MotorcycleService {
     }
 
     @Override
-    public boolean delete(String vehicleId) {
+    public boolean delete(Integer vehicleId) {
         if(motorcycleRepository.existsById(vehicleId)) {
             this.motorcycleRepository.deleteById(vehicleId);
             return true;

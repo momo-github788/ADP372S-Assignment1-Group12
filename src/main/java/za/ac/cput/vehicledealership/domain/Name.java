@@ -15,8 +15,6 @@ import java.util.Objects;
 
 @Embeddable
 @Getter
-@ToString
-@EqualsAndHashCode
 public class Name {
 
     @NotBlank(message = "Required")
@@ -37,6 +35,28 @@ public class Name {
         this.firstName = builder.firstName;
         this.middleName = builder.middleName;
         this.lastName = builder.lastName;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Name name = (Name) o;
+        return Objects.equals(firstName, name.firstName) && Objects.equals(middleName, name.middleName) && Objects.equals(lastName, name.lastName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstName, middleName, lastName);
+    }
+
+    @Override
+    public String toString() {
+        return "Name{" +
+                "firstName='" + firstName + '\'' +
+                ", middleName='" + middleName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                '}';
     }
 
     public static class Builder {

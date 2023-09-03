@@ -12,6 +12,6 @@ import za.ac.cput.vehicledealership.domain.Motorcycle;
 
 import java.util.Set;
 @Repository
-public interface MotorcycleRepository extends JpaRepository<Motorcycle, String> {
+public interface MotorcycleRepository extends JpaRepository<Motorcycle, Integer> {
 
 }

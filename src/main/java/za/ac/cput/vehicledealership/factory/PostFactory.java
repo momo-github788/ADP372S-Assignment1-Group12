@@ -14,7 +14,6 @@ import java.time.LocalDateTime;
 
 public class PostFactory {
 
-
     public static Post createPost(String title, String description, double price, Vehicle vehicle, Branch branch, boolean isActive, Employee employee,  String postCreatorEmail) {
 
         if(Helper.isNullOrEmpty(title) || Helper.isNullOrEmpty(description) || Helper.isNullOrEmpty(price) ||
@@ -26,10 +25,9 @@ public class PostFactory {
         Location createdLocation = LocationFactory.createLocation(branch.getLocation().getStreetNumber(),
                 branch.getLocation().getStreetName(), branch.getLocation().getCity(), branch.getLocation().getPostalCode(), branch.getLocation().getProvince());
         Branch createdBranch = BranchFactory.createBranch(branch.getBranchName(), branch.getYearOpened(), createdLocation);
-        Employee createdEmployee = EmployeeFactory.createEmployee(createdName, employee.getPassword());
+        Employee createdEmployee = EmployeeFactory.createEmployee(createdName, employee.getEmailAddress(), employee.getPassword());
 
         return new Post.Builder()
-                .setPostId(Helper.generateId())
                 .setTitle(title)
                 .setDescription(description)
                 .setPrice(price)

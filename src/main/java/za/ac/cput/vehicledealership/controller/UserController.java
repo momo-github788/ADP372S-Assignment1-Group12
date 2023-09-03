@@ -25,7 +25,7 @@ public class UserController {
     }
 
     @GetMapping("read/{id}")
-    public User get(@PathVariable String id){return userService.read(id);}
+    public User get(@PathVariable int id){return userService.read(id);}
 
     @GetMapping("/all")
     public List<User> getAll() {return userService.getAll();}
@@ -34,5 +34,5 @@ public class UserController {
     public User update(@RequestBody User user){return userService.update(user);}
 
     @DeleteMapping("/delete/{id}")
-    public boolean delete(@PathVariable String id) {return userService.delete(id);}
+    public boolean delete(@PathVariable int id) {return userService.delete(id);}
 }

@@ -31,7 +31,7 @@ public class MotorcycleController {
     }
 
     @GetMapping("/read/{id}")
-    public ResponseEntity<?> get(@PathVariable String id) {
+    public ResponseEntity<?> get(@PathVariable int id) {
         Motorcycle motorcycle =motorcycleService.read(id);
         if(motorcycle == null) {
             return ResponseEntity.badRequest().body("Motorcycle with id " + id + " not found.");
@@ -52,7 +52,7 @@ public class MotorcycleController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> delete(@PathVariable String id) {
+    public ResponseEntity<String> delete(@PathVariable int id) {
         boolean status = motorcycleService.delete(id);
 
         if(status) {

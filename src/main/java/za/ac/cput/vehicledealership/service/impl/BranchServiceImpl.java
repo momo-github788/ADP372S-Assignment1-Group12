@@ -32,15 +32,17 @@ public class BranchServiceImpl implements BranchService {
 
     @Override
     public Branch create(Branch branch) {
+
+
         Location createdLocation = LocationFactory.createLocation(branch.getLocation().getStreetNumber(), branch.getLocation().getStreetName(),
                 branch.getLocation().getCity(), branch.getLocation().getPostalCode(), branch.getLocation().getProvince());
-        Branch createdBranch = BranchFactory.createBranch(branch.getBranchName(), branch.getYearOpened(), createdLocation);
-        return branchRepository.save(createdBranch);
+        branch.setLocation(createdLocation);
+        return branchRepository.save(branch);
     }
 
 
     @Override
-    public Branch read(String branchId) {
+    public Branch read(Integer branchId) {
         return branchRepository.findById(branchId).orElse(null);
     }
 
@@ -49,17 +51,22 @@ public class BranchServiceImpl implements BranchService {
         if(this.branchRepository.existsById(branch.getBranchId())) {
             Location updatedLocation = LocationFactory.createLocation(branch.getLocation().getStreetNumber(), branch.getLocation().getStreetName(),
                     branch.getLocation().getCity(), branch.getLocation().getPostalCode(), branch.getLocation().getProvince());
-            Branch updatedBranch = BranchFactory.createBranch(branch.getBranchName(), branch.getYearOpened(), updatedLocation);
-            return this.branchRepository.save(updatedBranch);
+
+            branch.setLocation(updatedLocation);
+            return this.branchRepository.save(branch);
         }
         return null;
     }
 
+    public void deleteAll() {
+        branchRepository.deleteAll();
+    }
 
     @Override
-    public boolean delete(String branchId) {
+    public boolean delete(Integer branchId) {
         if(branchRepository.existsById(branchId)) {
             this.branchRepository.deleteById(branchId);
+            return true;
         }
         return false;
     }

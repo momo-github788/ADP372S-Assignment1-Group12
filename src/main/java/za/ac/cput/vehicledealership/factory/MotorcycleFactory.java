@@ -20,7 +20,6 @@ public class MotorcycleFactory {
          }
 
          return new Motorcycle.MotorcycleBuilder()
-                 .setVehicleId(Helper.generateId())
                  .setMake(make)
                  .setModel(model)
                  .setCondition(condition)

@@ -13,6 +13,6 @@ import za.ac.cput.vehicledealership.domain.Vehicle;
 import java.util.List;
 
 @Repository
-public interface VehicleRepository extends JpaRepository<Vehicle, String> {
+public interface VehicleRepository extends JpaRepository<Vehicle, Integer> {
 
 }

@@ -10,11 +10,11 @@ import lombok.Getter;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
 @Getter
-@ToString
-@EqualsAndHashCode
+
 public class Addon {
     @Id
     @Column(name = "addon_id")
@@ -41,6 +41,33 @@ public class Addon {
         this.price = builder.price;
         this.periodExpirationMonths = builder.periodExpirationMonths;
         this.maximumMileageLimit = builder.maximumMileageLimit;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Addon addon = (Addon) o;
+        return Double.compare(addon.price, price) == 0 && periodExpirationMonths == addon.periodExpirationMonths && maximumMileageLimit == addon.maximumMileageLimit && Objects.equals(addonId, addon.addonId) && Objects.equals(name, addon.name) && Objects.equals(description, addon.description) && Objects.equals(datePurchased, addon.datePurchased) && addonType == addon.addonType;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(addonId, name, description, datePurchased, addonType, price, periodExpirationMonths, maximumMileageLimit);
+    }
+
+    @Override
+    public String toString() {
+        return "Addon{" +
+                "addonId='" + addonId + '\'' +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", datePurchased=" + datePurchased +
+                ", addonType=" + addonType +
+                ", price=" + price +
+                ", periodExpirationMonths=" + periodExpirationMonths +
+                ", maximumMileageLimit=" + maximumMileageLimit +
+                '}';
     }
 
     public static class Builder {

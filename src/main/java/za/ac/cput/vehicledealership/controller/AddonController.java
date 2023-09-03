@@ -57,7 +57,7 @@ public class AddonController {
     }
 
     @GetMapping("/allAdons/{vehicleId}")
-    public ResponseEntity<?> getVehicleAddons(@PathVariable String vehicleId) {
+    public ResponseEntity<?> getVehicleAddons(@PathVariable int vehicleId) {
         List<Addon> addonList =  vehicleAddonService.readAllAddonsForVehicle(vehicleId);
         if(addonList == null) {
             return ResponseEntity.badRequest().body("Vehicle has no addons");

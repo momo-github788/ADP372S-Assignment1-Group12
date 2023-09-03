@@ -9,6 +9,6 @@ import za.ac.cput.vehicledealership.domain.User;
 import java.util.List;
 import java.util.Set;
 
-public interface UserService extends IService<User, String>{
+public interface UserService extends IService<User, Integer>{
     List<User> getAll();
 }

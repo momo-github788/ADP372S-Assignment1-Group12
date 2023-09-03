@@ -13,24 +13,24 @@ import java.util.Set;
 @RequestMapping("/watchListPost")
 public class WatchListPostController {
 
-//    @Autowired
-//    private WatchListPostServiceImpl watchListPostService;
-//
-//    @PostMapping("/create")
-//    public WatchListPost create(@RequestBody WatchListPost watchListPost) {
-//        return watchListPostService.create(watchListPost);
-//    }
-//
+    @Autowired
+    private WatchListPostServiceImpl watchListPostService;
+
+    @PostMapping("/create")
+    public WatchListPost create(@RequestBody WatchListPost watchListPost) {
+        return watchListPostService.create(watchListPost.getPostId(), "john@gmail.com");
+    }
+
 //    @GetMapping("read/{id}")
-//    public WatchListPost get(@PathVariable String id) {
+//    public WatchListPost get(@PathVariable int id) {
 //        return watchListPostService.read(id);
 //    }
-//
+
 //    @GetMapping("/all")
 //    public Set<WatchListPost> getAll() {
 //        return watchListPostService.getAll();
 //    }
-//
+
 //    @PostMapping("/update")
 //    public WatchListPost update(@RequestBody WatchListPost watchListPost) {
 //        return watchListPostService.update(watchListPost);

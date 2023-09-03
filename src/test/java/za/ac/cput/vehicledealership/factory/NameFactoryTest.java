@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import za.ac.cput.vehicledealership.domain.Name;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-@Disabled
+
 class NameFactoryTest {
 
     @Test

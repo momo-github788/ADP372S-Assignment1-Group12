@@ -27,6 +27,7 @@ class TruckServiceImplTest {
     @Test
     void create() {
         Truck createdTruck= truckService.create(truck);
+
         assertNotNull(createdTruck);
         System.out.println("Create: " + createdTruck);
     }
@@ -34,6 +35,8 @@ class TruckServiceImplTest {
     @Order(2)
     @Test
     void read() {
+        System.out.println("Truck CREATE FACTORY");
+        System.out.println(truck);
         Truck readTruck = truckService.read(truck.getVehicleId());
         assertNotNull(readTruck);
         System.out.println("Read: " + readTruck);

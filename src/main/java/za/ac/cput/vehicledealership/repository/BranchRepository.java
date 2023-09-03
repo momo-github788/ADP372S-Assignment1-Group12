@@ -12,5 +12,5 @@ import za.ac.cput.vehicledealership.domain.Branch;
 
 import java.util.Set;
 @Repository
-public interface BranchRepository extends JpaRepository<Branch, String > {
+public interface BranchRepository extends JpaRepository<Branch, Integer > {
 }

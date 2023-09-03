@@ -6,49 +6,44 @@ package za.ac.cput.vehicledealership.service.impl;
     Date: 10 June 2023
 */
 
-import org.modelmapper.ModelMapper;
-import org.modelmapper.convention.MatchingStrategies;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import za.ac.cput.vehicledealership.domain.*;
 import za.ac.cput.vehicledealership.dto.EmployeeRegisterDTO;
-import za.ac.cput.vehicledealership.factory.EmployeeContactFactory;
 import za.ac.cput.vehicledealership.factory.EmployeeFactory;
-import za.ac.cput.vehicledealership.factory.NameFactory;
-import za.ac.cput.vehicledealership.payload.request.RegisterRequest;
+import za.ac.cput.vehicledealership.repository.ContactDetailRepository;
 import za.ac.cput.vehicledealership.repository.EmployeeRepository;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class EmployeeServiceImpl  {
 
 
-    private ModelMapper modelMapper;
     private EmployeeRepository employeeRepository;
-    private ContactServiceImpl contactService;
-    private EmployeeContactServiceImpl employeeContactService;
-
+    private ContactDetailServiceImpl contactDetailService;
+    private ContactDetailRepository contactDetailRepository;
 
     @Autowired
-    public EmployeeServiceImpl(ModelMapper modelMapper, EmployeeRepository employeeRepository, ContactServiceImpl contactService, EmployeeContactServiceImpl employeeContactService) {
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository, ContactDetailServiceImpl contactDetailService, ContactDetailRepository contactDetailRepository) {
         this.employeeRepository = employeeRepository;
-        this.modelMapper = modelMapper;
-        this.contactService = contactService;
-        this.employeeContactService = employeeContactService;
+        this.contactDetailService = contactDetailService;
+        this.contactDetailRepository = contactDetailRepository;
     }
 
 
-    public Employee register(RegisterRequest request) {
+    public Employee register(EmployeeRegisterDTO request) {
+        Employee createdEmployee = EmployeeFactory.createEmployee(request.getName(), request.getEmailAddress(), request.getPassword());
 
-        Contact emailContact = contactService.create(ContactType.EMAIL, request.getEmailAddress());
-        Employee createdEmployee = EmployeeFactory.createEmployee(request.getName(), request.getPassword());
-        EmployeeContact employeeContactEmail = EmployeeContactFactory.createEmployeeContact(createdEmployee.getEmployeeNumber(), emailContact.getContactId());
+        if(!employeeRepository.existsByEmailAddress(createdEmployee.getEmailAddress())) {
+            return employeeRepository.save(createdEmployee);
+        }
 
-        employeeContactService.create(employeeContactEmail);
-        contactService.create(emailContact.getContactType(), emailContact.getValue());
-
-        return employeeRepository.save(createdEmployee);
+        System.out.println("Employee email already exixts");
+        return null;
 
     }
 
@@ -70,11 +65,34 @@ public class EmployeeServiceImpl  {
         return true;
     }
 
+    public Set<ContactDetail> getContactsByEmployeeId(int employeeId) {
+        Employee employee = employeeRepository.findById(employeeId).orElse(null);
 
-    public Employee read(String employeeNumber) {
+        if (employee != null) {
+            System.out.println("getContactsByEmployeeId");
+            System.out.println(employee.getContactDetails());
+            return employee.getContactDetails();
+        } else {
+            // Handle the case where the employee with the given ID doesn't exist
+            return Collections.emptySet();
+        }
+    }
+
+    public Employee readByEmail(String emailAddress) {
+        Employee emp = employeeRepository.findEmployeeByEmailAddress(emailAddress);
+
+        if(emp!=null){
+            return emp;
+        }
+        return null;
+    }
+
+
+    public Employee read(int employeeNumber) {
         return employeeRepository.findById(employeeNumber)
                 .orElse(null);
     }
+
 
 
     public Employee update(Employee employee) {
@@ -85,9 +103,19 @@ public class EmployeeServiceImpl  {
     }
 
 
-    public boolean delete(String employeeNumber) {
-        if(employeeRepository.existsById(employeeNumber)) {
+    public void deleteAll() {
+        contactDetailRepository.deleteAll();
+        employeeRepository.deleteAll();
+    }
+
+    public boolean delete(Integer employeeNumber) {
+
+        Employee employee = employeeRepository.findById(employeeNumber).orElse(null);
+
+        if(employee !=null) {
             this.employeeRepository.deleteById(employeeNumber);
+            this.contactDetailRepository.deleteAllByEmployee(employee);
+            return true;
         }
         return false;
     }

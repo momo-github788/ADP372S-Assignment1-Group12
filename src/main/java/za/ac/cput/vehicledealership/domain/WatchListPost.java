@@ -13,21 +13,20 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
 @Getter
 @Setter
-@ToString
-@EqualsAndHashCode
 @Table(name="watchlist_post")
 @IdClass(WatchlistPostId.class)
 public class WatchListPost implements Serializable {
     @Id
     @Column(name = "post_id")
-    private String postId;
+    private int postId;
     @Id
     @Column(name = "user_id")
-    private String userId;
+    private int userId;
 
     protected WatchListPost() {
 
@@ -38,17 +37,38 @@ public class WatchListPost implements Serializable {
         this.userId = builder.userId;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        WatchListPost that = (WatchListPost) o;
+        return Objects.equals(postId, that.postId) && Objects.equals(userId, that.userId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(postId, userId);
+    }
+
+    @Override
+    public String toString() {
+        return "WatchListPost{" +
+                "postId='" + postId + '\'' +
+                ", userId='" + userId + '\'' +
+                '}';
+    }
+
     public static class Builder {
-        private String postId;
-        private String userId;
+        private int postId;
+        private int userId;
 
 
-        public Builder setPostId(String postId) {
+        public Builder setPostId(int postId) {
             this.postId = postId;
             return this;
         }
 
-        public Builder setUserId(String userId) {
+        public Builder setUserId(int userId) {
             this.userId = userId;
             return this;
         }

@@ -8,6 +8,7 @@ package za.ac.cput.vehicledealership.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import za.ac.cput.vehicledealership.domain.Truck;
 import za.ac.cput.vehicledealership.domain.Vehicle;
 import za.ac.cput.vehicledealership.domain.Vehicle;
 import za.ac.cput.vehicledealership.factory.VehicleFactory;
@@ -27,19 +28,14 @@ public class VehicleServiceImpl implements VehicleService {
         this.vehicleRepository = vehicleRepository;
     }
 
-
-
     @Override
     public Vehicle create(Vehicle vehicle) {
-        Vehicle created = VehicleFactory.createVehicle(vehicle.getMake(), vehicle.getModel(), vehicle.getCondition(),
-                vehicle.getFuelType(), vehicle.getColour(), vehicle.getYear(), vehicle.getMileage()
-        );
 
-        return vehicleRepository.save(created);
+        return vehicleRepository.save(vehicle);
     }
 
     @Override
-    public Vehicle read(String vehicleId) {
+    public Vehicle read(Integer vehicleId) {
         return vehicleRepository.findById(vehicleId)
                 .orElse(null);
     }
@@ -47,17 +43,14 @@ public class VehicleServiceImpl implements VehicleService {
     @Override
     public Vehicle update(Vehicle vehicle) {
         if(this.vehicleRepository.existsById(vehicle.getVehicleId())) {
-            Vehicle updated = VehicleFactory.createVehicle(vehicle.getMake(), vehicle.getModel(), vehicle.getCondition(),
-                    vehicle.getFuelType(), vehicle.getColour(), vehicle.getYear(), vehicle.getMileage()
-            );
 
-            return this.vehicleRepository.save(updated);
+            return this.vehicleRepository.save(vehicle);
         }
         return null;
     }
 
     @Override
-    public boolean delete(String vehicleId) {
+    public boolean delete(Integer vehicleId) {
         if(this.vehicleRepository.existsById(vehicleId)) {
             this.vehicleRepository.deleteById(vehicleId);
             return true;

@@ -21,7 +21,7 @@ public class BranchController {
     }
 
     @GetMapping("read/{id}")
-    public Branch get(@PathVariable String id) {
+    public Branch get(@PathVariable int id) {
         return branchService.read(id);
     }
 
@@ -36,7 +36,7 @@ public class BranchController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public boolean delete(@PathVariable String id) {
+    public boolean delete(@PathVariable int id) {
         return branchService.delete(id);
     }
 }

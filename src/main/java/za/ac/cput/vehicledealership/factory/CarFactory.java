@@ -24,7 +24,6 @@ public class CarFactory {
 
 
         return new Car.CarBuilder()
-                .setVehicleId(generateId())
                 .setMake(make)
                 .setModel(model)
                 .setCondition(condition)

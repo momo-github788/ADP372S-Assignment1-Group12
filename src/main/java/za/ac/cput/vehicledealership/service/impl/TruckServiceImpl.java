@@ -25,7 +25,7 @@ public class TruckServiceImpl implements TruckService {
 
 
     @Override
-    public Truck read(String vehicleId) {
+    public Truck read(Integer vehicleId) {
         return truckRepository.findById(vehicleId).orElse(null);
     }
 
@@ -38,7 +38,7 @@ public class TruckServiceImpl implements TruckService {
     }
 
     @Override
-    public boolean delete(String vehicleId) {
+    public boolean delete(Integer vehicleId) {
         if(truckRepository.existsById(vehicleId)) {
             this.truckRepository.deleteById(vehicleId);
             return true;

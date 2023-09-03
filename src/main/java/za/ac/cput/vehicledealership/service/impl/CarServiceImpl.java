@@ -28,7 +28,7 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public Car read(String vehicleId) {
+    public Car read(Integer vehicleId) {
         return carRepository.findById(vehicleId).orElse(null);
     }
 
@@ -41,7 +41,7 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public boolean delete(String vehicleId) {
+    public boolean delete(Integer vehicleId) {
         if(carRepository.existsById(vehicleId)) {
              this.carRepository.deleteById(vehicleId);
              return true;

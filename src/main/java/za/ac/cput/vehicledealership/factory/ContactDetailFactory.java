@@ -5,16 +5,19 @@ package za.ac.cput.vehicledealership.factory;
     Junaid Cedrass - 219090912
     04 April 2023
  */
-import za.ac.cput.vehicledealership.domain.Contact;
+import za.ac.cput.vehicledealership.domain.ContactDetail;
 import za.ac.cput.vehicledealership.domain.ContactType;
+import za.ac.cput.vehicledealership.domain.Employee;
 import za.ac.cput.vehicledealership.util.Helper;
+
+import java.util.Set;
 
 import static za.ac.cput.vehicledealership.util.Helper.isValidEmail;
 import static za.ac.cput.vehicledealership.util.Helper.isValidMobileNo;
 
-public class ContactFactory {
+public class ContactDetailFactory {
 
-    public static Contact createContact(ContactType contactType, String value) {
+    public static ContactDetail createContact(ContactType contactType, String value) {
         if (Helper.isNullOrEmpty(contactType) || Helper.isNullOrEmpty(value)) {
             return null;
         }
@@ -34,10 +37,7 @@ public class ContactFactory {
         }
 
 
-
-
-        return new Contact.ContactBuilder()
-                .setContactId(Helper.generateId())
+        return new ContactDetail.ContactBuilder()
                 .setContactType(contactType)
                 .setValue(value)
                 .build();

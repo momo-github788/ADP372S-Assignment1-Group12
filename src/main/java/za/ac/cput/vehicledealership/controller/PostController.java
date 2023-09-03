@@ -23,7 +23,8 @@ public class PostController {
 
     @PostMapping("/create")
     public ResponseEntity<?> create(@RequestBody Post post) {
-        Post createdPost = postService.create(post,"46fef7e7-82db-4ea4-99f9-6dba605a9b31");
+        // replace wwith principal
+        Post createdPost = postService.create(post,"john@gmail.com");
         if(createdPost == null) {
             return ResponseEntity.badRequest().body("Error creating record.. Please try again later");
         }
@@ -31,7 +32,7 @@ public class PostController {
     }
 
     @GetMapping("/read/{id}")
-    public ResponseEntity<?> get(@PathVariable String id) {
+    public ResponseEntity<?> get(@PathVariable int id) {
         Post post = postService.read(id);
 
         if(post == null) {
@@ -55,11 +56,11 @@ public class PostController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> delete(@PathVariable String id) {
+    public ResponseEntity<String> delete(@PathVariable int id) {
         boolean status = postService.delete(id, "john@gmail.com");
 
-        if(!status) {
-            return ResponseEntity.badRequest().body("Post " + id + " deleted successfully.");
+        if(status) {
+            return ResponseEntity.noContent().build();
         }
         return ResponseEntity.badRequest().body("Post deleted successfully.");
     }

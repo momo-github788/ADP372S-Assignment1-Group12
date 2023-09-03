@@ -11,6 +11,6 @@ import za.ac.cput.vehicledealership.domain.Truck;
 
 import java.util.Set;
 @Repository
-public interface TruckRepository extends JpaRepository<Truck, String> {
+public interface TruckRepository extends JpaRepository<Truck, Integer> {
 
 }

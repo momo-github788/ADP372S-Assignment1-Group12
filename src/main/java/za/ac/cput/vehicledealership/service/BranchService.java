@@ -12,7 +12,7 @@ import za.ac.cput.vehicledealership.domain.Branch;
 import java.util.List;
 import java.util.Set;
 
-public interface BranchService extends IService<Branch, String> {
+public interface BranchService extends IService<Branch, Integer> {
     List<Branch> getAll();
 
 }

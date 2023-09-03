@@ -5,11 +5,10 @@ package za.ac.cput.vehicledealership.service;
         Author: Junaid Cedrass (219090912)
         Date: 11 June 2023
         */
-import za.ac.cput.vehicledealership.domain.Contact;
+import za.ac.cput.vehicledealership.domain.ContactDetail;
 
 import java.util.List;
-import java.util.Set;
 
-public interface ContactService extends IService<Contact,String> {
-    List<Contact> getAll();
+public interface ContactService extends IService<ContactDetail,String> {
+    List<ContactDetail> getAll();
 }

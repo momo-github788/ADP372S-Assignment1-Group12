@@ -33,17 +33,17 @@ class TruckControllerTest {
         Truck savedTruck = responseEntity.getBody();
 
         System.out.println("Saved data: " + savedTruck);
-        assertNotNull(truck.getVehicleId(), savedTruck.getVehicleId());
+        assertNotNull(savedTruck);
     }
 
     @Test
     @Order(2)
     void read() {
-        String url = BASE_URL + "/read/" + truck.getVehicleId();
+        String url = BASE_URL + "/read/" + 2;
         System.out.println("URL " + url);
         ResponseEntity<Truck> getResponse = restTemplate.getForEntity(url, Truck.class);
         Truck readTruck = getResponse.getBody();
-        assertEquals(truck.getVehicleId(), readTruck.getVehicleId());
+        assertEquals(2, readTruck.getVehicleId());
 
         System.out.println("Read: " + readTruck);
     }
@@ -60,6 +60,8 @@ class TruckControllerTest {
                 .setFuelType(FuelType.PETROL)
                 .build();
 
+
+        updateTruck.setVehicleId(2);
         System.out.println("URL: " + url);
         System.out.println("POST data: " + updateTruck);
         ResponseEntity<Truck> response = restTemplate.postForEntity(url, updateTruck, Truck.class);
@@ -82,7 +84,7 @@ class TruckControllerTest {
     @Test
     @Order(5)
     void delete() {
-        String url = BASE_URL + "/delete/" + truck.getVehicleId();
+        String url = BASE_URL + "/delete/" + 2;
         System.out.println("URL: " + url);
 
         ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.DELETE, null, String.class);

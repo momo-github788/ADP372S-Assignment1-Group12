@@ -1,57 +1,85 @@
-//package za.ac.cput.vehicledealership.service;
-//
-///*  WatchListPostServiceImplTest.java
-//    Test class for WatchListPostServiceImpl
-//    Author: Simphiwe Kahlana (220162891)
-//    Date: 09 June 2023
-//*/
-//
-//import org.junit.jupiter.api.Assertions;
-//import org.junit.jupiter.api.BeforeEach;
-//import org.junit.jupiter.api.Disabled;
-//import org.junit.jupiter.api.Test;
-//import za.ac.cput.vehicledealership.domain.WatchListPost;
-//import za.ac.cput.vehicledealership.factory.WatchListPostFactory;
-//
-//
-//import java.util.Set;
-//@Disabled
-//public class WatchListPostServiceImplTest {
-//    private za.ac.cput.vehicledealership.repository.impl.WatchListPostRepositoryimpl WatchListPostRepositoryimpl;
-//
-//    @BeforeEach
-//    public void setUp() {
-//        WatchListPostRepositoryimpl = WatchListPostRepositoryimpl.getWatchListPostRepository();
-//    }
-//
-//    @Test
-//    public void testCreate() {
-//        WatchListPost watchListPost = WatchListPostFactory.createWatchListPost();
-//        WatchListPost createdWatchListPost = WatchListPostRepositoryimpl.create(watchListPost);
-//        Assertions.assertNotNull(createdWatchListPost);
-//        Assertions.assertEquals(watchListPost, createdWatchListPost);
-//    }
+package za.ac.cput.vehicledealership.service;
+
+/*  WatchListPostServiceImplTest.java
+    Test class for WatchListPostServiceImpl
+    Author: Simphiwe Kahlana (220162891)
+    Date: 09 June 2023
+*/
+
+import org.junit.jupiter.api.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import za.ac.cput.vehicledealership.domain.*;
+import za.ac.cput.vehicledealership.dto.EmployeeRegisterDTO;
+import za.ac.cput.vehicledealership.factory.*;
+import za.ac.cput.vehicledealership.repository.WatchListPostRepository;
+import za.ac.cput.vehicledealership.service.impl.EmployeeServiceImpl;
+import za.ac.cput.vehicledealership.service.impl.PostServiceImpl;
+import za.ac.cput.vehicledealership.service.impl.UserServiceImpl;
+import za.ac.cput.vehicledealership.service.impl.WatchListPostServiceImpl;
+
+
+import java.util.List;
+import java.util.Set;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@SpringBootTest
+public class WatchListPostServiceImplTest {
+
+    @Autowired
+    private WatchListPostServiceImpl watchListPostService;
+    @Autowired
+    private PostServiceImpl postService;
+    @Autowired
+    private UserServiceImpl userService;
+    @Autowired
+    private EmployeeServiceImpl employeeService;
+
+
+    private static Name userName = NameFactory.createName("Mary", "", "Anne");
+    private static User user = UserFactory.createUser(userName, "password123", "mary@gmail.com");
+
+//    private static ContactDetail contact = ContactDetailFactory.createContact(ContactType.EMAIL, "mary@gmail.com");
+
+    private static Location location = LocationFactory.createLocation(27, "Daisy Street", "Cape Town",
+            7850, "Western Cape");
+    private static Vehicle vehicle = VehicleFactory.createVehicle("Audi", "A4", VehicleCondition.USED, FuelType.PETROL, BodyType.SEDAN,
+            "White", 2019, 23000);
+    private static Branch branch = BranchFactory.createBranch("Cape town branch", 2017, location);
+
+    private static Name employeeName = NameFactory.createName("John", "", "Doe");
+    private static Employee employee = EmployeeFactory.createEmployee(employeeName, "john@gmail.com","Password123");
+
+    private static Post post = PostFactory.createPost("Audi A4 For sale", "Car is in good condition. License up to date", 249999.99,
+            vehicle, branch, true, employee, employee.getEmailAddress());
+
+
+    @Test
+    public void testCreate() {
+        User theUser = userService.create(user);
+        System.out.println(theUser);
+        Employee theEmployee = employeeService.register(new EmployeeRegisterDTO(employee.getName(), employee.getPassword(), employee.getEmailAddress()));
+        Post thePost = postService.create(post, employee.getEmailAddress());
+
+        theEmployee.setPosts(List.of(thePost));
+
+        WatchListPost createdWatchListPost = watchListPostService.create(thePost.getPostId(), theUser.getEmailAddress());
+        System.out.println(createdWatchListPost);
+        assertNotNull(createdWatchListPost);
+    }
 //
 //    @Test
 //    public void testRead() {
-//        WatchListPost watchListPost = WatchListPostFactory.createWatchListPost();
-//        WatchListPostRepositoryimpl.create(watchListPost);
-//        WatchListPost readWatchListPost = WatchListPostRepositoryimpl.read(watchListPost.getWatchListPostId());
+//        WatchListPost watchListPost = WatchListPostFactory.createWatchListPost(user.getUserId(), post.getPostId());
+//        WatchListPost readWatchListPost = watchListPostService.
 //        Assertions.assertNotNull(readWatchListPost);
 //        Assertions.assertEquals(watchListPost, readWatchListPost);
 //    }
-//
-//    @Test
-//    public void testUpdate() {
-//        WatchListPost watchListPost = WatchListPostFactory.createWatchListPost();
-//        WatchListPostRepositoryimpl.create(watchListPost);
-//        WatchListPost updatedWatchListPost = WatchListPostFactory.createWatchListPost();
-//        updatedWatchListPost.setWatchListPostId(watchListPost.getWatchListPostId());
-//        WatchListPostRepositoryimpl.update(updatedWatchListPost);
-//        WatchListPost readWatchListPost = WatchListPostRepositoryimpl.read(watchListPost.getWatchListPostId());
-//        Assertions.assertEquals(updatedWatchListPost, readWatchListPost);
-//    }
-//
+
+
 //    @Test
 //    public void testDelete() {
 //        WatchListPost watchListPost = WatchListPostFactory.createWatchListPost();
@@ -73,5 +101,5 @@
 //        Assertions.assertTrue(watchListPosts.contains(watchListPost1));
 //        Assertions.assertTrue(watchListPosts.contains(watchListPost2));
 //    }
-//
-//}
+
+}

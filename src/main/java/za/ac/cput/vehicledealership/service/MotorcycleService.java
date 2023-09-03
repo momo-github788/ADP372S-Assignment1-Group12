@@ -9,6 +9,6 @@ import za.ac.cput.vehicledealership.domain.Motorcycle;
 
 import java.util.List;
 
-public interface MotorcycleService extends IService<Motorcycle, String>{
+public interface MotorcycleService extends IService<Motorcycle, Integer>{
     List<Motorcycle> getAll();
 }

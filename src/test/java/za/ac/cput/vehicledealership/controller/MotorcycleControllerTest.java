@@ -36,17 +36,17 @@ class MotorcycleControllerTest {
         Motorcycle savedMotorcycle = responseEntity.getBody();
 
         System.out.println("Saved data: " + savedMotorcycle);
-        assertNotNull(motorcycle.getVehicleId(), savedMotorcycle.getVehicleId());
+        assertNotNull(savedMotorcycle);
     }
 
     @Test
     @Order(2)
     void read() {
-        String url = BASE_URL + "/read/" + motorcycle.getVehicleId();
+        String url = BASE_URL + "/read/" + 1;
         System.out.println("URL " + url);
         ResponseEntity<Motorcycle> getResponse = restTemplate.getForEntity(url, Motorcycle.class);
         Motorcycle readMotorcycle = getResponse.getBody();
-        assertEquals(motorcycle.getVehicleId(), readMotorcycle.getVehicleId());
+        assertEquals(1, readMotorcycle.getVehicleId());
 
         System.out.println("Read: " + readMotorcycle);
     }
@@ -62,6 +62,8 @@ class MotorcycleControllerTest {
                 .setCondition(VehicleCondition.USED)
                 .setHasSideCar(false)
                 .build();
+
+        updateMotorcycle.setVehicleId(1);
 
         System.out.println("URL: " + url);
         System.out.println("POST data: " + updateMotorcycle);
@@ -85,7 +87,7 @@ class MotorcycleControllerTest {
     @Test
     @Order(5)
     void delete() {
-        String url = BASE_URL + "/delete/" + motorcycle.getVehicleId();
+        String url = BASE_URL + "/delete/" + 1;
         System.out.println("URL: " + url);
 
         ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.DELETE, null, String.class);

@@ -6,24 +6,22 @@ package za.ac.cput.vehicledealership.factory;
     04 April 2023
  */
 
-import za.ac.cput.vehicledealership.domain.Contact;
+import za.ac.cput.vehicledealership.domain.Name;
 import za.ac.cput.vehicledealership.domain.User;
 import za.ac.cput.vehicledealership.util.Helper;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 
 public class UserFactory {
-    public static User createUser(String firstName, String lastName, String password){
-        if (Helper.isNullOrEmpty(firstName) || Helper.isNullOrEmpty(lastName) ||
-                Helper.isValidPassword(password)){
+    public static User createUser(Name name, String password, String emailAddress){
+        if (Helper.isNullOrEmpty(name) || Helper.isNullOrEmpty(password)) {
             return null;
         }
-        return new User.UserBuilder().setUserId(Helper.generateId())
-                .setFirstName(firstName)
-                .setLastName(lastName)
+        return new User.UserBuilder()
+                .setName(name)
                 .setDateJoined(LocalDate.now())
+                .setEmailAddress(emailAddress)
                 .setPassword(password)
                 .build();
     }

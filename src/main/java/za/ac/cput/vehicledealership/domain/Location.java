@@ -17,8 +17,6 @@ import lombok.ToString;
 import java.util.Objects;
 
 @Getter
-@ToString
-@EqualsAndHashCode
 @Embeddable
 public class Location {
     private int streetNumber;
@@ -37,6 +35,30 @@ public class Location {
         this.city = builder.city;
         this.postalCode = builder.postalCode;
         this.province = builder.province;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Location location = (Location) o;
+        return streetNumber == location.streetNumber && postalCode == location.postalCode && Objects.equals(streetName, location.streetName) && Objects.equals(city, location.city) && Objects.equals(province, location.province);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(streetNumber, streetName, city, postalCode, province);
+    }
+
+    @Override
+    public String toString() {
+        return "Location{" +
+                "streetNumber=" + streetNumber +
+                ", streetName='" + streetName + '\'' +
+                ", city='" + city + '\'' +
+                ", postalCode=" + postalCode +
+                ", province='" + province + '\'' +
+                '}';
     }
 
     public static class Builder {

@@ -11,7 +11,7 @@ import za.ac.cput.vehicledealership.domain.WatchListPost;
 import za.ac.cput.vehicledealership.util.Helper;
 
 public class WatchListPostFactory {
-    public static WatchListPost createWatchListPost(String postId, String userId) {
+    public static WatchListPost createWatchListPost(int postId, int userId) {
         return new WatchListPost.Builder()
                 .setPostId(postId)
                 .setUserId(userId)

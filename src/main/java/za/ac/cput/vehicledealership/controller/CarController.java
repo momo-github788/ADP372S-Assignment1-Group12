@@ -32,7 +32,7 @@ public class CarController {
     }
 
     @GetMapping("/read/{id}")
-    public ResponseEntity<?> get(@PathVariable String id) {
+    public ResponseEntity<?> get(@PathVariable int id) {
         Car car = carService.read(id);
         if(car == null) {
             return ResponseEntity.badRequest().body("Car with id " + id + " not found.");
@@ -53,7 +53,7 @@ public class CarController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> delete(@PathVariable String id) {
+    public ResponseEntity<String> delete(@PathVariable int id) {
         boolean status = carService.delete(id);
         if(status) {
             // 204 No Content for successful deletion

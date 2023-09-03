@@ -13,10 +13,12 @@ import org.springframework.stereotype.Repository;
 import za.ac.cput.vehicledealership.domain.Post;
 
 import java.util.List;
+import java.util.Set;
 
 @Repository
-public interface PostRepository extends JpaRepository<Post, String> {
-    Post findPostByPostId(String postId);
+public interface PostRepository extends JpaRepository<Post, Integer> {
+    Post findByPostId(int postId);
+    List<Post> findAllByPostCreatorEmail(String emailAddress);
     Boolean existsByTitle(String title);
-    List<Post> findAllByPostIdIn(List<String> postIdList);
+    List<Post> findAllByPostIdIn(List<Integer> postIdList);
 }

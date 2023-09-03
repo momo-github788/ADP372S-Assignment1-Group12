@@ -13,6 +13,7 @@ import za.ac.cput.vehicledealership.domain.Location;
 import za.ac.cput.vehicledealership.util.Helper;
 
 public class BranchFactory {
+
     public static Branch createBranch(String branchName, int yearOpened, Location location) {
 
         if (Helper.isNullOrEmpty(branchName) || yearOpened <= 0) {
@@ -22,7 +23,6 @@ public class BranchFactory {
                 location.getCity(), location.getPostalCode(), location.getProvince());
 
         return new Branch.BranchBuilder()
-                .setBranchId(Helper.generateId())
                 .setBranchName(branchName)
                 .setYearOpened(yearOpened)
                 .setLocation(createdLocation)

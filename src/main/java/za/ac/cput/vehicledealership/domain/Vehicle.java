@@ -10,22 +10,19 @@ import jakarta.persistence.Column;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.Objects;
 
 @Entity
 @Getter
-@ToString
-@EqualsAndHashCode
+@Setter
 @Table(name = "vehicle")
 public class Vehicle {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "vehicle_id")
-    protected String vehicleId;
+    protected int vehicleId;
     protected String make;
     protected String model;
     @Enumerated(EnumType.STRING)
@@ -36,6 +33,9 @@ public class Vehicle {
     protected String colour;
     protected int year;
     protected int mileage;
+    @Column(name = "body_type")
+    @Enumerated(EnumType.STRING)
+    protected BodyType bodyType;
 
     @OneToOne
     private Inventory inventory;
@@ -52,12 +52,42 @@ public class Vehicle {
         this.fuelType = builder.fuelType;
         this.colour = builder.colour;
         this.year = builder.year;
+        this.bodyType = builder.bodyType;
         this.mileage = builder.mileage;
 
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Vehicle vehicle = (Vehicle) o;
+        return vehicleId == vehicle.vehicleId && year == vehicle.year && mileage == vehicle.mileage && Objects.equals(make, vehicle.make) && Objects.equals(model, vehicle.model) && condition == vehicle.condition && fuelType == vehicle.fuelType && Objects.equals(colour, vehicle.colour) && bodyType == vehicle.bodyType && Objects.equals(inventory, vehicle.inventory);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(vehicleId, make, model, condition, fuelType, colour, year, mileage, bodyType, inventory);
+    }
+
+    @Override
+    public String toString() {
+        return "Vehicle{" +
+                "vehicleId=" + vehicleId +
+                ", make='" + make + '\'' +
+                ", model='" + model + '\'' +
+                ", condition=" + condition +
+                ", fuelType=" + fuelType +
+                ", colour='" + colour + '\'' +
+                ", year=" + year +
+                ", mileage=" + mileage +
+                ", bodyType=" + bodyType +
+                ", inventory=" + inventory +
+                '}';
+    }
+
     public static class Builder<T extends Builder<T>> {
-        private String vehicleId;
+        private int vehicleId;
         private String make;
         private String model;
         private VehicleCondition condition;
@@ -65,9 +95,10 @@ public class Vehicle {
         private String colour;
         private int year;
         private int mileage;
+        private BodyType bodyType;
 
 
-        public T setVehicleId(String vehicleId) {
+        public T setVehicleId(int vehicleId) {
             this.vehicleId = vehicleId;
             return (T) this;
         }
@@ -89,6 +120,12 @@ public class Vehicle {
 
         public T setFuelType(FuelType fuelType) {
             this.fuelType = fuelType;
+            return (T) this;
+        }
+
+
+        public T setBodyType(BodyType bodyType) {
+            this.bodyType = bodyType;
             return (T) this;
         }
 
@@ -116,6 +153,7 @@ public class Vehicle {
             this.colour = vehicle.colour;
             this.year = vehicle.year;
             this.mileage = vehicle.mileage;
+            this.bodyType = vehicle.bodyType;
             return this;
         }
 

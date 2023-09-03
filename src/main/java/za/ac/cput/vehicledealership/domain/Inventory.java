@@ -5,6 +5,8 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
+import java.util.Objects;
+
 /*  Addons.java
     Entity for Inventory
     Author: Serge kalala
@@ -12,8 +14,7 @@ import lombok.ToString;
 */
 @Entity
 @Getter
-@ToString
-@EqualsAndHashCode
+
 public class Inventory {
     @Id
     @Column(name = "inventory_id")
@@ -37,6 +38,28 @@ public class Inventory {
 
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Inventory inventory = (Inventory) o;
+        return quantity == inventory.quantity && Objects.equals(inventoryId, inventory.inventoryId) && inventoryType == inventory.inventoryType && Objects.equals(Vehicle, inventory.Vehicle);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(inventoryId, quantity, inventoryType, Vehicle);
+    }
+
+    @Override
+    public String toString() {
+        return "Inventory{" +
+                "inventoryId='" + inventoryId + '\'' +
+                ", quantity=" + quantity +
+                ", inventoryType=" + inventoryType +
+                ", Vehicle=" + Vehicle +
+                '}';
+    }
 
     public static class Builder {
 

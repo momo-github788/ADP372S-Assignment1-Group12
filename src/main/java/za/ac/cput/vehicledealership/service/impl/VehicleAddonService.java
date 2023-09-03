@@ -27,21 +27,18 @@ public class VehicleAddonService {
     }
 
 
-    private Vehicle findById(String vehicleId) {
-        return vehicleRepository.findById(vehicleId).orElse(null);
-    }
 
     public VehicleAddon create(VehicleAddon vehicleAddon) {
-        findById(vehicleAddon.getVehicleId());
+        vehicleRepository.findById(vehicleAddon.getVehicleId()).orElse(null);
         addonsRepository.findById(vehicleAddon.getAddonId()).orElse(null);
 
         return vehicleAddonRepository.save(vehicleAddon);
 
     }
 
-    public List<Addon> readAllAddonsForVehicle(String vehicleId) {
+    public List<Addon> readAllAddonsForVehicle(int vehicleId) {
 
-        findById(vehicleId);
+        vehicleRepository.findById(vehicleId).orElse(null);
 
         List<VehicleAddon> vehicleAddons = vehicleAddonRepository.findAllByVehicleId(vehicleId);
 
