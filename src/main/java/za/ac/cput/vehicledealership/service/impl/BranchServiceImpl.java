@@ -32,11 +32,6 @@ public class BranchServiceImpl implements BranchService {
 
     @Override
     public Branch create(Branch branch) {
-
-
-        Location createdLocation = LocationFactory.createLocation(branch.getLocation().getStreetNumber(), branch.getLocation().getStreetName(),
-                branch.getLocation().getCity(), branch.getLocation().getPostalCode(), branch.getLocation().getProvince());
-        branch.setLocation(createdLocation);
         return branchRepository.save(branch);
     }
 

@@ -8,10 +8,8 @@ package za.ac.cput.vehicledealership.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import za.ac.cput.vehicledealership.domain.Truck;
 import za.ac.cput.vehicledealership.domain.Vehicle;
-import za.ac.cput.vehicledealership.domain.Vehicle;
-import za.ac.cput.vehicledealership.factory.VehicleFactory;
+import za.ac.cput.vehicledealership.domain.VehicleCondition;
 import za.ac.cput.vehicledealership.repository.VehicleRepository;
 import za.ac.cput.vehicledealership.service.VehicleService;
 
@@ -58,8 +56,11 @@ public class VehicleServiceImpl implements VehicleService {
         return false;
     }
 
+
+
     @Override
     public List<Vehicle> getAll() {
+
         return vehicleRepository.findAll();
     }
 }

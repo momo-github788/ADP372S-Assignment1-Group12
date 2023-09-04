@@ -4,9 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import za.ac.cput.vehicledealership.domain.Location;
-import za.ac.cput.vehicledealership.domain.Post;
-import za.ac.cput.vehicledealership.domain.Vehicle;
+import za.ac.cput.vehicledealership.domain.*;
 import za.ac.cput.vehicledealership.service.PostService;
 import za.ac.cput.vehicledealership.service.PostService;
 import za.ac.cput.vehicledealership.service.impl.PostServiceImpl;
@@ -42,7 +40,7 @@ public class PostController {
     }
 
     @GetMapping("/all")
-    public Set<Post> getAll() {
+    public List<Post> getAll() {
         return postService.getAll();
     }
 

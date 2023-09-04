@@ -14,6 +14,8 @@ import lombok.*;
 
 import java.util.Objects;
 
+@EqualsAndHashCode
+@ToString
 @Entity
 @Getter
 @Setter
@@ -37,8 +39,8 @@ public class Vehicle {
     @Enumerated(EnumType.STRING)
     protected BodyType bodyType;
 
-    @OneToOne
-    private Inventory inventory;
+//    @OneToOne
+//    private Inventory inventory;
 
     protected Vehicle() {
 
@@ -56,36 +58,6 @@ public class Vehicle {
         this.mileage = builder.mileage;
 
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Vehicle vehicle = (Vehicle) o;
-        return vehicleId == vehicle.vehicleId && year == vehicle.year && mileage == vehicle.mileage && Objects.equals(make, vehicle.make) && Objects.equals(model, vehicle.model) && condition == vehicle.condition && fuelType == vehicle.fuelType && Objects.equals(colour, vehicle.colour) && bodyType == vehicle.bodyType && Objects.equals(inventory, vehicle.inventory);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(vehicleId, make, model, condition, fuelType, colour, year, mileage, bodyType, inventory);
-    }
-
-    @Override
-    public String toString() {
-        return "Vehicle{" +
-                "vehicleId=" + vehicleId +
-                ", make='" + make + '\'' +
-                ", model='" + model + '\'' +
-                ", condition=" + condition +
-                ", fuelType=" + fuelType +
-                ", colour='" + colour + '\'' +
-                ", year=" + year +
-                ", mileage=" + mileage +
-                ", bodyType=" + bodyType +
-                ", inventory=" + inventory +
-                '}';
-    }
-
     public static class Builder<T extends Builder<T>> {
         private int vehicleId;
         private String make;

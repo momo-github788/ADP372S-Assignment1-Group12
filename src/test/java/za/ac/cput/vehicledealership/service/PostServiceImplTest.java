@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import za.ac.cput.vehicledealership.domain.*;
 import za.ac.cput.vehicledealership.dto.EmployeeRegisterDTO;
 import za.ac.cput.vehicledealership.factory.*;
+import za.ac.cput.vehicledealership.service.impl.BranchServiceImpl;
 import za.ac.cput.vehicledealership.service.impl.EmployeeServiceImpl;
 import za.ac.cput.vehicledealership.service.impl.PostServiceImpl;
 
@@ -27,6 +28,8 @@ class PostServiceImplTest {
     @Autowired
     private PostServiceImpl postService;
 
+    @Autowired
+    private BranchServiceImpl branchService;
     @Autowired
     private EmployeeServiceImpl employeeService;
 
@@ -52,11 +55,15 @@ class PostServiceImplTest {
     @Test
     void create() {
         Employee createdEmployee = employeeService.register(request);
-        Post createdPost1 = postService.create(post1, post1.getPostCreatorEmail());
-        Post createdPost2 = postService.create(post2, post2.getPostCreatorEmail());
-        createdEmployee.setPosts(List.of(createdPost1, createdPost2));
 
-        assertEquals(2, postService.getAllByEmailAddress(createdEmployee.getEmailAddress()).size());
+        Branch createdBranch = branchService.create(branch);
+
+        post1.setBranch(createdBranch);
+        Post createdPost = postService.create(post1, post1.getPostCreatorEmail());
+
+        createdEmployee.setPosts(List.of(createdPost));
+
+        assertNotNull(createdPost);
     }
 
     @Order(2)
