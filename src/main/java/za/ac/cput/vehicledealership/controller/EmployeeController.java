@@ -1,5 +1,9 @@
 package za.ac.cput.vehicledealership.controller;
-
+/*  Employeecontroller.java
+    Controller for Employee class
+    Author: George Tapiwa Charimba (220073465)
+    Date: 18 June 2023
+*/
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

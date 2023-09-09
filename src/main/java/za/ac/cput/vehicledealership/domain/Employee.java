@@ -1,5 +1,9 @@
 package za.ac.cput.vehicledealership.domain;
-
+/*  Employee.java
+    Entity for Employee
+    Author: George Tapiwa Charimba (220073465)
+    Date: 2 April 2023
+*/
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

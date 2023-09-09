@@ -1,5 +1,9 @@
 package za.ac.cput.vehicledealership.factory;
-
+/*  EmployeeFactory.java
+    Factory for the Employee Entity
+    Author: George Tapiwa Charimba (220073465)
+    Date: 3 April 2023
+*/
 import za.ac.cput.vehicledealership.domain.Employee;
 import za.ac.cput.vehicledealership.domain.Name;
 

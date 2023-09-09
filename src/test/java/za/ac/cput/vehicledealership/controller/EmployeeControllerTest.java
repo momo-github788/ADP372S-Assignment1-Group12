@@ -1,5 +1,9 @@
 package za.ac.cput.vehicledealership.controller;
-
+/* EmployeeControllerTest.java
+   Test class for Employee controller class
+   Author: George Tapiwa Charimba (220073465)
+   Date: 17 August 2023
+ */
 import org.junit.jupiter.api.*;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.*;
