@@ -22,6 +22,7 @@ public class Inventory {
     private int quantity;
     @Enumerated(EnumType.STRING)
     private InventoryType inventoryType;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "vehicle_id")
     private Vehicle Vehicle;

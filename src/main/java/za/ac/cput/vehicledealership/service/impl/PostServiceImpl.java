@@ -9,6 +9,7 @@ package za.ac.cput.vehicledealership.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import za.ac.cput.vehicledealership.domain.*;
+import za.ac.cput.vehicledealership.repository.BranchRepository;
 import za.ac.cput.vehicledealership.repository.EmployeeRepository;
 import za.ac.cput.vehicledealership.repository.PostRepository;
 import za.ac.cput.vehicledealership.repository.VehicleRepository;
@@ -26,14 +27,18 @@ public class PostServiceImpl {
     private VehicleRepository vehicleRepository;
     private ContactDetailServiceImpl contactDetailService;
     private VehicleServiceImpl vehicleService;
+    private BranchServiceImpl branchService;
+    private BranchRepository branchRepository;
 
     public PostServiceImpl() {
 
     }
 
     @Autowired
-    public PostServiceImpl(PostRepository postRepository, VehicleRepository vehicleRepository, VehicleServiceImpl vehicleService, EmployeeRepository employeeRepository, EmployeeServiceImpl employeeService, ContactDetailServiceImpl contactDetailService) {
+    public PostServiceImpl(PostRepository postRepository, BranchRepository branchRepository, BranchServiceImpl branchService, VehicleRepository vehicleRepository, VehicleServiceImpl vehicleService, EmployeeRepository employeeRepository, EmployeeServiceImpl employeeService, ContactDetailServiceImpl contactDetailService) {
         this.postRepository = postRepository;
+        this.branchService = branchService;
+        this.branchRepository = branchRepository;
         this.vehicleRepository = vehicleRepository;
         this.employeeService = employeeService;
         this.employeeRepository = employeeRepository;
@@ -68,8 +73,19 @@ public class PostServiceImpl {
         System.out.println("Finding employee by " + emailAddress);
         Employee employee = employeeService.readByEmail(emailAddress);
 
+        System.out.println("Request");
+        System.out.println(post);
+        Branch branch = branchService.read(post.getBranch().getBranchId());
+
+        if(branch == null) {
+            throw new IllegalArgumentException("BRANCH DOES NOT EXIST");
+        }
+
         System.out.println("Found emp");
         System.out.println(employee);
+
+        System.out.println("Found branch");
+        System.out.println(branch);
 
         Vehicle vehicle = vehicleService.create(post.getVehicle());
 
@@ -77,17 +93,22 @@ public class PostServiceImpl {
         post.setEmployee(employee);
         post.setActive(true);
         post.setVehicle(vehicle);
+        post.setBranch(branch);
 //            post.setBranch();
 
         if(postRepository.existsByTitle(post.getTitle())) {
             throw new RuntimeException("Post with title " + post.getTitle() + " already exists");
         }
 
+        branchRepository.save(branch);
         employeeRepository.save(employee);
         vehicleRepository.save(vehicle);
+
         postRepository.save(post);
         return post;
     }
+
+
 
     public Post read(int postId) {
         return postRepository.findById(postId)
@@ -123,7 +144,7 @@ public class PostServiceImpl {
     }
 
 
-    public Set<Post> getAll() {
-        return postRepository.findAll().stream().collect(Collectors.toSet());
+    public List<Post> getAll() {
+        return postRepository.findAll();
     }
 }

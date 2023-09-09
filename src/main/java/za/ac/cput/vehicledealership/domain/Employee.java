@@ -40,7 +40,7 @@ public class Employee {
 
 
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "employee")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "employee", cascade = CascadeType.ALL)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<ContactDetail> contactDetails = new HashSet<>();
 

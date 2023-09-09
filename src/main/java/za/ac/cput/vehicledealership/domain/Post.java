@@ -38,7 +38,7 @@ public class Post {
     private String description;
     private double price;
 
-
+//    @JsonIgnore
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "vehicle_id", referencedColumnName = "vehicle_id")
     private Vehicle vehicle;
@@ -50,9 +50,9 @@ public class Post {
 
     @Column(name="post_creator_email")
     private String postCreatorEmail;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "branch_id",  referencedColumnName = "branch_id")
+//    @JsonIgnore
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "branch_id")
     private Branch branch;
     private LocalDateTime createdAt;
     private LocalDateTime expiredAt;
@@ -98,7 +98,6 @@ public class Post {
                 ", description='" + description + '\'' +
                 ", price=" + price +
                 ", postCreatorEmail='" + postCreatorEmail + '\'' +
-                ", branch=" + branch +
                 ", createdAt=" + createdAt +
                 ", expiredAt=" + expiredAt +
                 ", isActive=" + isActive +

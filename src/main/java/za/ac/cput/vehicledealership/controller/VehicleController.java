@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import za.ac.cput.vehicledealership.domain.Employee;
 import za.ac.cput.vehicledealership.domain.Post;
 import za.ac.cput.vehicledealership.domain.Vehicle;
+import za.ac.cput.vehicledealership.domain.VehicleCondition;
 import za.ac.cput.vehicledealership.service.VehicleService;
 import za.ac.cput.vehicledealership.service.impl.VehicleServiceImpl;
 

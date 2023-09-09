@@ -1,6 +1,7 @@
 package za.ac.cput.vehicledealership.controller;
 
 import org.junit.jupiter.api.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -10,6 +11,7 @@ import org.springframework.web.client.RestTemplate;
 import za.ac.cput.vehicledealership.domain.*;
 import za.ac.cput.vehicledealership.dto.EmployeeRegisterDTO;
 import za.ac.cput.vehicledealership.factory.*;
+import za.ac.cput.vehicledealership.service.impl.BranchServiceImpl;
 
 import java.util.List;
 
@@ -20,6 +22,9 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class PostControllerTest {
+
+    @Autowired
+    private BranchServiceImpl branchService;
 
     private static Name name = NameFactory.createName("John", "", "Doe");
     private static Employee employee = EmployeeFactory.createEmployee(name, "john@gmail.com", "Password123");
@@ -44,8 +49,11 @@ class PostControllerTest {
         String url = BASE_URL + "/create";
         ResponseEntity<Employee> employeeResponse = restTemplate.postForEntity("http://localhost:8080/employee/create", employee, Employee.class);
 
+        Branch createdBranch = branchService.create(branch);
         System.out.println(employeeResponse);
         employee.setPosts(List.of(post));
+
+        post.setBranch(createdBranch);
         ResponseEntity<Post> postResponse = restTemplate.postForEntity(url, post, Post.class);
 
         assertNotNull(postResponse);
