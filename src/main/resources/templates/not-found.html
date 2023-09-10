@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<div th:replace="fragment/head :: head"></div>
+<body>
+
+<div th:replace="fragment/navbar :: navbar"></div>
+
+    <div class="container-fluid mt-5 search-filter-container">
+        <div class="row">
+            <div class="col-md-8 search-results-container mt-3 mb-4">
+                <h1 class="fw-bold">There are no results matching this criteria.</h1>
+                <p>Please try again.</p>
+
+                <form class="d-flex search-form-not-found mt-5" th:action="@{/}">
+                    <button class="btn" type="submit">Back to home</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+<script th:inline="javascript">
+
+</script>
+</body>
+</html>

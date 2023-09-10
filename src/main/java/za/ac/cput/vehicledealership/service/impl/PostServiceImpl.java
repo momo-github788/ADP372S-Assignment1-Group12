@@ -127,6 +127,8 @@ public class PostServiceImpl {
 
         Post post = postRepository.findByPostId(postId);
 
+        System.out.println("Found post to delete");
+        System.out.println(post);
         if(post != null) {
 
             if(!post.getPostCreatorEmail().equals(emailAddress)) {

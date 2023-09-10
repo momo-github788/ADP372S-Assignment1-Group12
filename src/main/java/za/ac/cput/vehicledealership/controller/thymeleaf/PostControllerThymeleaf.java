@@ -3,8 +3,8 @@ package za.ac.cput.vehicledealership.controller.thymeleaf;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import za.ac.cput.vehicledealership.domain.Branch;
 import za.ac.cput.vehicledealership.domain.Post;
 import za.ac.cput.vehicledealership.service.impl.PostServiceImpl;
 
@@ -26,11 +26,50 @@ public class PostControllerThymeleaf {
 
         List<Post> posts = postService.getAll(title);
         if(posts.isEmpty()) {
-            return "post-listings-empty";
+            return "not-found";
         }
 
         model.addAttribute("title", title);
         model.addAttribute("postList", posts);
         return "post-listings";
+    }
+
+    @GetMapping(value = "/posts/{postId}")
+    public String showEditPostForm(@PathVariable int postId, Model model) {
+        Post post = postService.read(postId);
+
+        if(post==null){
+            return "not-found";
+        }
+
+        model.addAttribute("post", post);
+
+        return "edit-post";
+    }
+
+    @PostMapping(value = "/edit-post")
+    public String submitEditPostForm(@ModelAttribute Post post) {
+
+
+        System.out.println("edited post");
+        System.out.println(post);
+        postService.update(post);
+        return "redirect:/search";
+    }
+
+
+    @PostMapping(value = "posts/{postId}")
+    public String deletePost(@PathVariable int postId) {
+
+        boolean result = postService.delete(postId, "john@gmail.com");
+
+
+        System.out.println(result);
+        if(result) {
+            return "redirect:/search";
+        }
+
+        return "not-found";
+
     }
 }

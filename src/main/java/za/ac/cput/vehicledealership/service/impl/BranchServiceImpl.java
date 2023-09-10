@@ -48,6 +48,7 @@ public class BranchServiceImpl implements BranchService {
                     branch.getLocation().getCity(), branch.getLocation().getPostalCode(), branch.getLocation().getProvince());
 
             branch.setLocation(updatedLocation);
+            System.out.println("Need to uupdate branch");
             return this.branchRepository.save(branch);
         }
         return null;
