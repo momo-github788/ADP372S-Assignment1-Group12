@@ -1,19 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      lang="en">
-<head>
-    <meta charset="UTF-8"/>
-    <title>Create Listing</title>
-
-
-    <link rel="stylesheet" th:href="@{/css/listing.css}" />
-
-
-
-</head>
+<html lang="en">
+<div th:replace="fragment/head :: head"></div>
 <body>
-<h1>Create a New Listing</h1>
+
+<div th:replace="fragment/navbar :: navbar"></div>
+
+<div class="create-branch-container">
+<h1 class="fw-bold">Create a Post</h1>
 <form th:action="@{/create-listing}" method="post" th:object="${post}">
     <!-- Post Information -->
     <div class="form-group">
@@ -98,5 +91,6 @@
 
     <button type="submit" class="btn btn-primary">Create Listing</button>
 </form>
+</div>
 </body>
 </html>

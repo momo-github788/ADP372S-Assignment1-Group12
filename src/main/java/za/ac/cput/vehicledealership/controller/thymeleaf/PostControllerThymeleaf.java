@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import za.ac.cput.vehicledealership.domain.Branch;
 import za.ac.cput.vehicledealership.domain.Post;
+import za.ac.cput.vehicledealership.domain.Vehicle;
 import za.ac.cput.vehicledealership.service.impl.PostServiceImpl;
 
 import java.util.List;
@@ -32,6 +33,26 @@ public class PostControllerThymeleaf {
         model.addAttribute("title", title);
         model.addAttribute("postList", posts);
         return "post-listings";
+    }
+
+
+    @GetMapping(value = "/create-listing")
+    public String showCreateListingForm(Model model) {
+        model.addAttribute("post", new Post());
+        model.addAttribute("vehicle", new Vehicle());
+        return "create-listing";
+    }
+
+    @PostMapping(value = "/create-listing")
+    public String submitCreateListingForm(@ModelAttribute Post post, @ModelAttribute Vehicle vehicle) {
+
+        post.setVehicle(vehicle);
+        System.out.println("created post");
+        System.out.println(post);
+
+        //postService.create();
+
+        return "redirect:/";
     }
 
     @GetMapping(value = "/posts/{postId}")
