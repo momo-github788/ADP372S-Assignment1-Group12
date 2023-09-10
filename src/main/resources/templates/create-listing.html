@@ -9,84 +9,78 @@
 <h1 class="fw-bold">Create a Post</h1>
 <form th:action="@{/create-listing}" method="post" th:object="${post}">
     <!-- Post Information -->
-    <div class="form-group">
-        <label for="postTitle">Post Title:</label>
+    <div class="mb-3">
+        <label for="postTitle">Title:</label>
         <input type="text" class="form-control" id="postTitle" th:field="*{title}" name="title" required>
     </div>
 
-    <div class="form-group">
+    <div class="mb-3">
         <label for="postDescription">Description:</label>
         <textarea class="form-control" id="postDescription" th:field="*{description}" name="description" required></textarea>
     </div>
 
-    <div class="form-group">
+    <div class="mb-3">
         <label for="postPrice">Price:</label>
         <input type="number" class="form-control" id="postPrice" th:field="*{price}" name="price" required>
     </div>
 
-    <div class="form-group">
-        <label for="postDateCreated">Date Created:</label>
-        <input type="text" class="form-control" id="postDateCreated" th:field="*{createdAt}" name="dateCreated" required>
-    </div>
-
-    <div class="form-group">
-        <label for="postExpiryDate">Expiry Date:</label>
-        <input type="text" class="form-control" id="postExpiryDate" th:field="*{expiredAt}" name="expiryDate" required>
-    </div>
-
-
-    <div class="form-group">
-        <label for="postCreatorMail">Post Creator Mail:</label>
-        <input type="text" class="form-control" id="postCreatorMail" th:field="*{postCreatorEmail}" name="postCreatorMail" required>
-    </div>
-
     <!-- Vehicle Information -->
-    <div class="form-group">
+    <div class="mb-3">
         <label for="vehicleMake">Vehicle Make:</label>
         <input type="text" class="form-control" id="vehicleMake" th:field="*{vehicle.make}" name="vehicle.make" required>
     </div>
 
-    <div class="form-group">
+    <div class="mb-3">
         <label for="vehicleModel">Vehicle Model:</label>
         <input type="text" class="form-control" id="vehicleModel" th:field="*{vehicle.model}" name="vehicle.model" required>
     </div>
 
-    <div class="form-group">
+    <div class="mb-3">
         <label for="vehicleColor">Vehicle Color:</label>
         <input type="text" class="form-control" id="vehicleColor" th:field="*{vehicle.colour}" name="vehicle.colour" required>
     </div>
 
-    <div class="form-group">
-        <label for="vehicleFuelType">Fuel Type:</label>
-        <input type="text" class="form-control" id="vehicleFuelType" th:field="*{vehicle.fuelType}" name="vehicle.fuelType" required>
-    </div>
-
-    <div class="form-group">
-        <label for="vehicleBodyType">Body Type:</label>
-        <input type="text" class="form-control" id="vehicleBodyType" th:field="*{vehicle.bodyType}" name="vehicle.bodyType" required>
-    </div>
-
-    <div class="form-group">
-        <label for="vehicleCondition">Vehicle Condition:</label>
-        <select class="form-control" id="vehicleCondition" th:field="*{vehicle.condition}" name="vehicle.condition" required>
-            <option value="NEW">New</option>
-            <option value="USED">Used</option>
+    <div class="mb-3">
+        <label for="fuelType">Fuel Type:</label>
+        <select class="form-select" name="fuelTypes" id="fuelType" required>
+            <option selected disabled>Select a Fuel Type</option>
+            <option th:each="fuelType : ${fuelTypes}" th:text="${fuelType}"/>
         </select>
     </div>
 
-    <div class="form-group">
+    <div class="mb-3">
+        <label for="vehicleBodyType">Body Type:</label>
+        <select class="form-select" name="vehicleBodyType" id="vehicleBodyType" required>
+            <option selected>Select a Body Type</option>
+            <option th:each="bodyType : ${bodyTypes}" th:text="${bodyType}"/>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="vehicleCondition">Vehicle Condition:</label>
+        <select class="form-select" name="vehicleCondition" id="vehicleCondition" required>
+            <option selected disabled>Select a Vehicle Condition</option>
+            <option th:each="vehicleCondition : ${vehicleConditions}" th:text="${vehicleCondition}"/>
+        </select>
+    </div>
+
+    <div class="mb-3">
         <label for="vehicleYear">Vehicle Year:</label>
         <input type="number" class="form-control" id="vehicleYear" th:field="*{vehicle.year}" name="vehicle.year" required>
     </div>
 
-    <div class="form-group">
+    <div class="mb-3">
         <label for="vehicleMileage">Vehicle Mileage:</label>
         <input type="number" class="form-control" id="vehicleMileage" th:field="*{vehicle.mileage}" name="vehicle.mileage" required>
     </div>
 
-    <div class="form-group">
-        <label for="branchInputType">Branch :</label>
-        <input type="text" class="form-control" id="branchInputType" th:field="*{branch}" name="branchInputType" required>
+    <div class="mb-3">
+        <label for="branch">Branch :</label>
+        <span>No branches available? <a th:href="@{'/create-branch'}">Create one</a></span>
+        <select class="form-select" name="branch" id="branch" required>
+            <option selected disabled>Select a Branch</option>
+            <option th:each="branch : ${branches}" th:text="${branch.branchName}"/>
+        </select>
     </div>
 
     <button type="submit" class="btn btn-primary">Create Listing</button>

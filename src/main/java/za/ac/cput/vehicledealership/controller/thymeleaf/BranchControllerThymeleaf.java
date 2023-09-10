@@ -23,9 +23,6 @@ public class BranchControllerThymeleaf {
 
     @GetMapping(value = "/create-branch")
     public String showCreateBranchForm(Model model) {
-        //List<Branch> branches = branchService.getAll();
-
-        //model.addAttribute("branches", branches);
         model.addAttribute("branch", new Branch());
         return "create-branch";
     }
@@ -79,6 +76,10 @@ public class BranchControllerThymeleaf {
     @GetMapping(value = "/branches")
     public String showAllBranches(Model model) {
         List<Branch> branchList = branchService.getAll();
+
+        if(branchList.isEmpty()) {
+            return "not-found";
+        }
 
         model.addAttribute("branchList", branchList);
         return "branch-list";
