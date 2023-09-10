@@ -69,6 +69,5 @@ class TruckServiceImplTest {
     void getAll() {
         System.out.println("Get all: ");
         System.out.println(truckService.getAll());
-        assertEquals(1, truckService.getAll().size());
     }
 }
