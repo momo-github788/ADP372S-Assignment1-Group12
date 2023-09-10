@@ -40,7 +40,7 @@ public class Vehicle {
     @OneToOne
     private Inventory inventory;
 
-    protected Vehicle() {
+    public Vehicle() {
 
     }
 

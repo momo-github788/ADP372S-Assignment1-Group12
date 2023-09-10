@@ -11,6 +11,8 @@ import za.ac.cput.vehicledealership.service.InventoryService;
 
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class InventoryServiceImpl implements InventoryService {
@@ -48,6 +50,9 @@ public class InventoryServiceImpl implements InventoryService {
     @Override
     public List<Inventory> getAll() {
         List<Inventory> getAll=inventoryRepository.findAll();
+        //getAll.stream().filter(inventory -> inventory.getInventoryType().equals(search)).collect(Collectors.toList());
         return getAll;
     }
+
+
 }

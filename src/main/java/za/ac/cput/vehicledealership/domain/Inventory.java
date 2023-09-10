@@ -17,6 +17,7 @@ import lombok.ToString;
 public class Inventory {
     @Id
     @Column(name = "inventory_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private String inventoryId;
     private int quantity;
     @Enumerated(EnumType.STRING)
