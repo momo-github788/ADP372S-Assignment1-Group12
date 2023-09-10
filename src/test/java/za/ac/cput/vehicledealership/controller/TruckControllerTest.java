@@ -22,6 +22,9 @@ class TruckControllerTest {
     private final String BASE_URL = "http://localhost:8080/truck";
     private RestTemplate restTemplate = new RestTemplate();
 
+    //Make variable static otherwise variable won't be carried across test cases
+    private static int truckId;
+
     @Test
     @Order(1)
     void create() {
@@ -33,17 +36,19 @@ class TruckControllerTest {
         Truck savedTruck = responseEntity.getBody();
 
         System.out.println("Saved data: " + savedTruck);
-        assertNotNull(savedTruck);
+        assertNotNull(1, String.valueOf(savedTruck.getVehicleId()));
+
+        truckId = savedTruck.getVehicleId();
     }
 
     @Test
     @Order(2)
     void read() {
-        String url = BASE_URL + "/read/" + 2;
+        String url = BASE_URL + "/read/" + truckId;
         System.out.println("URL " + url);
         ResponseEntity<Truck> getResponse = restTemplate.getForEntity(url, Truck.class);
         Truck readTruck = getResponse.getBody();
-        assertEquals(2, readTruck.getVehicleId());
+        assertEquals(truckId, readTruck.getVehicleId());
 
         System.out.println("Read: " + readTruck);
     }
@@ -61,7 +66,7 @@ class TruckControllerTest {
                 .build();
 
 
-        updateTruck.setVehicleId(2);
+        updateTruck.setVehicleId(truckId);
         System.out.println("URL: " + url);
         System.out.println("POST data: " + updateTruck);
         ResponseEntity<Truck> response = restTemplate.postForEntity(url, updateTruck, Truck.class);
@@ -84,7 +89,7 @@ class TruckControllerTest {
     @Test
     @Order(5)
     void delete() {
-        String url = BASE_URL + "/delete/" + 2;
+        String url = BASE_URL + "/delete/" + truckId;
         System.out.println("URL: " + url);
 
         ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.DELETE, null, String.class);

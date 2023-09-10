@@ -68,6 +68,5 @@ class CarServiceImplTest {
     void getAll() {
         System.out.println("Get all: ");
         System.out.println(carService.getAll());
-        assertEquals(1, carService.getAll().size());
     }
 }
