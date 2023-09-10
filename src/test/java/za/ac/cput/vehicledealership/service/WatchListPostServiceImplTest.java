@@ -13,10 +13,7 @@ import za.ac.cput.vehicledealership.domain.*;
 import za.ac.cput.vehicledealership.dto.EmployeeRegisterDTO;
 import za.ac.cput.vehicledealership.factory.*;
 import za.ac.cput.vehicledealership.repository.WatchListPostRepository;
-import za.ac.cput.vehicledealership.service.impl.EmployeeServiceImpl;
-import za.ac.cput.vehicledealership.service.impl.PostServiceImpl;
-import za.ac.cput.vehicledealership.service.impl.UserServiceImpl;
-import za.ac.cput.vehicledealership.service.impl.WatchListPostServiceImpl;
+import za.ac.cput.vehicledealership.service.impl.*;
 
 
 import java.util.List;
@@ -38,6 +35,9 @@ public class WatchListPostServiceImplTest {
     @Autowired
     private EmployeeServiceImpl employeeService;
 
+    @Autowired
+    private BranchServiceImpl branchService;
+
 
     private static Name userName = NameFactory.createName("Mary", "", "Anne");
     private static User user = UserFactory.createUser(userName, "password123", "mary@gmail.com");
@@ -50,11 +50,13 @@ public class WatchListPostServiceImplTest {
             "White", 2019, 23000);
     private static Branch branch = BranchFactory.createBranch("Cape town branch", 2017, location);
 
-    private static Name employeeName = NameFactory.createName("John", "", "Doe");
-    private static Employee employee = EmployeeFactory.createEmployee(employeeName, "john@gmail.com","Password123");
+    private static Name employeeName = NameFactory.createName("John", "James", "Doe");
+    private static Employee employee = EmployeeFactory.createEmployee(employeeName, "john@gmail.com","P@ssword123");
 
     private static Post post = PostFactory.createPost("Audi A4 For sale", "Car is in good condition. License up to date", 249999.99,
             vehicle, branch, true, employee, employee.getEmailAddress());
+
+
 
 
     @Test
@@ -62,7 +64,11 @@ public class WatchListPostServiceImplTest {
         User theUser = userService.create(user);
         System.out.println(theUser);
         Employee theEmployee = employeeService.register(new EmployeeRegisterDTO(employee.getName(), employee.getPassword(), employee.getEmailAddress()));
+
+        Branch theBranch = branchService.create(branch);
+        post.setBranch(theBranch);
         Post thePost = postService.create(post, employee.getEmailAddress());
+
 
         theEmployee.setPosts(List.of(thePost));
 

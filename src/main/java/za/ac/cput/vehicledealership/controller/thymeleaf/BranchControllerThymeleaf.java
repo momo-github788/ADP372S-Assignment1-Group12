@@ -29,8 +29,6 @@ public class BranchControllerThymeleaf {
 
     @PostMapping(value = "/create-branch")
     public String submitCreateBranchForm(@ModelAttribute Branch branch) {
-
-
         System.out.println("created branch");
         System.out.println(branch);
         branchService.create(branch);
