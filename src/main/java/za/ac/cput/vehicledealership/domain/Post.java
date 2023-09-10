@@ -58,7 +58,7 @@ public class Post {
     private LocalDateTime expiredAt;
     private boolean isActive;
 
-    protected Post() {
+    public Post() {
 
     }
 
