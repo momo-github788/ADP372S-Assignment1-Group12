@@ -12,6 +12,6 @@ import za.ac.cput.vehicledealership.domain.Addon;
 import java.util.List;
 
 @Repository
-public interface AddonRepository extends JpaRepository<Addon, String> {
-    List<Addon> findAllByAddonIdIn(List<String> addonIdList);
+public interface AddonRepository extends JpaRepository<Addon, Integer> {
+    List<Addon> findAllByAddonIdIn(List<Integer> addonIdList);
 }

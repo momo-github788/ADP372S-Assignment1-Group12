@@ -16,11 +16,11 @@ import java.util.Objects;
 @Entity
 @Getter
 @Setter
-
 public class Addon {
     @Id
     @Column(name = "addon_id")
-    private String addonId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int addonId;
     private String name;
     private String description;
     private LocalDateTime datePurchased;
@@ -73,7 +73,7 @@ public class Addon {
     }
 
     public static class Builder {
-        private String addonId;
+        private int addonId;
         private String name;
         private String description;
         private LocalDateTime datePurchased;
@@ -82,7 +82,7 @@ public class Addon {
         private int periodExpirationMonths;
         private long maximumMileageLimit;
 
-        public Builder setAddonId(String addonId) {
+        public Builder setAddonId(int addonId) {
             this.addonId = addonId;
             return this;
         }

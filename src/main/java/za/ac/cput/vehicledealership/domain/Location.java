@@ -9,14 +9,12 @@ package za.ac.cput.vehicledealership.domain;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToOne;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.Objects;
 
 @Getter
+@Setter
 @Embeddable
 public class Location {
     private int streetNumber;

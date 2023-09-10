@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Marketplace</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    <!-- Include Bootstrap CSS -->
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand text-light fw-bold" th:href="@{'/'}">Vehicle Dealership</a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item ">
+                    <a class="nav-link active text-light" aria-current="page" href="#">View all listings</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="#">Create a Post</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="#">Create a Branch</a>
+                </li>
+            </ul>
+
+            <form class="d-flex nav-register-login">
+                <button class="btn btn-primary" type="submit" style="margin-right: 1.5rem;">Register</button>
+                <button class="btn btn-secondary" type="submit">Login</button>
+            </form>
+
+        </div>
+    </div>
+</nav>
+
+<div class="create-branch-container">
+
+
+    <h1 class="fw-bold">Create a Branch</h1>
+    <form  th:action="@{/create-branch}" method="post" th:object="${branch}">
+
+        <select name="branches">
+            <option th:each="branch : ${branches}" th:text="${branch.branchName}"/>
+        </select>
+
+        <!-- User Information -->
+        <div class="mb-3">
+            <label for="branchName" class="form-label">Branch Name:</label>
+            <input type="text" class="form-control" id="branchName" th:field="*{branchName}" name="branchName" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="yearOpened" class="form-label">Year Opened:</label>
+            <input type="number" class="form-control" id="yearOpened" th:field="*{yearOpened}" name="yearOpened" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="streetNumber" class="form-label">Street Number</label>:</label>
+            <input type="number" class="form-control" id="streetNumber" th:field="*{location.streetNumber}" name="streetNumber" required>
+        </div>
+
+        <!-- Additional User Details -->
+        <div class="mb-3">
+            <label for="streetName" class="form-label">Street name:</label>
+            <input type="text" class="form-control" id="streetName" th:field="*{location.streetName}" name="streetName" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="city" class="form-label">City:</label>
+            <input type="text" class="form-control" id="city" th:field="*{location.city}" name="city" required>
+        </div>
+
+
+
+        <div class="mb-3">
+            <label for="postalCode" class="form-label">Postal Code:</label>
+            <input type="number" class="form-control" id="postalCode" th:field="*{location.postalCode}" name="postalCode" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="province" class="form-label">Province:</label>
+            <input type="text" class="form-control" id="province" th:field="*{location.province}" name="province" required>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary">Create Branch</button>
+    </form>
+</div>
+
+
+</body>
+</html>
+
+

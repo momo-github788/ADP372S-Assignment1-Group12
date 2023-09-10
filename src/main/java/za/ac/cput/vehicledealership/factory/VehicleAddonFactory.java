@@ -6,7 +6,7 @@ import za.ac.cput.vehicledealership.domain.VehicleAddon;
 import za.ac.cput.vehicledealership.util.Helper;
 
 public class VehicleAddonFactory {
-    public static VehicleAddon createVehicleAddonFactory(int vehicleId, String addonId) {
+    public static VehicleAddon createVehicleAddonFactory(int vehicleId, int addonId) {
 
         if(Helper.isNullOrEmpty(vehicleId) || Helper.isNullOrEmpty(addonId)) {
             return null;

@@ -22,6 +22,7 @@ import java.util.Set;
 @Repository
 public interface PostRepository extends JpaRepository<Post, Integer> {
     Post findByPostId(int postId);
+    List<Post> findAllByTitleContaining(String title);
     List<Post> findAllByPostCreatorEmail(String emailAddress);
     Boolean existsByTitle(String title);
 

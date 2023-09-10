@@ -30,7 +30,7 @@ public class Branch {
 //    @OneToOne(mappedBy = "branch")
 //    private Post post;
 
-    protected Branch() {
+    public Branch() {
 
     }
 

@@ -21,7 +21,7 @@ public class VehicleAddon {
     @Id
     private int vehicleId;
     @Id
-    private String addonId;
+    private int addonId;
 
     public VehicleAddon() {
     }
@@ -54,14 +54,14 @@ public class VehicleAddon {
 
     public static class Builder {
         private int vehicleId;
-        private String addonId;
+        private int addonId;
 
         public Builder setVehicleId(int vehicleId) {
             this.vehicleId = vehicleId;
             return this;
         }
 
-        public Builder setAddonId(String addonId) {
+        public Builder setAddonId(int addonId) {
             this.addonId = addonId;
             return this;
         }

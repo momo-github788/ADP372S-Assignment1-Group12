@@ -19,7 +19,7 @@ public class InventoryFactory {
         }
          return new Inventory.Builder().setQuantity(quantity) .setInventoryType(inventoryType) .setVehicle(vehicle).build();
     }
-    public static Inventory updateInventoryFactorywithid(String id,int quantity, InventoryType inventoryType, Vehicle vehicle) {
+    public static Inventory updateInventoryFactorywithid(int id,int quantity, InventoryType inventoryType, Vehicle vehicle) {
         if(Helper.isNullOrEmpty(quantity) || Helper.isNullOrEmpty(inventoryType) ) {
             throw new IllegalArgumentException("quantity or inventoryType is empty ");
         }

@@ -31,7 +31,7 @@ public class AddonsServiceImpl implements AddonsService {
 
 
     @Override
-    public Addon read(String addonsId) {
+    public Addon read(Integer addonsId) {
         return addonsRepository.findById(addonsId).orElse(null);
     }
 
@@ -45,7 +45,7 @@ public class AddonsServiceImpl implements AddonsService {
 
 
     @Override
-    public boolean delete(String addonsId) {
+    public boolean delete(Integer addonsId) {
         if(addonsRepository.existsById(addonsId)) {
             this.addonsRepository.deleteById(addonsId);
             return true;

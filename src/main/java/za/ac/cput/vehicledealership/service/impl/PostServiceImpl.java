@@ -144,7 +144,11 @@ public class PostServiceImpl {
     }
 
 
-    public List<Post> getAll() {
+    public List<Post> getAll(String title) {
+
+        if(title!=null) {
+            return postRepository.findAllByTitleContaining(title);
+        }
         return postRepository.findAll();
     }
 }

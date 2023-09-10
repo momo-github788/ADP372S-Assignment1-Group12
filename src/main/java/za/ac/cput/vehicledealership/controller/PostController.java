@@ -40,8 +40,8 @@ public class PostController {
     }
 
     @GetMapping("/all")
-    public List<Post> getAll() {
-        return postService.getAll();
+    public List<Post> getAll( @RequestParam(required = false) String title) {
+        return postService.getAll(title);
     }
 
     @PostMapping("/update")

@@ -22,7 +22,6 @@ public class AddonsFactory {
         }
 
         return new Addon.Builder()
-                .setAddonId(Helper.generateId())
                 .setName(name)
                 .setDescription(description)
                 .setDatePurchased(datePurchased)
