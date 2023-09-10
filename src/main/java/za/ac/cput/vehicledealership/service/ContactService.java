@@ -9,6 +9,8 @@ import za.ac.cput.vehicledealership.domain.ContactDetail;
 
 import java.util.List;
 
-public interface ContactService extends IService<ContactDetail,String> {
+public interface ContactService extends IService<ContactDetail, Integer> {
     List<ContactDetail> getAll();
+
+    ContactDetail getContactDetailById(int id);
 }

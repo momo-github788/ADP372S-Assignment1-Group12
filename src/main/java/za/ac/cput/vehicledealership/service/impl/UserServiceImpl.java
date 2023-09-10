@@ -15,6 +15,7 @@ import za.ac.cput.vehicledealership.service.UserService;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -79,5 +80,22 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getAll() {
         return this.repository.findAll();
+    }
+
+    @Override
+    public void saveUser(User user) {
+        this.repository.save(user);
+    }
+
+    @Override
+    public User getUserById(Integer id) {
+        Optional<User> optional = repository.findById(id);
+        User user = null;
+        if (optional.isPresent()) {
+            user = optional.get();
+        }else {
+            throw new RuntimeException("User not found with id ::" + id);
+        }
+        return user;
     }
 }
