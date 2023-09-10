@@ -40,7 +40,7 @@ public class User  {
     private String emailAddress;
 
 
-    protected User() {
+    public User() {
 
     }
 

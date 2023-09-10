@@ -1,6 +1,7 @@
 package za.ac.cput.vehicledealership.controller.thymeleaf;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -8,11 +9,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import za.ac.cput.vehicledealership.domain.Branch;
 import za.ac.cput.vehicledealership.domain.Employee;
+import za.ac.cput.vehicledealership.domain.User;
 import za.ac.cput.vehicledealership.service.EmployeeService;
 import za.ac.cput.vehicledealership.service.impl.EmployeeServiceImpl;
 
 import java.util.List;
 
+@Controller
 public class EmployeeControllerThymeleaf {
 
     private EmployeeServiceImpl employeeService;
@@ -44,18 +47,10 @@ public class EmployeeControllerThymeleaf {
         return "employee-list";
     }
 
+    @GetMapping(value="/edit-employee")
+    public String showEditEmployeeDetailsForm(@ModelAttribute Employee employee) {
 
-    @GetMapping(value = "/employees/{employeeNumber}")
-    public String showUpdateEmployeeDetailsForm(Model model, @PathVariable int employeeNumber) {
-        Employee employee = employeeService.read(employeeNumber);
-
-        if(employee==null){
-            return "not-found";
-        }
-
-        model.addAttribute("employee", employee);
-
-        return "edit-branch";
+        return "edit-employee-details";
     }
 
 

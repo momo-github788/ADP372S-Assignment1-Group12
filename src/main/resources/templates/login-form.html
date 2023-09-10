@@ -1,58 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" th:href="@{/css/style.css}" />
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
-        <title>login</title>
-    </head>
-    <body class="">
-        <div>
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <div class="container-fluid">
-                    <a class="navbar-brand" href="#">Vehicle Dealership</a>
+<div th:replace="fragment/head :: head"></div>
+<body>
 
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarText">
-                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="#">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Features</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Pricing</a>
-                            </li>
-                        </ul>
-                        <form class="d-flex">
-                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                            <button class="btn btn-outline-success" type="submit">Search</button>
-                        </form>
-                    </div>
-                </div>
-            </nav>
-        </div>
+<div th:replace="fragment/navbar :: navbar"></div>
 
         <div class="d-flex justify-content-center text-center py-5" >
-            <form class="form-login" th:action="@{/login}" th:object="${user}" method="POST">
+            <form class="form-login" th:action="@{/login}" th:object="${user}" method="post">
                 <h1 class="h3 mb-2 fw-normal fw-bold">Login</h1>
                 <p class="fw-bold">Log in to make purchasing a vehicle easier.</p>
                 <hr>
 
                 <div class="form-floating">
                     <input type="email" class="form-control rounded-0 rounded-top" id="floatingInput" autofocus="autofocus"
-                           placeholder="name@example.com" name="emailAddress">
+                           placeholder="Email Address" th:field="*{emailAddress}" name="emailAddress">
                     <label for="floatingInput">Email address</label>
                 </div>
 
                 <div class="form-floating ">
                     <input type="password" class="form-control rounded-0 rounded-bottom" id="floatingPassword"
-                           placeholder="Password" name="password">
+                           placeholder="Password" name="password" th:field="*{password}">
                     <label for="floatingPassword">Password</label>
                 </div>
 
