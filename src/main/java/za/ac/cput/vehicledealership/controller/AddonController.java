@@ -36,7 +36,7 @@ public class AddonController {
    }
 
     @GetMapping("read/{id}")
-    public Addon get(@PathVariable String id) {
+    public Addon get(@PathVariable int id) {
         return addonsService.read(id);
     }
 
@@ -71,7 +71,7 @@ public class AddonController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public boolean delete(@PathVariable String id) {
+    public boolean delete(@PathVariable int id) {
         return addonsService.delete(id);
     }
 }

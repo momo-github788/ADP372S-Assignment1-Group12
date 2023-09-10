@@ -2,7 +2,7 @@ package za.ac.cput.vehicledealership.service;
 
 /*  EmployeeService.java
     Service Interface for Employee Domain
-    Author: Muhammed Luqmaan Hoosain (220464901)
+    Author: George Tapiwa Charimba (220073465)
     Date: 10 June 2023
 */
 

@@ -7,6 +7,6 @@ import za.ac.cput.vehicledealership.domain.Inventory;
 
 import java.util.Set;
 @Repository
-public interface InventoryRepository extends JpaRepository<Inventory,String> {
+public interface InventoryRepository extends JpaRepository<Inventory,Integer> {
 
 }

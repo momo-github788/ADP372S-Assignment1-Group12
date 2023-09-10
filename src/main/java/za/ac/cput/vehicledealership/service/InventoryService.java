@@ -5,7 +5,7 @@ import za.ac.cput.vehicledealership.domain.Inventory;
 import java.util.List;
 
 
-public interface InventoryService extends IService <Inventory, String> {
+public interface InventoryService extends IService <Inventory, Integer> {
     List<Inventory> getAll();
 
 }

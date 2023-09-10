@@ -8,7 +8,7 @@ import za.ac.cput.vehicledealership.domain.Addon;
 
 import java.util.List;
 
-public interface AddonsService extends IService <Addon, String> {
+public interface AddonsService extends IService <Addon, Integer> {
     List<Addon> getAll();
 
 }

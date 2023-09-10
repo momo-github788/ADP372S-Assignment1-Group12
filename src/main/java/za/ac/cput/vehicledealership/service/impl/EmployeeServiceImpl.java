@@ -2,7 +2,7 @@ package za.ac.cput.vehicledealership.service.impl;
 
 /*  EmployeeServiceImpl.java
     Implementation of EmployeeService
-    Author: Muhammed Luqmaan Hoosain (220464901)
+    Author: George Tapiwa Charimba(220073465)
     Date: 10 June 2023
 */
 

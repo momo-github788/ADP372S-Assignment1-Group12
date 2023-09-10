@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import za.ac.cput.vehicledealership.domain.*;
+import za.ac.cput.vehicledealership.factory.VehicleAddonFactory;
 import za.ac.cput.vehicledealership.repository.AddonRepository;
 import za.ac.cput.vehicledealership.repository.VehicleAddonRepository;
 import za.ac.cput.vehicledealership.repository.VehicleRepository;
@@ -29,12 +30,14 @@ public class VehicleAddonService {
 
 
     public VehicleAddon create(VehicleAddon vehicleAddon) {
-        vehicleRepository.findById(vehicleAddon.getVehicleId()).orElse(null);
-        addonsRepository.findById(vehicleAddon.getAddonId()).orElse(null);
+        Vehicle v = vehicleRepository.findById(vehicleAddon.getVehicleId()).orElse(null);
+        Addon a = addonsRepository.findById(vehicleAddon.getAddonId()).orElse(null);
 
-        return vehicleAddonRepository.save(vehicleAddon);
+        VehicleAddon vehicleAddon1 = VehicleAddonFactory.createVehicleAddonFactory(v.getVehicleId(), a.getAddonId());
+        return vehicleAddonRepository.save(vehicleAddon1);
 
     }
+
 
     public List<Addon> readAllAddonsForVehicle(int vehicleId) {
 

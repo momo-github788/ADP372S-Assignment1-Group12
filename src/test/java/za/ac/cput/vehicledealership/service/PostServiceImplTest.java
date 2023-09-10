@@ -104,6 +104,6 @@ class PostServiceImplTest {
     @Test
     void getAll() {
         System.out.println("Get all: ");
-        System.out.println(postService.getAll());
+        System.out.println(postService.getAll(null));
     }
 }

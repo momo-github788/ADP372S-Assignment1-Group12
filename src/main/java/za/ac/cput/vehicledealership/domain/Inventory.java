@@ -18,7 +18,8 @@ import java.util.Objects;
 public class Inventory {
     @Id
     @Column(name = "inventory_id")
-    private String inventoryId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int inventoryId;
     private int quantity;
     @Enumerated(EnumType.STRING)
     private InventoryType inventoryType;
@@ -64,12 +65,12 @@ public class Inventory {
 
     public static class Builder {
 
-        private String inventoryId;
+        private int inventoryId;
         private int quantity;
         private InventoryType inventoryType;
         private Vehicle Vehicle;
 
-        public Builder setInventoryId(String inventoryId) {
+        public Builder setInventoryId(int inventoryId) {
             this.inventoryId = inventoryId;
             return this;
         }
