@@ -1,5 +1,9 @@
 package za.ac.cput.vehicledealership.factory;
-
+/*  EmployeeFactoryTest.java
+    Test class for EmployeeFactory
+    Author: George Tapiwa Charimba (220073465)
+    Date: 17 August 2023
+*/
 import org.junit.jupiter.api.Test;
 import za.ac.cput.vehicledealership.domain.*;
 

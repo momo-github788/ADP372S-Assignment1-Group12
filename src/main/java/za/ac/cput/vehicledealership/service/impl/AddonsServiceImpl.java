@@ -4,6 +4,7 @@ package za.ac.cput.vehicledealership.service.impl;
     Author: George Tapiwa Charimba (220073465)
     Date: 12 June 2023
 */
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import za.ac.cput.vehicledealership.domain.Addon;
 import za.ac.cput.vehicledealership.repository.AddonRepository;
@@ -16,13 +17,16 @@ public class AddonsServiceImpl implements AddonsService {
 
     private AddonRepository addonsRepository;
 
+    @Autowired
     public AddonsServiceImpl(AddonRepository addonsRepository) {
         this.addonsRepository = addonsRepository;
     }
 
     @Override
-    public Addon create(Addon addons) {
-        return addonsRepository.save(addons);
+    public Addon create(Addon addon) {
+
+        return addonsRepository.save(addon);
+
     }
 
 
@@ -44,6 +48,7 @@ public class AddonsServiceImpl implements AddonsService {
     public boolean delete(String addonsId) {
         if(addonsRepository.existsById(addonsId)) {
             this.addonsRepository.deleteById(addonsId);
+            return true;
         }
         return false;
     }
