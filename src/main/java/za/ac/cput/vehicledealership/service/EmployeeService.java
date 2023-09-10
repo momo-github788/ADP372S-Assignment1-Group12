@@ -13,4 +13,6 @@ import java.util.List;
 
 public interface EmployeeService extends IService<Employee, String> {
     List<Employee> getAll();
+    void saveEmployee(Employee employee);
+    Employee getEmployeeById(int Id);
 }

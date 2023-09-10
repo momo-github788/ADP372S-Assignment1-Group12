@@ -11,4 +11,7 @@ import java.util.Set;
 
 public interface UserService extends IService<User, Integer>{
     List<User> getAll();
+    void saveUser(User user);
+    User getUserById(Integer id);
+
 }

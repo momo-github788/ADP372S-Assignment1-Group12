@@ -30,13 +30,21 @@ public class ContactController {
     }
 
     @PostMapping("/create")
-    public ContactDetail create(@RequestBody ContactDetail contact){
-        return contactService.create(contact.getContactType(), contact.getValue());
+    public ResponseEntity<?> create(@RequestBody ContactDetail contact){
+       ContactDetail createdContactDetail = contactService.create(contact);
+       if (createdContactDetail == null){
+           return ResponseEntity.badRequest().body("Error creating record. Please try again");
+       }
+       return new ResponseEntity<>(createdContactDetail, HttpStatus.CREATED);
     }
 
     @GetMapping("read/{contactDetailId}")
-    public ContactDetail get(@PathVariable int contactDetailId){
-        return contactService.read(contactDetailId);
+    public ResponseEntity<?> get(@PathVariable int contactDetailId){
+        ContactDetail contactDetail = contactService.read(contactDetailId);
+        if (contactDetail == null){
+            return ResponseEntity.badRequest().body("Use with contact id" + contactDetailId + "not found");
+        }
+        return ResponseEntity.ok(contactDetail);
     }
 
     @GetMapping("/all")
@@ -56,16 +64,22 @@ public class ContactController {
 
 
     @PostMapping("/update")
-    public ContactDetail update(@RequestBody ContactDetail contact){
+    public ResponseEntity<?> update(@RequestBody ContactDetail contact){
 
-        return contactService.update(contact);
+     ContactDetail updatedContactDetail = contactService.update(contact);
+     if (updatedContactDetail == null) {
+         return ResponseEntity.badRequest().body("Error updating record. Please try again");
+     }
+     return ResponseEntity.ok(updatedContactDetail);
     }
 
     @DeleteMapping("/delete/{contactDetailId}")
-    public boolean delete(@PathVariable int contactDetailId){
-
-        return contactService.delete(contactDetailId);
+    public ResponseEntity<String> delete(@PathVariable int contactDetailId){
+        boolean status = contactService.delete(contactDetailId);
+        if (status){
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
-
-
 }

@@ -17,10 +17,11 @@ import za.ac.cput.vehicledealership.repository.EmployeeRepository;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
-public class EmployeeServiceImpl  {
+public class EmployeeServiceImpl {
 
 
     private EmployeeRepository employeeRepository;
@@ -123,5 +124,21 @@ public class EmployeeServiceImpl  {
 
     public List<Employee> getAll() {
         return employeeRepository.findAll();
+    }
+
+    public void saveEmployee(Employee employee){
+        this.employeeRepository.save(employee);
+    }
+
+
+    public Employee getEmployeeById(int id){
+        Optional<Employee> optional = employeeRepository.findById(id);
+        Employee employee = null;
+        if (optional.isPresent()){
+            employee = optional.get();
+        }else {
+            throw new RuntimeException("Employee not found for id ::" + id);
+        }
+        return employee;
     }
 }
