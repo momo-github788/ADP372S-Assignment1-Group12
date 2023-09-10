@@ -2,17 +2,11 @@
 <html lang="en">
 <div th:replace="fragment/head :: head"></div>
 <body>
-
 <div th:replace="fragment/navbar :: navbar"></div>
 
-<div class="create-branch-container">
-
-    <h1 class="fw-bold">Create a Branch</h1>
-    <form  th:action="@{/create-branch}" method="post" th:object="${branch}">
-
-<!--        <select name="branches">-->
-<!--            <option th:each="branch : ${branches}" th:text="${branch.branchName}"/>-->
-<!--        </select>-->
+<div class="edit-post-container">
+    <h1 class="fw-bold">Edit a Branch</h1>
+    <form  th:action="@{/edit-branch}" method="post" th:object="${branch}">
 
         <div class="mb-3">
             <label for="branchName" class="form-label">Branch Name:</label>
@@ -53,12 +47,11 @@
         </div>
 
         <!-- Submit Button -->
-        <button type="submit" class="btn btn-primary">Create Branch</button>
+        <button type="submit" class="btn btn-primary">Update</button>
+
     </form>
 </div>
 
 
 </body>
 </html>
-
-

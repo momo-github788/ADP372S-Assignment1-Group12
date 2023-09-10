@@ -62,6 +62,21 @@ body .search-results-container .search-result-container .post-card .card-body {
 }
 
 
+body .search-results-container .search-result-container .branch-card {
+    display: flex;
+    flex-direction: row;
+
+}
+
+body .search-results-container .search-result-container .branch-card img {
+    height: 175px;
+
+}
+body .search-results-container .search-result-container .branch-card .card-body {
+
+}
+
+
 .hero-section {
     padding: 90px 0;
     text-align: center;
@@ -100,16 +115,19 @@ body .search-results-container .search-result-container .post-card .card-body {
     margin-bottom: 30px;
 }
 
-.create-branch-container {
+.create-branch-container,
+.edit-post-container{
 
     max-width: 600px;
     margin: 4rem auto;
 }
 
-.create-branch-container form {
+.create-branch-container form,
+.edit-post-container form {
 }
 
-.create-branch-container button {
+.create-branch-container button,
+.edit-post-container button{
     width: 100%;
     padding: .85rem;
 }
