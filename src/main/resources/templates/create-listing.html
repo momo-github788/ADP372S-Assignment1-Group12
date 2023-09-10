@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Create Listing</title>
+
+
+    <link rel="stylesheet" th:href="@{/css/listing.css}" />
+
+
+
+</head>
+<body>
+<h1>Create a New Listing</h1>
+<form th:action="@{/create-listing}" method="post" th:object="${post}">
+    <!-- Post Information -->
+    <div class="form-group">
+        <label for="postTitle">Post Title:</label>
+        <input type="text" class="form-control" id="postTitle" th:field="*{title}" name="title" required>
+    </div>
+
+    <div class="form-group">
+        <label for="postDescription">Description:</label>
+        <textarea class="form-control" id="postDescription" th:field="*{description}" name="description" required></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="postPrice">Price:</label>
+        <input type="number" class="form-control" id="postPrice" th:field="*{price}" name="price" required>
+    </div>
+
+    <div class="form-group">
+        <label for="postDateCreated">Date Created:</label>
+        <input type="text" class="form-control" id="postDateCreated" th:field="*{createdAt}" name="dateCreated" required>
+    </div>
+
+    <div class="form-group">
+        <label for="postExpiryDate">Expiry Date:</label>
+        <input type="text" class="form-control" id="postExpiryDate" th:field="*{expiredAt}" name="expiryDate" required>
+    </div>
+
+
+    <div class="form-group">
+        <label for="postCreatorMail">Post Creator Mail:</label>
+        <input type="text" class="form-control" id="postCreatorMail" th:field="*{postCreatorEmail}" name="postCreatorMail" required>
+    </div>
+
+    <!-- Vehicle Information -->
+    <div class="form-group">
+        <label for="vehicleMake">Vehicle Make:</label>
+        <input type="text" class="form-control" id="vehicleMake" th:field="*{vehicle.make}" name="vehicle.make" required>
+    </div>
+
+    <div class="form-group">
+        <label for="vehicleModel">Vehicle Model:</label>
+        <input type="text" class="form-control" id="vehicleModel" th:field="*{vehicle.model}" name="vehicle.model" required>
+    </div>
+
+    <div class="form-group">
+        <label for="vehicleColor">Vehicle Color:</label>
+        <input type="text" class="form-control" id="vehicleColor" th:field="*{vehicle.colour}" name="vehicle.colour" required>
+    </div>
+
+    <div class="form-group">
+        <label for="vehicleFuelType">Fuel Type:</label>
+        <input type="text" class="form-control" id="vehicleFuelType" th:field="*{vehicle.fuelType}" name="vehicle.fuelType" required>
+    </div>
+
+    <div class="form-group">
+        <label for="vehicleBodyType">Body Type:</label>
+        <input type="text" class="form-control" id="vehicleBodyType" th:field="*{vehicle.bodyType}" name="vehicle.bodyType" required>
+    </div>
+
+    <div class="form-group">
+        <label for="vehicleCondition">Vehicle Condition:</label>
+        <select class="form-control" id="vehicleCondition" th:field="*{vehicle.condition}" name="vehicle.condition" required>
+            <option value="NEW">New</option>
+            <option value="USED">Used</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="vehicleYear">Vehicle Year:</label>
+        <input type="number" class="form-control" id="vehicleYear" th:field="*{vehicle.year}" name="vehicle.year" required>
+    </div>
+
+    <div class="form-group">
+        <label for="vehicleMileage">Vehicle Mileage:</label>
+        <input type="number" class="form-control" id="vehicleMileage" th:field="*{vehicle.mileage}" name="vehicle.mileage" required>
+    </div>
+
+    <div class="form-group">
+        <label for="branchInputType">Branch :</label>
+        <input type="text" class="form-control" id="branchInputType" th:field="*{branch}" name="branchInputType" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Create Listing</button>
+</form>
+</body>
+</html>
