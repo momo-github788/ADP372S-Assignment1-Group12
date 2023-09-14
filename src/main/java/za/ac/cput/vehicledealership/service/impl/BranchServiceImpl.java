@@ -22,6 +22,7 @@ import java.util.Set;
 @Service
 public class BranchServiceImpl implements BranchService {
 
+
     private BranchRepository branchRepository;
 
     @Autowired
@@ -60,11 +61,21 @@ public class BranchServiceImpl implements BranchService {
 
     @Override
     public boolean delete(Integer branchId) {
-        if(branchRepository.existsById(branchId)) {
-            this.branchRepository.deleteById(branchId);
+
+        Branch branch = branchRepository.findById(branchId).orElse(null);
+        System.out.println("branch to delete");
+        System.out.println(branch);
+
+        if(branch!=null) {
+
+            branchRepository.delete(branch);
+
             return true;
         }
+        System.out.println("Branch is in use, cannot be deleted");
+
         return false;
+
     }
 
     @Override

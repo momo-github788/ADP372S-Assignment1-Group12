@@ -14,6 +14,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -50,6 +51,12 @@ public class User  {
         this.dateJoined = builder.dateJoined;
         this.password = builder.password;
         this.emailAddress = builder.emailAddress;
+    }
+
+
+    @PrePersist
+    private void onCreate() {
+        this.dateJoined = LocalDate.now();
     }
 
     @Override

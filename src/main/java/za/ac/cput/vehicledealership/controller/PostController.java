@@ -39,6 +39,11 @@ public class PostController {
         return ResponseEntity.ok(post);
     }
 
+    @GetMapping("/all/employee")
+    public List<Post> getAll() {
+        return postService.getAllByEmailAddress("john@gmail.com");
+    }
+
     @GetMapping("/all")
     public List<Post> getAll( @RequestParam(required = false) String title) {
         return postService.getAll(title);

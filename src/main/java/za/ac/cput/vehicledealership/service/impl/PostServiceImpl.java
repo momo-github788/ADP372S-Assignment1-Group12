@@ -30,6 +30,7 @@ public class PostServiceImpl {
     private BranchServiceImpl branchService;
     private BranchRepository branchRepository;
 
+
     public PostServiceImpl() {
 
     }
@@ -116,7 +117,11 @@ public class PostServiceImpl {
     }
 
     public Post update(Post post) {
+
         if(this.postRepository.existsById(post.getPostId())) {
+            System.out.println("post");
+            System.out.println(post);
+
             return this.postRepository.save(post);
         }
         return null;
@@ -130,10 +135,6 @@ public class PostServiceImpl {
         System.out.println("Found post to delete");
         System.out.println(post);
         if(post != null) {
-
-            if(!post.getPostCreatorEmail().equals(emailAddress)) {
-                throw new RuntimeException("Post " + post.getTitle() + " not found in your account so it cannot be deleted.");
-            }
             this.postRepository.deleteById(postId);
             return true;
         }
