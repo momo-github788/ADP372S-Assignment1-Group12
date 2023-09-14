@@ -44,7 +44,7 @@ public class PostController {
         return postService.getAllByEmailAddress("john@gmail.com");
     }
 
-    @GetMapping("/all")
+    @GetMapping("/search")
     public List<Post> getAll( @RequestParam(required = false) String title) {
         return postService.getAll(title);
     }
