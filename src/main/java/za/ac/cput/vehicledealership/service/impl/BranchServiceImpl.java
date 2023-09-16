@@ -33,6 +33,10 @@ public class BranchServiceImpl implements BranchService {
 
     @Override
     public Branch create(Branch branch) {
+
+        if(branchRepository.existsByBranchName(branch.getBranchName())) {
+            return null;
+        }
         return branchRepository.save(branch);
     }
 
@@ -44,12 +48,17 @@ public class BranchServiceImpl implements BranchService {
 
     @Override
     public Branch update(Branch branch) {
+
         if(this.branchRepository.existsById(branch.getBranchId())) {
             Location updatedLocation = LocationFactory.createLocation(branch.getLocation().getStreetNumber(), branch.getLocation().getStreetName(),
                     branch.getLocation().getCity(), branch.getLocation().getPostalCode(), branch.getLocation().getProvince());
 
             branch.setLocation(updatedLocation);
             System.out.println("Need to uupdate branch");
+
+            if(branchRepository.existsByBranchName(branch.getBranchName())) {
+                return null;
+            }
             return this.branchRepository.save(branch);
         }
         return null;

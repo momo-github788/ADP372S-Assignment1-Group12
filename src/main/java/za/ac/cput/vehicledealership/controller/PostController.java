@@ -23,10 +23,12 @@ public class PostController {
     public ResponseEntity<?> create(@RequestBody Post post) {
         // replace wwith principal
         Post createdPost = postService.create(post,"john@gmail.com");
-        if(createdPost == null) {
-            return ResponseEntity.badRequest().body("Error creating record.. Please try again later");
+
+        if(createdPost !=null) {
+            return ResponseEntity.ok(createdPost);
         }
-        return new ResponseEntity<>(createdPost, HttpStatus.CREATED);
+
+        return ResponseEntity.badRequest().body("Post already exists");
     }
 
     @GetMapping("/read/{id}")
@@ -52,10 +54,12 @@ public class PostController {
     @PostMapping("/update")
     public ResponseEntity<?> update(@RequestBody Post post) {
         Post updatedPost = postService.update(post);
-        if(updatedPost == null) {
-            return ResponseEntity.badRequest().body("Error updating record.. Please try again later");
+
+        if(updatedPost !=null) {
+            return ResponseEntity.ok(updatedPost);
         }
-        return ResponseEntity.ok(updatedPost);
+
+        return ResponseEntity.badRequest().body("Post already exists");
     }
 
     @DeleteMapping("/delete/{id}")

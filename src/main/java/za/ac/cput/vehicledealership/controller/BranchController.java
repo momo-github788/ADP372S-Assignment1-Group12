@@ -1,6 +1,8 @@
 package za.ac.cput.vehicledealership.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import za.ac.cput.vehicledealership.domain.Branch;
 import za.ac.cput.vehicledealership.service.BranchService;
@@ -16,8 +18,15 @@ public class BranchController {
     private BranchService branchService;
 
     @PostMapping("/create")
-    public Branch create(@RequestBody Branch branch) {
-        return branchService.create(branch);
+    public ResponseEntity<?> create(@RequestBody Branch branch) {
+
+        Branch branch1 = branchService.create(branch);
+
+        if(branch1 !=null) {
+            return ResponseEntity.ok(branch1);
+        }
+
+        return ResponseEntity.badRequest().body("Branch already exists");
     }
 
     @GetMapping("read/{id}")
@@ -31,8 +40,14 @@ public class BranchController {
     }
 
     @PostMapping("/update")
-    public Branch update(@RequestBody Branch branch) {
-        return branchService.update(branch);
+    public ResponseEntity<?> update(@RequestBody Branch branch) {
+        Branch branch1 = branchService.update(branch);
+
+        if(branch1 !=null) {
+            return ResponseEntity.ok(branch1);
+        }
+
+        return ResponseEntity.badRequest().body("Branch already exists");
     }
 
     @DeleteMapping("/delete/{id}")

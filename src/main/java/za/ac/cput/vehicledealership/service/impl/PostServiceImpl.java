@@ -98,7 +98,7 @@ public class PostServiceImpl {
 //            post.setBranch();
 
         if(postRepository.existsByTitle(post.getTitle())) {
-            throw new RuntimeException("Post with title " + post.getTitle() + " already exists");
+            return null;
         }
 
         branchRepository.save(branch);
@@ -122,6 +122,10 @@ public class PostServiceImpl {
             System.out.println("post");
             System.out.println(post);
 
+
+            if(postRepository.existsByTitle(post.getTitle())) {
+                return null;
+            }
             return this.postRepository.save(post);
         }
         return null;
