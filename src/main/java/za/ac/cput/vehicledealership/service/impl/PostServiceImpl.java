@@ -9,10 +9,7 @@ package za.ac.cput.vehicledealership.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import za.ac.cput.vehicledealership.domain.*;
-import za.ac.cput.vehicledealership.repository.BranchRepository;
-import za.ac.cput.vehicledealership.repository.EmployeeRepository;
-import za.ac.cput.vehicledealership.repository.PostRepository;
-import za.ac.cput.vehicledealership.repository.VehicleRepository;
+import za.ac.cput.vehicledealership.repository.*;
 
 import java.util.List;
 import java.util.Set;
@@ -21,10 +18,10 @@ import java.util.stream.Collectors;
 @Service
 public class PostServiceImpl {
 
+    private ImageUploadRepository imageUploadRepository;
     private PostRepository postRepository;
     private EmployeeServiceImpl employeeService;
     private EmployeeRepository employeeRepository;
-    private VehicleRepository vehicleRepository;
     private ContactDetailServiceImpl contactDetailService;
     private VehicleServiceImpl vehicleService;
     private BranchServiceImpl branchService;
@@ -36,11 +33,11 @@ public class PostServiceImpl {
     }
 
     @Autowired
-    public PostServiceImpl(PostRepository postRepository, BranchRepository branchRepository, BranchServiceImpl branchService, VehicleRepository vehicleRepository, VehicleServiceImpl vehicleService, EmployeeRepository employeeRepository, EmployeeServiceImpl employeeService, ContactDetailServiceImpl contactDetailService) {
+    public PostServiceImpl(PostRepository postRepository, ImageUploadRepository imageUploadRepository, BranchRepository branchRepository, BranchServiceImpl branchService, VehicleServiceImpl vehicleService, EmployeeRepository employeeRepository, EmployeeServiceImpl employeeService, ContactDetailServiceImpl contactDetailService) {
         this.postRepository = postRepository;
+        this.imageUploadRepository = imageUploadRepository;
         this.branchService = branchService;
         this.branchRepository = branchRepository;
-        this.vehicleRepository = vehicleRepository;
         this.employeeService = employeeService;
         this.employeeRepository = employeeRepository;
         this.vehicleService = vehicleService;
@@ -95,15 +92,16 @@ public class PostServiceImpl {
         post.setActive(true);
         post.setVehicle(vehicle);
         post.setBranch(branch);
+
 //            post.setBranch();
 
         if(postRepository.existsByTitle(post.getTitle())) {
+            System.out.println("post already exist");
             return null;
         }
 
         branchRepository.save(branch);
         employeeRepository.save(employee);
-        vehicleRepository.save(vehicle);
 
         postRepository.save(post);
         return post;
@@ -134,12 +132,21 @@ public class PostServiceImpl {
 
     public boolean delete(int postId, String emailAddress) {
 
-        Post post = postRepository.findByPostId(postId);
+        Post post = postRepository.findById(postId).orElse(null);
 
-        System.out.println("Found post to delete");
-        System.out.println(post);
+
         if(post != null) {
-            this.postRepository.deleteById(postId);
+
+            System.out.println("Found post to delete");
+            System.out.println(post);
+            if(post.getImageUpload() != null) {
+                System.out.println("this post has an image" + post.getImageUpload().getId());
+                imageUploadRepository.deleteById(post.getImageUpload().getId());
+            }
+
+            vehicleService.delete(post.getVehicle().getVehicleId());
+            postRepository.deleteById(postId);
+
             return true;
         }
         return false;

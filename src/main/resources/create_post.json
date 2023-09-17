@@ -1,0 +1,17 @@
+{
+  "title": "Selling au22222222222di2333232222222",
+  "description": "This car is in great condition",
+  "price": 65000,
+  "vehicle": {
+    "make": "Au2di",
+    "model": "A4",
+    "condition": "USED",
+    "fuelType": "PETROL",
+    "colour": "White",
+    "year": 2013,
+    "mileage": 45000
+  },
+  "branch": {
+    "branchId": 1
+  }
+}

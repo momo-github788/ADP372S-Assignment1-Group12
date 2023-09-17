@@ -6,11 +6,14 @@ package za.ac.cput.vehicledealership.domain;
     Date: 2 April 2023
 */
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.Objects;
 
@@ -38,6 +41,10 @@ public class Vehicle {
     @Column(name = "body_type")
     @Enumerated(EnumType.STRING)
     protected BodyType bodyType;
+
+//    @JsonIgnore
+//    @OneToOne(cascade = CascadeType.ALL)
+//    private Post post;
 
 //    @OneToOne
 //    private Inventory inventory;

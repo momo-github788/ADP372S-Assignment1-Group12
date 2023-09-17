@@ -38,47 +38,46 @@ public class WatchListPostServiceImpl {
         User user = userService.readByEmailAddress(emailAddress);
         Post post = postRepository.findByPostId(postId);
 
-        WatchListPost watchlistPost = WatchListPostFactory.createWatchListPost(post.getPostId(), user.getUserId());
-
-        System.out.println("Watchlist to save");
-        System.out.println(watchlistPost);
-        if (emailAddress.equals(post.getPostCreatorEmail())) {
-            throw new RuntimeException("You cannot Watchlist your own post");
+        if(post == null) {
+            throw new RuntimeException("Post with id " + postId + " does not exist");
         }
 
+        WatchListPost watchlistPost = WatchListPostFactory.createWatchListPost(post.getPostId(), user.getUserId());
         return watchListPostRepository.save(watchlistPost);
     }
 
-//    public boolean delete(String watchListPostId, String emailAddress) {
-//        User user = userService.findUserByContact_EmailAddress(emailAddress);
-//        WatchListPost watchlistPost = watchListPostRepository.findFirstByPostIdAndUserId(watchListPostId, user.getUserId());
-//
-//        if (watchlistPost == null) {
-//            return false;
-//        }
-//
-//        watchListPostRepository.delete(watchlistPost);
-//        return true;
-//    }
+    public boolean delete(int postId, String emailAddress) {
+        User user = userService.readByEmailAddress(emailAddress);
+        WatchListPost watchlistPost = watchListPostRepository.findFirstByPostIdAndUserId(postId, user.getUserId());
+
+        if (watchlistPost == null) {
+            return false;
+        }
+
+        watchListPostRepository.delete(watchlistPost);
+        return true;
+    }
 
 
-//    public List<Post> readAllWatchlistPostsForUser(int userId) {
-//        List<ContactDetail> userContacts = con.readAllContactsForUser(userId);
-//
-//        User user = userRepository.f
-//
-//        List<WatchListPost> watchListPostIdList = watchListPostRepository.findAllByUserId(user.getUserId());
-//
-//        List<Post> posts = postRepository.findAllByPostIdIn(watchListPostIdList.stream()
-//                .map(post -> post.getPostId())
-//                .collect(Collectors.toList())
-//        );
-//
-//        if (posts.isEmpty()) {
-//            return Collections.EMPTY_LIST;
-//        }
-//
-//
-//        return posts;
-//    }
+    public List<Post> readAllWatchlistPostsForUser(String emailAddress) {
+
+        User user = userService.readByEmailAddress(emailAddress);
+
+        List<WatchListPost> watchListPostIdList = watchListPostRepository.findAllByUserId(user.getUserId());
+
+        List<Post> posts = postRepository.findAllByPostIdIn(watchListPostIdList.stream()
+                .map(post -> post.getPostId())
+                .collect(Collectors.toList())
+        );
+
+        System.out.println("user watchlists");
+        System.out.println(posts);
+
+        if (posts.isEmpty()) {
+            return Collections.EMPTY_LIST;
+        }
+
+
+        return posts;
+    }
 }

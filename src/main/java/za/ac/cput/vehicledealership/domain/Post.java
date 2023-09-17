@@ -12,6 +12,7 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -39,21 +40,30 @@ public class Post {
     private double price;
 
 //    @JsonIgnore
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "vehicle_id", referencedColumnName = "vehicle_id")
+    @OneToOne(fetch = FetchType.EAGER)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Vehicle vehicle;
 
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne()
     @JoinColumn(name="employee_number")
     private Employee employee;
 
-    @Column(name="post_creator_email")
-    private String postCreatorEmail;
-//    @JsonIgnore
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(mappedBy = "post")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private ImageUpload imageUpload;
+
+    //    @JsonIgnore
+    @OneToOne()
     @JoinColumn(name = "branch_id")
     private Branch branch;
+
+    @Column(name="post_creator_email")
+    private String postCreatorEmail;
+
+
+
     private LocalDateTime createdAt;
     private LocalDateTime expiredAt;
     private boolean isActive;
@@ -71,10 +81,12 @@ public class Post {
         this.branch = builder.branch;
         this.createdAt = builder.createdAt;
         this.expiredAt = builder.expiredAt;
+        this.imageUpload = builder.imageUpload;
         this.isActive = builder.isActive;
         this.employee = builder.employee;
         this.postCreatorEmail = builder.postCreatorEmail;
     }
+
 
     @Override
     public boolean equals(Object o) {
@@ -133,6 +145,7 @@ public class Post {
         private boolean isActive;
         private Employee employee;
         private String postCreatorEmail;
+        private ImageUpload imageUpload;
 
         public Builder setPostId(int postId) {
             this.postId = postId;
@@ -189,6 +202,11 @@ public class Post {
             return this;
         }
 
+        public Builder setImageUpload(ImageUpload imageUpload) {
+            this.imageUpload = imageUpload;
+            return this;
+        }
+
         public Builder copy(Post post){
             this.postId = post.postId;
             this.title = post.title;
@@ -200,6 +218,7 @@ public class Post {
             this.expiredAt = post.expiredAt;
             this.isActive = post.isActive;
             this.employee = post.employee;
+            this.imageUpload = post.imageUpload;
             this.postCreatorEmail = post.postCreatorEmail;
             return this;
         }

@@ -51,8 +51,11 @@ public class VehicleServiceImpl implements VehicleService {
     public boolean delete(Integer vehicleId) {
         if(this.vehicleRepository.existsById(vehicleId)) {
             this.vehicleRepository.deleteById(vehicleId);
+            System.out.println("deleted vehicle");
             return true;
         }
+        System.out.println("could not delete vehicle");
+
         return false;
     }
 

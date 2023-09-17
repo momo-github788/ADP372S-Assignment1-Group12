@@ -17,6 +17,6 @@ import java.util.Set;
 
 @Repository
 public interface WatchListPostRepository extends JpaRepository<WatchListPost, WatchlistPostId> {
-    WatchListPost findFirstByPostIdAndUserId(String postId, String userId);
-    List<WatchListPost> findAllByUserId(String userId);
+    WatchListPost findFirstByPostIdAndUserId(int postId, int userId);
+    List<WatchListPost> findAllByUserId(int userId);
 }

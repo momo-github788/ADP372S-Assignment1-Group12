@@ -15,7 +15,7 @@ import java.util.Objects;
 @EqualsAndHashCode
 public class WatchlistPostId implements Serializable {
 
-    private long postId;
-    private long userId;
+    private int postId;
+    private int userId;
 
 }
