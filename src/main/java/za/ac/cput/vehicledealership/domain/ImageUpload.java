@@ -15,6 +15,7 @@ import org.hibernate.annotations.GenericGenerator;
 public class ImageUpload {
 
     @Id
+    @Column(name = "image_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
@@ -24,15 +25,15 @@ public class ImageUpload {
     private byte[] data;
 
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "post_id")
     @JsonIgnore
     private Post post;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "branch_id")
-    @JsonIgnore
-    private Branch branch;
+//    @OneToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "branch_id")
+//    @JsonIgnore
+//    private Branch branch;
 
 
 }

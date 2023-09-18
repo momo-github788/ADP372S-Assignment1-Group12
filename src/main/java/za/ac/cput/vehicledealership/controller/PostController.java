@@ -39,7 +39,7 @@ public class PostController {
            if(image != null) {
                System.out.println("there is an image added to request");
                try {
-                   imageUploadService.uploadImage(image.getBytes(), createdPost.getPostId(), createdPost);
+                   imageUploadService.uploadImage(image.getBytes(), createdPost.getPostId());
                    return ResponseEntity.ok(createdPost);
                }catch (IOException e) {
                    return ResponseEntity.badRequest().body("Error uploading image. Please try again");
@@ -69,17 +69,19 @@ public class PostController {
     }
 
     @GetMapping("/search")
-    public List<Post> getAll( @RequestParam(required = false) String title) {
+    public List<Post> getAll(@RequestParam(required = false) String title) {
         return postService.getAll(title);
     }
 
     @PostMapping("/update")
-    public ResponseEntity<?> update(@RequestBody Post post) {
-        Post updatedPost = postService.update(post);
+    public ResponseEntity<?> update(@RequestPart(required = false, value = "image")  MultipartFile image, @RequestPart(value = "post") Post post) {
 
-        if(updatedPost !=null) {
+        Post updatedPost = postService.update(post, image, "john@gmail.com");
+
+        if(updatedPost != null) {
             return ResponseEntity.ok(updatedPost);
         }
+
 
         return ResponseEntity.badRequest().body("Post already exists");
     }

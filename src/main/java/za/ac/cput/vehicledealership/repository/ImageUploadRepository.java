@@ -6,7 +6,7 @@ import za.ac.cput.vehicledealership.domain.ImageUpload;
 import za.ac.cput.vehicledealership.domain.Post;
 
 public interface ImageUploadRepository extends JpaRepository<ImageUpload, Integer> {
-    ImageUpload findImageUploadByBranch(Branch branch);
+//    ImageUpload findImageUploadByBranch(Branch branch);
 
     ImageUpload findImageUploadByPost(Post post);
 }

@@ -86,7 +86,7 @@ class PostServiceImplTest {
 
         System.out.println(updatedPost);
 
-        assertNull(postService.update(updatedPost));
+        assertNull(postService.update(updatedPost, null, employee.getEmailAddress()));
         System.out.println("Update: " + updatedPost);
 
     }

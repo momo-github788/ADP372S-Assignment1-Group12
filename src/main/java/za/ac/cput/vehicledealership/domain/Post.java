@@ -62,15 +62,10 @@ public class Post {
     @Column(name="post_creator_email")
     private String postCreatorEmail;
 
-
-
     private LocalDateTime createdAt;
     private LocalDateTime expiredAt;
     private boolean isActive;
 
-    public Post() {
-
-    }
 
     private Post(Builder builder){
         this.postId = builder.postId;
@@ -87,18 +82,23 @@ public class Post {
         this.postCreatorEmail = builder.postCreatorEmail;
     }
 
+    public Post() {
+        this.createdAt = LocalDateTime.now();
+        this.expiredAt = calculateExpiryDate(createdAt);
+    }
+
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Post post = (Post) o;
-        return EXPIRATION_TIME_MONTHS == post.EXPIRATION_TIME_MONTHS && postId == post.postId && Double.compare(post.price, price) == 0 && isActive == post.isActive && Objects.equals(title, post.title) && Objects.equals(description, post.description) && Objects.equals(vehicle, post.vehicle) && Objects.equals(employee, post.employee) && Objects.equals(postCreatorEmail, post.postCreatorEmail) && Objects.equals(branch, post.branch) && Objects.equals(createdAt, post.createdAt) && Objects.equals(expiredAt, post.expiredAt);
+        return EXPIRATION_TIME_MONTHS == post.EXPIRATION_TIME_MONTHS && postId == post.postId && Double.compare(post.price, price) == 0 && isActive == post.isActive && Objects.equals(title, post.title) && Objects.equals(description, post.description) && Objects.equals(vehicle, post.vehicle) && Objects.equals(employee, post.employee) && Objects.equals(imageUpload, post.imageUpload) && Objects.equals(branch, post.branch) && Objects.equals(postCreatorEmail, post.postCreatorEmail) && Objects.equals(createdAt, post.createdAt) && Objects.equals(expiredAt, post.expiredAt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(EXPIRATION_TIME_MONTHS, postId, title, description, price, vehicle, employee, postCreatorEmail, branch, createdAt, expiredAt, isActive);
+        return Objects.hash(EXPIRATION_TIME_MONTHS, postId, title, description, price, vehicle, employee, imageUpload, branch, postCreatorEmail, createdAt, expiredAt, isActive);
     }
 
     @Override
@@ -116,12 +116,6 @@ public class Post {
                 '}';
     }
 
-    @PrePersist
-    protected void onCreate() {
-        this.createdAt = LocalDateTime.now();
-        this.expiredAt = calculateExpiryDate(createdAt);
-
-    }
 
     private LocalDateTime calculateExpiryDate(LocalDateTime createdAt) {
         return createdAt.plusMonths(EXPIRATION_TIME_MONTHS);

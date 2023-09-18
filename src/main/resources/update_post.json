@@ -1,14 +1,16 @@
 {
-  "title": "Selling eAe3udi a4 ueeer3e3g3e3ntly!3",
+  "postId": 17,
+  "title": "Selling Aud22222222222ED",
   "description": "This car is in great condition",
   "price": 65000,
   "vehicle": {
-    "make": "Au2di",
+    "vehicleId": 18,
+    "make": "TOYOTA",
     "model": "A4",
     "condition": "USED",
-    "fuelType": "PETROL",
     "bodyType": "COUPE",
-    "colour": "White",
+    "fuelType": "PETROL",
+    "colour": "red",
     "year": 2013,
     "mileage": 45000
   },

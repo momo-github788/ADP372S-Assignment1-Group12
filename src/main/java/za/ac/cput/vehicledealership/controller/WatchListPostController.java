@@ -18,9 +18,9 @@ public class WatchListPostController {
     @Autowired
     private WatchListPostServiceImpl watchListPostService;
 
-    @PostMapping("/create")
-    public WatchListPost create(@RequestBody WatchListPost watchListPost) {
-        return watchListPostService.create(watchListPost.getPostId(), "user@gmail.com");
+    @GetMapping("/{postId}")
+    public WatchListPost create(@PathVariable int postId) {
+        return watchListPostService.create(postId, "user@gmail.com");
     }
 
     @GetMapping("/all")
