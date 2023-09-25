@@ -27,6 +27,9 @@ class EmployeeControllerTest {
     private final String BASE_URL = "http://localhost:8080/employee";
     private RestTemplate restTemplate = new RestTemplate();
 
+    private static int employeeNumber;
+
+
     @Test
     @Order(1)
     void create() {
@@ -38,17 +41,19 @@ class EmployeeControllerTest {
         Employee savedEmployee = postResponse.getBody();
 
         System.out.println("Saved data: " + savedEmployee);
-        assertEquals(1, savedEmployee.getEmployeeNumber());
+        assertNotNull(savedEmployee);
+
+        employeeNumber = savedEmployee.getEmployeeNumber();
     }
 
     @Test
     @Order(2)
     void read() {
-        String url = BASE_URL + "/read/" + 1;
+        String url = BASE_URL + "/read/" + employeeNumber;
         System.out.println("URL: " + url);
         ResponseEntity<Employee> getResponse = restTemplate.getForEntity(url, Employee.class);
         Employee readEmployee = getResponse.getBody();
-        assertEquals(1, readEmployee.getEmployeeNumber());
+        assertEquals(employeeNumber, readEmployee.getEmployeeNumber());
 
         System.out.println("Read: " + readEmployee);
 
@@ -67,7 +72,7 @@ class EmployeeControllerTest {
                 .setName(middleName)
                 .build();
 
-        updateEmployee.setEmployeeNumber(1);
+        updateEmployee.setEmployeeNumber(employeeNumber);
 
         System.out.println("URL: " + url);
         System.out.println("POST data: " + updateEmployee);
@@ -78,7 +83,7 @@ class EmployeeControllerTest {
     @Test
     @Order(5)
     void delete() {
-        String url = BASE_URL + "/delete/" + 1;
+        String url = BASE_URL + "/delete/" + employeeNumber;
         System.out.println("URL: " + url);
 
         ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.DELETE, null, String.class);

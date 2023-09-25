@@ -71,7 +71,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean delete(Integer userId) {
         if (this.repository.existsById(userId)){
-            this.repository.existsById(userId);
+            this.repository.deleteById(userId);
             return true;
         }
         return false;

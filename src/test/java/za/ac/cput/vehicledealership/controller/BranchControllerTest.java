@@ -25,6 +25,8 @@ class BranchControllerTest {
     private final String BASE_URL = "http://localhost:8080/branch";
     private RestTemplate restTemplate = new RestTemplate();
 
+    private static int branchId;
+
     @Test
     @Order(1)
     void create() {
@@ -37,16 +39,19 @@ class BranchControllerTest {
 
         System.out.println("Saved data: " + savedBranch);
         assertNotNull(savedBranch);
+
+        branchId = savedBranch.getBranchId();
+        System.out.println("branch id " + branchId);
     }
 
     @Test
     @Order(2)
     void read() {
-        String url = BASE_URL + "/read/" + 1;
+        String url = BASE_URL + "/read/" + branchId;
         System.out.println("URL: " + url);
         ResponseEntity<Branch> getResponse = restTemplate.getForEntity(url, Branch.class);
         Branch readBranch = getResponse.getBody();
-        assertEquals(1, readBranch.getBranchId());
+        assertEquals(branchId, readBranch.getBranchId());
 
         System.out.println("Read: " + readBranch);
     }
@@ -62,7 +67,7 @@ class BranchControllerTest {
                 .setLocation(location)
                 .build();
 
-        updateBranch.setBranchId(1);
+        updateBranch.setBranchId(branchId);
 
         System.out.println("URL: " + url);
         System.out.println("POST data: " + updateBranch);
@@ -73,7 +78,7 @@ class BranchControllerTest {
     @Test
     @Order(5)
     void delete() {
-        String url = BASE_URL + "/delete/" + 1;
+        String url = BASE_URL + "/delete/" + branchId;
         System.out.println("URL: " + url);
 
         ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.DELETE, null, String.class);

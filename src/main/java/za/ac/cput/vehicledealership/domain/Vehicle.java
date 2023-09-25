@@ -28,26 +28,32 @@ public class Vehicle {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "vehicle_id")
     protected int vehicleId;
+
     protected String make;
+
     protected String model;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "vehicle_condition")
     protected VehicleCondition condition;
+
     @Enumerated(EnumType.STRING)
     protected FuelType fuelType;
+
     protected String colour;
+
     protected int year;
+
     protected int mileage;
+
     @Column(name = "body_type")
     @Enumerated(EnumType.STRING)
     protected BodyType bodyType;
 
-//    @JsonIgnore
-//    @OneToOne(cascade = CascadeType.ALL)
-//    private Post post;
-
-//    @OneToOne
+//    @ManyToOne
+//    @JoinColumn(name = "inventory_id")
 //    private Inventory inventory;
+
 
     public Vehicle() {
 

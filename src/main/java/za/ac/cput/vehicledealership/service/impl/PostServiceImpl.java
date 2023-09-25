@@ -144,7 +144,7 @@ public class PostServiceImpl {
                     post.setImageUpload(newImage);
                     imageUploadRepository.save(newImage);
 
-                } else { // No new files added, file might have been deleted to update the value in Post to reflect it
+                } else { // No new files added, file might have been deleted so update the value in Post to reflect it
                     System.out.println("no changes made to image");
                     System.out.println(imageUpload);
                     post.setImageUpload(imageUpload);
@@ -201,6 +201,7 @@ public class PostServiceImpl {
         if (title != null) {
             return postRepository.findAllByTitleContaining(title);
         }
+
         return postRepository.findAll();
     }
 }

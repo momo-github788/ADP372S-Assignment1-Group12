@@ -8,6 +8,7 @@ package za.ac.cput.vehicledealership.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import za.ac.cput.vehicledealership.domain.Post;
 import za.ac.cput.vehicledealership.domain.Vehicle;
 import za.ac.cput.vehicledealership.domain.VehicleCondition;
 
@@ -16,4 +17,5 @@ import java.util.List;
 @Repository
 public interface VehicleRepository extends JpaRepository<Vehicle, Integer> {
     List<Vehicle> findAllByCondition(VehicleCondition condition);
+    List<Vehicle> findAllByVehicleIdIn(List<Integer> vehicleIdList);
 }

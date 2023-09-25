@@ -13,18 +13,18 @@ import za.ac.cput.vehicledealership.domain.Vehicle;
 import za.ac.cput.vehicledealership.util.Helper;
 
 public class InventoryFactory {
-    public static Inventory createInventoryFactory(int quantity, InventoryType inventoryType, Vehicle vehicle) {
-        if(Helper.isNullOrEmpty(quantity) || Helper.isNullOrEmpty(inventoryType) ) {
-            throw new IllegalArgumentException("quantity or inventoryType is empty ");
-        }
-         return new Inventory.Builder().setQuantity(quantity) .setInventoryType(inventoryType) .setVehicle(vehicle).build();
-    }
-    public static Inventory updateInventoryFactorywithid(int id,int quantity, InventoryType inventoryType, Vehicle vehicle) {
-        if(Helper.isNullOrEmpty(quantity) || Helper.isNullOrEmpty(inventoryType) ) {
-            throw new IllegalArgumentException("quantity or inventoryType is empty ");
-        }
-        return new Inventory.Builder().setInventoryId(id).setQuantity(quantity) .setInventoryType(inventoryType) .setVehicle(vehicle).build();
-    }
+//    public static Inventory createInventoryFactory(int quantity, InventoryType inventoryType, Vehicle vehicle) {
+//        if(Helper.isNullOrEmpty(quantity) || Helper.isNullOrEmpty(inventoryType) ) {
+//            throw new IllegalArgumentException("quantity or inventoryType is empty ");
+//        }
+//         return new Inventory.Builder().setQuantity(quantity) .setInventoryType(inventoryType) .setVehicle(vehicle).build();
+//    }
+//    public static Inventory updateInventoryFactorywithid(int id,int quantity, InventoryType inventoryType, Vehicle vehicle) {
+//        if(Helper.isNullOrEmpty(quantity) || Helper.isNullOrEmpty(inventoryType) ) {
+//            throw new IllegalArgumentException("quantity or inventoryType is empty ");
+//        }
+//        return new Inventory.Builder().setInventoryId(id).setQuantity(quantity) .setInventoryType(inventoryType) .setVehicle(vehicle).build();
+//    }
 }
 
 

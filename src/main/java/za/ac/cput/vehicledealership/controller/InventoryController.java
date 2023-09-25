@@ -50,8 +50,8 @@ public class InventoryController {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> delete(@PathVariable int id) {
         boolean status = inventoryService.delete(id);
-        if(!status) {
-            return ResponseEntity.badRequest().body("Inventory " + id + " deleted successfully.");
+        if(status) {
+            return ResponseEntity.ok("Inventory " + id + " deleted successfully.");
         }
         return ResponseEntity.badRequest().body("Inventory deleted successfully.");
     }

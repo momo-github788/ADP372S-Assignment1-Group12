@@ -43,6 +43,8 @@ class PostControllerTest {
     private final String BASE_URL = "http://localhost:8080/post";
     private RestTemplate restTemplate = new RestTemplate();
 
+    private static int postId;
+
     @Test
     @Order(1)
     void create() {
@@ -63,45 +65,49 @@ class PostControllerTest {
 
         System.out.println("Saved data: " + savedPost);
         assertNotNull(savedPost);
+
+        postId = savedPost.getPostId();
     }
+
+
     @Test
     @Order(2)
     void read() {
-        String url = BASE_URL + "/read/" + 1;
+        String url = BASE_URL + "/read/" + postId;
         System.out.println("URL: " + url);
         ResponseEntity<Post> getResponse = restTemplate.getForEntity(url, Post.class);
         Post readPost = getResponse.getBody();
 
         System.out.println(readPost);
-        assertEquals(1, readPost.getPostId());
+        assertEquals(postId, readPost.getPostId());
 
         System.out.println("Read: " + readPost);
 
 
     }
 
-//    @Test
-//    @Order(3)
-//    void update() {
-//        String url = BASE_URL + "/update";
-//
-//        Post updatePost = new Post.Builder()
-//                .copy(post)
-//                .setDescription("Car is in terrible condition. Behind on license")
-//                .build();
-//
-//        updatePost.setPostId(1);
-//
-//        System.out.println("URL: " + url);
-//        System.out.println("POST data: " + updatePost);
-//        ResponseEntity<Post> response = restTemplate.postForEntity(url, updatePost, Post.class);
-//        assertNotNull(response.getBody());
-//    }
+    @Test
+    @Order(3)
+    void update() {
+        String url = BASE_URL + "/update";
+
+        Post updatePost = new Post.Builder()
+                .copy(post)
+                .setDescription("Car is in terrible condition. Behind on license")
+                .build();
+
+        updatePost.setPostId(postId);
+
+        System.out.println("URL: " + url);
+        System.out.println("POST data: " + updatePost);
+        ResponseEntity<Post> response = restTemplate.postForEntity(url, updatePost, Post.class);
+        assertNotNull(response.getBody());
+    }
 
     @Test
     @Order(5)
     void delete() {
-        String url = BASE_URL + "/delete/" + 1;
+        String url = BASE_URL + "/delete/" + postId;
         System.out.println("URL: " + url);
         restTemplate.delete(url);
 

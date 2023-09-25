@@ -56,9 +56,9 @@ public class BranchServiceImpl implements BranchService {
             branch.setLocation(updatedLocation);
             System.out.println("Need to uupdate branch");
 
-            if(branchRepository.existsByBranchName(branch.getBranchName())) {
-                return null;
-            }
+//            if(branchRepository.existsByBranchName(branch.getBranchName())) {
+//                return null;
+//            }
             return this.branchRepository.save(branch);
         }
         return null;

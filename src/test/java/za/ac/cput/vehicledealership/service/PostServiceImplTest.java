@@ -15,6 +15,7 @@ import za.ac.cput.vehicledealership.factory.*;
 import za.ac.cput.vehicledealership.service.impl.BranchServiceImpl;
 import za.ac.cput.vehicledealership.service.impl.EmployeeServiceImpl;
 import za.ac.cput.vehicledealership.service.impl.PostServiceImpl;
+import za.ac.cput.vehicledealership.service.impl.VehicleServiceImpl;
 
 import java.util.List;
 import java.util.Set;
@@ -27,6 +28,9 @@ class PostServiceImplTest {
 
     @Autowired
     private PostServiceImpl postService;
+
+    @Autowired
+    private VehicleServiceImpl vehicleService;
 
     @Autowired
     private BranchServiceImpl branchService;
@@ -45,32 +49,26 @@ class PostServiceImplTest {
             "White", 2019, 23000);
     private static Branch branch = BranchFactory.createBranch("Cape town branch", 2017, location);
 
-    private static Post post1 = PostFactory.createPost("Audi A4 For sale", "Car is in good condition. License up to date", 249999.99,
-            vehicle, branch, true, employee, request.getEmailAddress());
-
-    private static Post post2 = PostFactory.createPost("Toyota Supra", "Car is in good condition. License up to date", 249999.99,
+    private static Post post = PostFactory.createPost("Audi A4 For sale", "Car is in good condition. License up to date", 249999.99,
             vehicle, branch, true, employee, request.getEmailAddress());
 
     @Order(1)
     @Test
     void create() {
-        Employee createdEmployee = employeeService.register(request);
-
         Branch createdBranch = branchService.create(branch);
+        System.out.println("created branch");
+        System.out.println(createdBranch);
+        post.setBranch(createdBranch);
 
-        post1.setBranch(createdBranch);
-        Post createdPost = postService.create(post1, post1.getPostCreatorEmail());
 
-        createdEmployee.setPosts(List.of(createdPost));
-
-        assertNotNull(createdPost);
+        assertNotNull(postService.create(post, post.getPostCreatorEmail()));
     }
 
     @Order(2)
     @Test
     void read() {
 
-        Post readPost = postService.read(post1.getPostId());
+        Post readPost = postService.read(post.getPostId());
         assertNotNull(readPost);
         System.out.println("Read: " + readPost);
         postService.deleteAll();
@@ -80,7 +78,7 @@ class PostServiceImplTest {
     @Test
     void update() {
         Post updatedPost = new Post.Builder()
-            .copy(post1)
+            .copy(post)
             .setPrice(199999.99)
             .build();
 
@@ -94,10 +92,11 @@ class PostServiceImplTest {
     @Order(5)
     @Test
     void deleteAll() {
-        postService.deleteAll();
+        vehicleService.delete(vehicle.getVehicleId());
+        branchService.delete(branch.getBranchId());
+        postService.delete(post.getPostId(), "john@gmail.com");
+
     }
-
-
 
 
     @Order(4)
