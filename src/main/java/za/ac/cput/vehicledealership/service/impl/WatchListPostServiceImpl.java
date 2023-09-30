@@ -43,19 +43,37 @@ public class WatchListPostServiceImpl {
         }
 
         WatchListPost watchlistPost = WatchListPostFactory.createWatchListPost(post.getPostId(), user.getUserId());
+
         return watchListPostRepository.save(watchlistPost);
     }
 
     public boolean delete(int postId, String emailAddress) {
         User user = userService.readByEmailAddress(emailAddress);
         WatchListPost watchlistPost = watchListPostRepository.findFirstByPostIdAndUserId(postId, user.getUserId());
+        Post post = postRepository.findByPostId(watchlistPost.getPostId());
 
         if (watchlistPost == null) {
             return false;
         }
-
         watchListPostRepository.delete(watchlistPost);
         return true;
+    }
+
+    public WatchListPost readWatchlistPostForUserByPostId(String emailAddress, int postId) {
+
+        User user = userService.readByEmailAddress(emailAddress);
+
+        WatchListPost watchlistPost = watchListPostRepository.findFirstByPostIdAndUserId(postId, user.getUserId());
+
+        System.out.println("user watchlist by id " + postId);
+        System.out.println(watchlistPost);
+
+        if (watchlistPost != null) {
+            return watchlistPost;
+        }
+
+
+        return null;
     }
 
 
