@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import za.ac.cput.vehicledealership.domain.User;
 import za.ac.cput.vehicledealership.service.UserService;
+import za.ac.cput.vehicledealership.service.impl.UserServiceImpl;
 
 import java.util.List;
 import java.util.Set;
@@ -20,16 +21,8 @@ import java.util.Set;
 @RequestMapping("/user")
 public class UserController {
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userService;
 
-    @PostMapping("/create")
-    public ResponseEntity<?> create(@RequestBody User user) {
-        User createdUser = userService.create(user);
-        if (createdUser == null){
-            return ResponseEntity.badRequest().body("Error creating record. Please try again");
-        }
-        return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
-    }
 
     @GetMapping("read/{id}")
     public ResponseEntity<?> get(@PathVariable int id){

@@ -10,8 +10,8 @@ package za.ac.cput.vehicledealership.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import za.ac.cput.vehicledealership.domain.*;
-import za.ac.cput.vehicledealership.dto.EmployeeRegisterDTO;
 import za.ac.cput.vehicledealership.factory.EmployeeFactory;
+import za.ac.cput.vehicledealership.payload.request.RegisterRequest;
 import za.ac.cput.vehicledealership.repository.ContactDetailRepository;
 import za.ac.cput.vehicledealership.repository.EmployeeRepository;
 
@@ -36,7 +36,7 @@ public class EmployeeServiceImpl {
     }
 
 
-    public Employee register(EmployeeRegisterDTO request) {
+    public Employee register(RegisterRequest request) {
         Employee createdEmployee = EmployeeFactory.createEmployee(request.getName(), request.getEmailAddress(), request.getPassword());
 
         if(!employeeRepository.existsByEmailAddress(createdEmployee.getEmailAddress())) {

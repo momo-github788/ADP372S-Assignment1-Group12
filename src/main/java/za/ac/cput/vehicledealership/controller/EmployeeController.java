@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import za.ac.cput.vehicledealership.domain.Employee;
-import za.ac.cput.vehicledealership.dto.EmployeeRegisterDTO;
 
 import za.ac.cput.vehicledealership.service.impl.EmployeeServiceImpl;
 import za.ac.cput.vehicledealership.service.impl.ErrorValidationServiceImpl;

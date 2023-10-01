@@ -12,6 +12,7 @@ import za.ac.cput.vehicledealership.service.impl.ImageUploadServiceImpl;
 import za.ac.cput.vehicledealership.service.impl.PostServiceImpl;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 import java.util.Set;
 
@@ -30,9 +31,10 @@ public class PostController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<?> create(@RequestPart(required = false, value = "image")  MultipartFile image, @RequestPart(value = "post") Post post) {
+    public ResponseEntity<?> create(@RequestPart(required = false, value = "image")  MultipartFile image, @RequestPart(value = "post") Post post, Principal principal) {
         // replace wwith principal
-        Post createdPost = postService.create(post,"john@gmail.com");
+        System.out.println("PRINCIPLA " + principal.getName());
+        Post createdPost = postService.create(post,principal.getName());
 
         // If there is a post and there is an image added to request
         if(createdPost != null) {

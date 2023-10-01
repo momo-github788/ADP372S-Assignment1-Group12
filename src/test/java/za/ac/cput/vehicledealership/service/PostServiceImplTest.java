@@ -10,15 +10,11 @@ import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import za.ac.cput.vehicledealership.domain.*;
-import za.ac.cput.vehicledealership.dto.EmployeeRegisterDTO;
 import za.ac.cput.vehicledealership.factory.*;
 import za.ac.cput.vehicledealership.service.impl.BranchServiceImpl;
 import za.ac.cput.vehicledealership.service.impl.EmployeeServiceImpl;
 import za.ac.cput.vehicledealership.service.impl.PostServiceImpl;
 import za.ac.cput.vehicledealership.service.impl.VehicleServiceImpl;
-
-import java.util.List;
-import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 

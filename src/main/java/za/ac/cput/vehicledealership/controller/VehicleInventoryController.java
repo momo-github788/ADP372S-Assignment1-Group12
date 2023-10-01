@@ -33,7 +33,7 @@ public class VehicleInventoryController {
 
     @DeleteMapping("/delete")
     public boolean delete(@RequestBody VehicleInventory vehicleInventory) {
-        System.out.println(vehicleInventory);
+        System.out.println(vehicleInventory + " to delete");
         return vehicleInventoryService.delete(vehicleInventory.getVehicleId(), vehicleInventory.getInventoryId());
     }
 }

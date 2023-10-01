@@ -5,6 +5,7 @@
 */
 package za.ac.cput.vehicledealership.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import za.ac.cput.vehicledealership.domain.Motorcycle;
 import za.ac.cput.vehicledealership.repository.MotorcycleRepository;
@@ -16,6 +17,7 @@ import java.util.List;
 public class MotorcycleServiceImpl implements MotorcycleService {
     private MotorcycleRepository motorcycleRepository;
 
+    @Autowired
     public MotorcycleServiceImpl(MotorcycleRepository motorcycleRepository) { this.motorcycleRepository = motorcycleRepository;}
 
     @Override

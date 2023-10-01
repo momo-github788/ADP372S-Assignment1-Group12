@@ -6,31 +6,36 @@ package za.ac.cput.vehicledealership.service.impl;
  */
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import za.ac.cput.vehicledealership.domain.ContactDetail;
-import za.ac.cput.vehicledealership.domain.Employee;
+import za.ac.cput.vehicledealership.domain.ERole;
+import za.ac.cput.vehicledealership.domain.Role;
 import za.ac.cput.vehicledealership.domain.User;
+import za.ac.cput.vehicledealership.dto.UserLoginDTO;
+import za.ac.cput.vehicledealership.payload.request.LoginRequest;
 import za.ac.cput.vehicledealership.repository.UserRepository;
-import za.ac.cput.vehicledealership.service.UserService;
+import za.ac.cput.vehicledealership.security.MyUserDetails;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl {
 
     private UserRepository repository;
 
     @Autowired
-    public UserServiceImpl(UserRepository repository){
+    public UserServiceImpl(UserRepository repository, RoleService roleService) {
         this.repository = repository;
-    }
-
-    @Override
-    public User create(User user) {
-        return this.repository.save(user);
     }
 
     public User readByEmailAddress(String emailAddress) {
@@ -44,12 +49,12 @@ public class UserServiceImpl implements UserService {
 
     }
 
-    @Override
+
     public User read(Integer userId) {
         return this.repository.findById(userId).orElse(null);
     }
 
-    @Override
+
     public User update(User user) {
         if (this.repository.existsById(user.getUserId()))
             return this.repository.save(user);
@@ -68,7 +73,6 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    @Override
     public boolean delete(Integer userId) {
         if (this.repository.existsById(userId)){
             this.repository.deleteById(userId);
@@ -77,17 +81,17 @@ public class UserServiceImpl implements UserService {
         return false;
     }
 
-    @Override
+
     public List<User> getAll() {
         return this.repository.findAll();
     }
 
-    @Override
+
     public void saveUser(User user) {
         this.repository.save(user);
     }
 
-    @Override
+
     public User getUserById(Integer id) {
         Optional<User> optional = repository.findById(id);
         User user = null;

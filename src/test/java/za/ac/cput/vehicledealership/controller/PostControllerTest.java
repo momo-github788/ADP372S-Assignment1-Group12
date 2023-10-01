@@ -9,7 +9,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import za.ac.cput.vehicledealership.domain.*;
-import za.ac.cput.vehicledealership.dto.EmployeeRegisterDTO;
 import za.ac.cput.vehicledealership.factory.*;
 import za.ac.cput.vehicledealership.service.impl.BranchServiceImpl;
 

@@ -29,7 +29,7 @@ class UserServiceImplTest {
     @Order(1)
     @Test
     void create() {
-        User created = service.create(user);
+        User created = service.register(user);
         assertEquals(user.getUserId(), created.getUserId());
         System.out.println("Created: " + created);
     }

@@ -11,6 +11,7 @@ import za.ac.cput.vehicledealership.domain.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
     User findByEmailAddress(String emailAddress);
+    boolean existsByEmailAddress(String email);
 //    User findUserByContact_EmailAddress(String emailAddress);
 //    Boolean existsByContact_EmailAddress(String emailAddress);
 

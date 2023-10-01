@@ -38,6 +38,12 @@ public class User  {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<ContactDetail> contactDetails = new HashSet<>();
 
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "user_roles",
+            joinColumns = @JoinColumn(name="user_id"),
+            inverseJoinColumns = @JoinColumn(name="role_id"))
+    private Set<Role> roles = new HashSet<>();
+
     private String emailAddress;
 
 
@@ -59,17 +65,18 @@ public class User  {
         this.dateJoined = LocalDate.now();
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return userId == user.userId && Objects.equals(name, user.name) && Objects.equals(dateJoined, user.dateJoined) && Objects.equals(password, user.password) && Objects.equals(contactDetails, user.contactDetails) && Objects.equals(emailAddress, user.emailAddress);
+        return userId == user.userId && Objects.equals(name, user.name) && Objects.equals(dateJoined, user.dateJoined) && Objects.equals(password, user.password) && Objects.equals(contactDetails, user.contactDetails) && Objects.equals(roles, user.roles) && Objects.equals(emailAddress, user.emailAddress);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(userId, name, dateJoined, password, contactDetails, emailAddress);
+        return Objects.hash(userId, name, dateJoined, password, contactDetails, roles, emailAddress);
     }
 
     @Override
