@@ -15,7 +15,7 @@ import java.util.Set;
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 
-    Employee findEmployeeByEmailAddress(String emailAddress);
+    Employee findByEmailAddress(String emailAddress);
     boolean existsByEmailAddress(String emailAddress);
 //    Employee findEmployeeByEmailAddress(String emailAddress);
 //    Boolean existsByEmailAddress(String emailAddress);

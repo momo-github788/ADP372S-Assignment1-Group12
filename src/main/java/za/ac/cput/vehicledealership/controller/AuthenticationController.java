@@ -11,7 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import za.ac.cput.vehicledealership.domain.Employee;
 import za.ac.cput.vehicledealership.domain.User;
+import za.ac.cput.vehicledealership.dto.RegisterDTO;
 import za.ac.cput.vehicledealership.payload.request.LoginRequest;
+import za.ac.cput.vehicledealership.payload.request.RegisterRequest;
+import za.ac.cput.vehicledealership.service.impl.AuthenticationService;
 import za.ac.cput.vehicledealership.service.impl.ErrorValidationServiceImpl;
 import za.ac.cput.vehicledealership.service.impl.UserServiceImpl;
 
@@ -23,42 +26,38 @@ public class AuthenticationController {
     private final ErrorValidationServiceImpl errorValidationService;
 
     @Autowired
-    private UserServiceImpl userService;
+    private AuthenticationService authenticationService;
 
     @PostMapping("/user/register")
-    public ResponseEntity<?> register(@RequestBody User user) {
-        User createdUser = userService.register(user);
-        if (createdUser == null){
+    public ResponseEntity<?> registerUser(@RequestBody RegisterRequest request) {
+        RegisterDTO createdUser = authenticationService.registerUser(request);
+
+        if(createdUser == null) {
             return ResponseEntity.badRequest().body("User already exists");
         }
+
         return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
     }
-
-    @PostMapping("/user/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequest request, BindingResult result) {
-
-        ResponseEntity<?> errorMap = errorValidationService.validationService(result);
-        if(errorMap != null) return errorMap;
-
-        return ResponseEntity.ok(userService.login(request));
-    }
-
 
     @PostMapping("/employee/register")
-    public ResponseEntity<?> employeeRegister(@RequestBody Employee employee) {
-        User createdUser = userService.register(user);
-        if (createdUser == null){
-            return ResponseEntity.badRequest().body("User already exists");
+    public ResponseEntity<?> registerEmployee(@RequestBody RegisterRequest request) {
+        RegisterDTO createdEmployee = authenticationService.registerEmployee(request);
+
+        if(createdEmployee == null) {
+            return ResponseEntity.badRequest().body("Employee already exists");
         }
-        return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
+
+
+        return new ResponseEntity<>(createdEmployee, HttpStatus.CREATED);
     }
 
-    @PostMapping("/employee/login")
+    @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest request, BindingResult result) {
 
         ResponseEntity<?> errorMap = errorValidationService.validationService(result);
         if(errorMap != null) return errorMap;
 
-        return ResponseEntity.ok(userService.login(request));
+        return ResponseEntity.ok(authenticationService.login(request));
     }
+
 }

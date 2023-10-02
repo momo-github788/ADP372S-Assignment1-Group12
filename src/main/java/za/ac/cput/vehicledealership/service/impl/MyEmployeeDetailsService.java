@@ -2,35 +2,32 @@ package za.ac.cput.vehicledealership.service.impl;
 
 
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import za.ac.cput.vehicledealership.domain.Employee;
-import za.ac.cput.vehicledealership.domain.User;
 import za.ac.cput.vehicledealership.repository.EmployeeRepository;
-import za.ac.cput.vehicledealership.repository.UserRepository;
 import za.ac.cput.vehicledealership.security.MyUserDetails;
 
 
 @Service
 @AllArgsConstructor
-public class MyUserDetailsService implements UserDetailsService {
+public class MyEmployeeDetailsService implements UserDetailsService {
 
-    private final UserRepository userRepository;
-
-
+    private final EmployeeRepository employeeRepository;
 
     @Override
     public UserDetails loadUserByUsername(String emailAddress) throws UsernameNotFoundException {
 
-        User user = userRepository.findByEmailAddress(emailAddress);
+        Employee employee = employeeRepository.findByEmailAddress(emailAddress);
+        System.out.println("lookin fo employwe" + emailAddress);
+        System.out.println(employee);
 
-        if(user == null) {
+        if(employee == null) {
             throw new UsernameNotFoundException("Invalid credentials / Account not found");
         }
-        return MyUserDetails.createAppUser(user);
+        return MyUserDetails.createAppUser(employee);
     }
 
 

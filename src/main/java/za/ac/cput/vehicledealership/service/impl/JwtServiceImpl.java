@@ -4,6 +4,7 @@ package za.ac.cput.vehicledealership.service.impl;
 import io.jsonwebtoken.*;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -11,9 +12,7 @@ import za.ac.cput.vehicledealership.domain.Role;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Function;
 
 
@@ -43,15 +42,16 @@ public class JwtServiceImpl {
         return extractClaim(token, Claims::getExpiration);
     }
 
-    public String generateToken(String email , Set<?> roles) {
+    public String generateToken(String email, Authentication authentication) {
 
         return Jwts.builder()
                 .setSubject(email)
-                .claim("role",roles)
+                .claim("roles", authentication.getAuthorities())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(Date.from(Instant.now().plus(expirationTime, ChronoUnit.MILLIS)))
                 .signWith(SignatureAlgorithm.HS256, secret).compact();
     }
+
 
 
     public Boolean validateToken(String token, UserDetails userDetails) {

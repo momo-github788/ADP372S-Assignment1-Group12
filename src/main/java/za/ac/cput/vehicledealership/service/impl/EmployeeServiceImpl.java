@@ -35,37 +35,6 @@ public class EmployeeServiceImpl {
         this.contactDetailRepository = contactDetailRepository;
     }
 
-
-    public Employee register(RegisterRequest request) {
-        Employee createdEmployee = EmployeeFactory.createEmployee(request.getName(), request.getEmailAddress(), request.getPassword());
-
-        if(!employeeRepository.existsByEmailAddress(createdEmployee.getEmailAddress())) {
-            return employeeRepository.save(createdEmployee);
-        }
-
-        System.out.println("Employee email already exixts");
-        return null;
-
-    }
-
-    public boolean login(Employee employee) {
-
-//        UserLoginDTO userLoginDTO = null;
-//        try {
-//            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getEmailAddress(), user.getPassword()));
-//            MyUserDetails userDetails = (MyUserDetails) authentication.getPrincipal();
-//            String token = tokenProvider.createToken(authentication);
-//
-//            userLoginDTO = new UserLoginDTO(userDetails.getFullName(), userDetails.getUsername(), token, userDetails.getAuthorities());
-//        } catch (DisabledException e) {
-//            throw new AuthenticationException("User account is disabled");
-//        } catch (BadCredentialsException e) {
-//            throw new AuthenticationException("Invalid credentials");
-//        }
-//        return userLoginDTO;
-        return true;
-    }
-
     public Set<ContactDetail> getContactsByEmployeeId(int employeeId) {
         Employee employee = employeeRepository.findById(employeeId).orElse(null);
 
@@ -80,7 +49,7 @@ public class EmployeeServiceImpl {
     }
 
     public Employee readByEmail(String emailAddress) {
-        Employee emp = employeeRepository.findEmployeeByEmailAddress(emailAddress);
+        Employee emp = employeeRepository.findByEmailAddress(emailAddress);
 
         if(emp!=null){
             return emp;

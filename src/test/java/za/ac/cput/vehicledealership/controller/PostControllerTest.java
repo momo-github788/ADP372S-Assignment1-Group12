@@ -9,6 +9,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import za.ac.cput.vehicledealership.domain.*;
+import za.ac.cput.vehicledealership.dto.RegisterDTO;
 import za.ac.cput.vehicledealership.factory.*;
 import za.ac.cput.vehicledealership.service.impl.BranchServiceImpl;
 
@@ -27,7 +28,7 @@ class PostControllerTest {
 
     private static Name name = NameFactory.createName("John", "", "Doe");
     private static Employee employee = EmployeeFactory.createEmployee(name, "john@gmail.com", "Password123");
-    private static EmployeeRegisterDTO request = new EmployeeRegisterDTO(name, employee.getPassword(), employee.getEmailAddress());
+    private static RegisterDTO request = new RegisterDTO(name, employee.getEmailAddress(), employee.getPassword(), null);
 
     private static Location location = LocationFactory.createLocation(27, "Daisy Street", "Cape Town",
             7850, "Western Cape");

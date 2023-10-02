@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import za.ac.cput.vehicledealership.domain.Employee;
 
+import za.ac.cput.vehicledealership.dto.RegisterDTO;
 import za.ac.cput.vehicledealership.service.impl.EmployeeServiceImpl;
 import za.ac.cput.vehicledealership.service.impl.ErrorValidationServiceImpl;
 
@@ -30,21 +31,6 @@ public class EmployeeController {
     public EmployeeController(EmployeeServiceImpl employeeService, ErrorValidationServiceImpl errorValidationService) {
         this.employeeService = employeeService;
         this.errorValidationService = errorValidationService;
-    }
-
-    @PostMapping("/create")
-    public ResponseEntity<?> create(@Valid @RequestBody EmployeeRegisterDTO request, BindingResult result) {
-
-        ResponseEntity<?> errorMap = errorValidationService.validationService(result);
-
-        if(errorMap != null) return errorMap;
-
-
-        Employee createdEmployee = employeeService.register(request);
-        if(createdEmployee == null) {
-            return ResponseEntity.badRequest().body("Error creating record.. Please try again later");
-        }
-        return new ResponseEntity<>(createdEmployee, HttpStatus.CREATED);
     }
 
     @GetMapping("read/{id}")

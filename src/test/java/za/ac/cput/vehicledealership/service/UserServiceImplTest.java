@@ -10,8 +10,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import za.ac.cput.vehicledealership.domain.Name;
 import za.ac.cput.vehicledealership.domain.User;
 
+import za.ac.cput.vehicledealership.dto.RegisterDTO;
 import za.ac.cput.vehicledealership.factory.NameFactory;
 import za.ac.cput.vehicledealership.factory.UserFactory;
+import za.ac.cput.vehicledealership.payload.request.RegisterRequest;
+import za.ac.cput.vehicledealership.service.impl.AuthenticationService;
 import za.ac.cput.vehicledealership.service.impl.UserServiceImpl;
 import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.*;
@@ -22,22 +25,26 @@ import static org.junit.jupiter.api.Assertions.*;
 class UserServiceImplTest {
 
     @Autowired
-    private UserServiceImpl service;
+    private AuthenticationService authenticationService;
+    @Autowired
+    private UserServiceImpl userService;
     private static Name name = NameFactory.createName("Mary", "", "Anne");
     private static User user = UserFactory.createUser(name, "P@ssword123", "mary@gmail.com");
+
+    private static RegisterRequest request = new RegisterRequest(name, user.getEmailAddress(), user.getPassword());
 
     @Order(1)
     @Test
     void create() {
-        User created = service.register(user);
-        assertEquals(user.getUserId(), created.getUserId());
+        RegisterDTO created = authenticationService.registerUser(request);
+        assertNotNull(created);
         System.out.println("Created: " + created);
     }
 
     @Order(2)
     @Test
     void read() {
-        User read = service.read(user.getUserId());
+        User read = userService.read(user.getUserId());
         assertNotNull(read);
         System.out.println("Read: " + read);
     }
@@ -49,7 +56,7 @@ class UserServiceImplTest {
         User newUser= new User.UserBuilder().copy(user)
                 .setEmailAddress("mhopkins@gmail.com")
                 .build();
-        User updated = service.update(newUser);
+        User updated = userService.update(newUser);
         assertEquals("mhopkins@gmail.com", updated.getEmailAddress());
         System.out.println("Updated: " + newUser);
     }
@@ -57,7 +64,7 @@ class UserServiceImplTest {
     @Order(5)
     @Test
     void delete() {
-        boolean success = service.delete(user.getUserId());
+        boolean success = userService.delete(user.getUserId());
         assertTrue(success);
         System.out.println("Delete: " + success);
     }
@@ -66,6 +73,6 @@ class UserServiceImplTest {
     @Test
     void getAll() {
         System.out.println("Get all: ");
-        System.out.println(service.getAll());
+        System.out.println(userService.getAll());
     }
 }

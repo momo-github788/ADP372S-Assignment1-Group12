@@ -3,6 +3,7 @@ package za.ac.cput.vehicledealership.security;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import za.ac.cput.vehicledealership.domain.Employee;
 import za.ac.cput.vehicledealership.domain.User;
 
 import java.util.Arrays;
@@ -12,6 +13,7 @@ import java.util.stream.Collectors;
 
 public class MyUserDetails implements UserDetails {
 
+        private Employee employee;
         private User user;
         private Collection<? extends GrantedAuthority> authorities;
 
@@ -20,12 +22,25 @@ public class MyUserDetails implements UserDetails {
             this.authorities = authorities;
         }
 
-        public static MyUserDetails createUser(User user) {
+        public MyUserDetails(Employee employee, Collection<? extends GrantedAuthority> authorities) {
+            this.employee = employee;
+            this.authorities = authorities;
+        }
+
+        public static MyUserDetails createAppUser(User user) {
             List<GrantedAuthority> authorities = user.getRoles().stream()
                     .map(role -> new SimpleGrantedAuthority(role.getName().name()))
                     .collect(Collectors.toList());
 
             return new MyUserDetails(user, authorities);
+        }
+
+        public static MyUserDetails createAppUser(Employee employee) {
+            List<GrantedAuthority> authorities = employee.getRoles().stream()
+                    .map(role -> new SimpleGrantedAuthority(role.getName().name()))
+                    .collect(Collectors.toList());
+
+            return new MyUserDetails(employee, authorities);
         }
 
         @Override

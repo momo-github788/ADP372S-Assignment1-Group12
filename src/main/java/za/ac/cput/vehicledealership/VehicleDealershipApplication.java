@@ -1,5 +1,6 @@
 package za.ac.cput.vehicledealership;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -22,11 +23,17 @@ public class VehicleDealershipApplication {
         return new ErrorValidationServiceImpl();
     }
 
+    @Bean
+    public ModelMapper modelMapper() {
+        return new ModelMapper();
+    }
+
 
     public static void main(String[] args) {
         SpringApplication.run(VehicleDealershipApplication.class, args);
     }
 
+    // Add 2 roles , user and admin
     @Bean
     CommandLineRunner run (RoleRepository roleRepository) {
         return  args -> {

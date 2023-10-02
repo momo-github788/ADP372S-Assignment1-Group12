@@ -45,6 +45,12 @@ public class Employee {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<ContactDetail> contactDetails = new HashSet<>();
 
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "employee_roles",
+            joinColumns = @JoinColumn(name="employee_id"),
+            inverseJoinColumns = @JoinColumn(name="role_id"))
+    private Set<Role> roles = new HashSet<>();
+
     protected Employee() {
 
     }
@@ -74,6 +80,10 @@ public class Employee {
         return Objects.hash(employeeNumber, name, dateJoined, password, posts, emailAddress, contactDetails);
     }
 
+    @PrePersist
+    private void onCreate() {
+        this.dateJoined = LocalDateTime.now();
+    }
     @Override
     public String toString() {
         return "Employee{" +

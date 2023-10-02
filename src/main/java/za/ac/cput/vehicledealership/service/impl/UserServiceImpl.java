@@ -6,27 +6,12 @@ package za.ac.cput.vehicledealership.service.impl;
  */
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.DisabledException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import za.ac.cput.vehicledealership.domain.ContactDetail;
-import za.ac.cput.vehicledealership.domain.ERole;
-import za.ac.cput.vehicledealership.domain.Role;
 import za.ac.cput.vehicledealership.domain.User;
-import za.ac.cput.vehicledealership.dto.UserLoginDTO;
-import za.ac.cput.vehicledealership.payload.request.LoginRequest;
 import za.ac.cput.vehicledealership.repository.UserRepository;
-import za.ac.cput.vehicledealership.security.MyUserDetails;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl {

@@ -9,7 +9,7 @@ import java.util.Collection;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserLoginDTO {
+public class LoginDTO {
     private String emailAddress;
     private String jwt;
     private Collection<?> authorities;

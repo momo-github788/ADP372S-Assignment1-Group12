@@ -1,6 +1,7 @@
 package za.ac.cput.vehicledealership.service.impl;
 
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
@@ -10,9 +11,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import za.ac.cput.vehicledealership.domain.ERole;
+import za.ac.cput.vehicledealership.domain.Employee;
 import za.ac.cput.vehicledealership.domain.Role;
 import za.ac.cput.vehicledealership.domain.User;
-import za.ac.cput.vehicledealership.dto.UserLoginDTO;
+import za.ac.cput.vehicledealership.dto.LoginDTO;
+import za.ac.cput.vehicledealership.dto.RegisterDTO;
 import za.ac.cput.vehicledealership.payload.request.LoginRequest;
 import za.ac.cput.vehicledealership.payload.request.RegisterRequest;
 import za.ac.cput.vehicledealership.repository.EmployeeRepository;
@@ -33,63 +36,82 @@ public class AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
     private final EmployeeRepository employeeRepository;
+    private final ModelMapper modelMapper;
 
 
-    public User register(RegisterRequest request) {
+    public RegisterDTO registerUser(RegisterRequest request) {
 
-        if(employeeRepository.existsByEmailAddress(request.getEmailAddress()) && request.getEmailAddress().contains("admin")) {
-
+        if(employeeRepository.existsByEmailAddress(request.getEmailAddress()) || userRepository.existsByEmailAddress(request.getEmailAddress())) {
+            return null;
         }
 
-        if (userRepository.existsByEmailAddress(request.getEmailAddress()) && request.getEmailAddress().equals("user")) {
+        Role userRole = roleService.findByName(ERole.USER);
+
+        Set<Role> roleSet = new HashSet<>();
+        roleSet.add(userRole);
+
+        User mappedDTOtoUser = modelMapper.map(request, User.class);
+
+        mappedDTOtoUser.setPassword(passwordEncoder.encode(request.getPassword()));
+        mappedDTOtoUser.setRoles(roleSet);
+
+        System.out.println("mapped");
+        System.out.println(mappedDTOtoUser);
+
+        userRepository.save(mappedDTOtoUser);
+        return new RegisterDTO(request.getName(), request.getEmailAddress(), request.getPassword(), roleSet);
+    }
+
+
+    public RegisterDTO registerEmployee(RegisterRequest request) {
+
+        if(employeeRepository.existsByEmailAddress(request.getEmailAddress()) || userRepository.existsByEmailAddress(request.getEmailAddress())) {
             return null;
         }
 
         Role adminRole = roleService.findByName(ERole.ADMIN);
         Role userRole = roleService.findByName(ERole.USER);
+
         Set<Role> roleSet = new HashSet<>();
+        roleSet.add(userRole);
+        roleSet.add(adminRole);
+
+        Employee mappedDTOtoEmployee = modelMapper.map(request, Employee.class);
+
+        mappedDTOtoEmployee.setPassword(passwordEncoder.encode(request.getPassword()));
+        mappedDTOtoEmployee.setRoles(roleSet);
 
 
-
-        if(user.getEmailAddress().contains("admin")) {
-            System.out.println("Adding ADMIN and USER role ");
-            roleSet.add(adminRole);
-            roleSet.add(userRole);
-        } else if(user.getEmailAddress().contains("user")) {
-            System.out.println("Adding USER role");
-            roleSet.add(userRole);
-        }
-
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRoles(roleSet);
-        repository.save(user);
-
-        String token = jwtService.generateToken(user.getEmailAddress(), roleSet);
-        System.out.println("sign uo");
-        System.out.println(token);
-        return user;
+        employeeRepository.save(mappedDTOtoEmployee);
+        return new RegisterDTO(request.getName(), request.getEmailAddress(), request.getPassword(), roleSet);
     }
 
 
-    public UserLoginDTO login(LoginRequest request) {
 
-        UserLoginDTO userLoginDTO = null;
+    public LoginDTO login(LoginRequest request) {
+
+        System.out.println(request);
+        LoginDTO loginDTO = null;
         try {
             Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmailAddress(), request.getPassword()));
+            System.out.println("auth");
+            System.out.println(authentication);
             MyUserDetails userDetails = (MyUserDetails) authentication.getPrincipal();
 
-//            if(userDetails.getUsername() == null){
-//                throw new IllegalArgumentException("Invalid email or password.");
-//            }
-            String token = jwtService.generateToken(user.getEmailAddress(), userDetails.getAuthorities().stream().collect(Collectors.toSet()));
+            String token = jwtService.generateToken(userDetails.getUsername(), authentication);
 
-            userLoginDTO = new UserLoginDTO(userDetails.getUsername(), token, userDetails.getAuthorities());
+            System.out.println("generated token");
+            System.out.println(token);
+
+            loginDTO = new LoginDTO(userDetails.getUsername(), token, userDetails.getAuthorities());
         } catch (DisabledException e) {
             throw new UsernameNotFoundException("User account is disabled");
         } catch (BadCredentialsException e) {
             throw new UsernameNotFoundException("Invalid credentials");
         }
-        return userLoginDTO;
+
+        System.out.println(loginDTO);
+        return loginDTO;
     }
 
 }
