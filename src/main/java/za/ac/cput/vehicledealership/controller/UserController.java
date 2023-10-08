@@ -8,6 +8,7 @@ package za.ac.cput.vehicledealership.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import za.ac.cput.vehicledealership.domain.User;
@@ -34,6 +35,7 @@ public class UserController {
     }
 
     @GetMapping("/all")
+   // @PreAuthorize("hasAuthority('USER')")
     public List<User> getAll() {return userService.getAll();}
 
     @PostMapping("/update")

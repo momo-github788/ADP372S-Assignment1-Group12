@@ -10,6 +10,7 @@ import za.ac.cput.vehicledealership.service.WatchListPostService;
 import za.ac.cput.vehicledealership.service.impl.WatchListPostServiceImpl;
 
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Set;
 
@@ -22,7 +23,7 @@ public class WatchListPostController {
 
     @GetMapping("/{postId}")
     public WatchListPost create(@PathVariable int postId) {
-        return watchListPostService.create(postId, "user@gmail.com");
+        return watchListPostService.create(postId, "user12345@gmail.com");
     }
 
     @GetMapping("read/{postId}")
@@ -36,8 +37,8 @@ public class WatchListPostController {
     }
 
     @GetMapping("/all")
-    public List<Post> getAll() {
-        return watchListPostService.readAllWatchlistPostsForUser("user@gmail.com");
+    public List<Post> getAll(Principal principal) {
+        return watchListPostService.readAllWatchlistPostsForUser(principal.getName());
     }
 
     @DeleteMapping("/delete/{id}")

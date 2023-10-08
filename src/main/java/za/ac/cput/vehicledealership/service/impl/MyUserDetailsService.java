@@ -15,10 +15,10 @@ import za.ac.cput.vehicledealership.security.MyUserDetails;
 
 
 @Service
-@AllArgsConstructor
 public class MyUserDetailsService implements UserDetailsService {
 
-    private final UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
 
 

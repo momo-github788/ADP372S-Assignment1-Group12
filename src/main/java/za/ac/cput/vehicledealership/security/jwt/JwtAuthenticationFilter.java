@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContext;
@@ -29,54 +30,71 @@ import za.ac.cput.vehicledealership.service.impl.MyUserDetailsService;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Component
-@RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    private final JwtServiceImpl jwtService;
-    private final MyUserDetailsService userDetailsService;
-    private final MyEmployeeDetailsService employeeDetailsService;
+    private static final Logger logger = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
+
+    @Autowired
+    private JwtServiceImpl jwtService;
+    @Autowired
+    private MyUserDetailsService userDetailsService;
+    @Autowired
+    private MyEmployeeDetailsService employeeDetailsService;
 
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain)
             throws ServletException, IOException {
 
-        String token = jwtService.getToken(request) ;
+        try {
+            String jwt = getJwtFromRequest(request);
 
+            System.out.println("jwt from requst");
+            System.out.println(jwt);
+            if (jwt != null && jwtService.validateToken(jwt)) {
+                String username = jwtService.extractUserName(jwt);
 
-        System.out.println("token in do filet internal");
-        System.out.println(token);
-        if (token!=null && jwtService.validateToken(token)) {
+                // get claims
+                Claims claims = jwtService.extractAllClaims(jwt);
 
-            String email = jwtService.extractUserName(token);
-            System.out.println("email from token");
-            System.out.println(email);
+                // get list of roles from claims
+                List<Map<String, String>> roles = (List<Map<String, String>>) claims.get("roles");
 
-            // get claims
-            Claims claims = jwtService.extractAllClaims(token);
+                // check for occurence of an ADMIN role
+                boolean isAdmin = roles.stream().anyMatch(e -> e.containsValue(ERole.ADMIN.toString()));
 
-            // get list of roles from claims
-            List<Map<String, String>> roles = (List<Map<String, String>>) claims.get("roles");
+//                System.out.println("THIS IS A USER REQUEST");
+//                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+//                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails.getUsername() ,null , userDetails.getAuthorities());
+//                SecurityContextHolder.getContext().setAuthentication(authentication);
 
-            // check for occurence of an ADMIN role
-            boolean isAdmin = roles.stream().anyMatch(e -> e.containsValue(ERole.ADMIN.toString()));
+                if (isAdmin) {
+                    System.out.println("THIS IS AN ADMIN REQUEST");
+                    UserDetails employeeDetails = employeeDetailsService.loadUserByUsername(username);
+                    UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(employeeDetails.getUsername() ,null , employeeDetails.getAuthorities());
+                    SecurityContextHolder.getContext().setAuthentication(authentication);
 
-
-            if (isAdmin) {
-                System.out.println("THIS IS AN ADMIN REQUEST");
-                UserDetails employeeDetails = employeeDetailsService.loadUserByUsername(email);
-                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(employeeDetails.getUsername() ,null , employeeDetails.getAuthorities());
-                SecurityContextHolder.getContext().setAuthentication(authentication);
-
-            } else {
-                System.out.println("THIS IS A USER REQUEST");
-                UserDetails userDetails = userDetailsService.loadUserByUsername(email);
-                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails.getUsername() ,null , userDetails.getAuthorities());
-                SecurityContextHolder.getContext().setAuthentication(authentication);
+                } else {
+                    System.out.println("THIS IS A USER REQUEST");
+                    UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+                    UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails.getUsername() ,null , userDetails.getAuthorities());
+                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                }
             }
-
+        } catch (Exception e) {
+            logger.error("Cannot set user authentication: {}", e);
         }
         filterChain.doFilter(request,response);
+    }
+
+    private String getJwtFromRequest(HttpServletRequest request) {
+        String bearerToken = request.getHeader("Authorization");
+        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
+            return bearerToken.substring(7, bearerToken.length());
+        }
+        return null;
     }
 }

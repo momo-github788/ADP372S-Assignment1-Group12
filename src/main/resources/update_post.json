@@ -1,10 +1,10 @@
 {
-  "postId": 17,
+  "postId": 2,
   "title": "Selling Aud22222222222ED",
   "description": "This car is in great condition",
   "price": 65000,
   "vehicle": {
-    "vehicleId": 18,
+    "vehicleId": 4,
     "make": "TOYOTA",
     "model": "A4",
     "condition": "USED",
@@ -15,6 +15,6 @@
     "mileage": 45000
   },
   "branch": {
-    "branchId": 1
+    "branchId": 2
   }
 }

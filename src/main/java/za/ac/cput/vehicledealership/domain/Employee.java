@@ -13,6 +13,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -21,7 +22,7 @@ import java.util.*;
 @Entity
 @Getter
 @Setter
-public class Employee {
+public class Employee implements Serializable {
 
     @Id
     @Column(name = "employee_number")

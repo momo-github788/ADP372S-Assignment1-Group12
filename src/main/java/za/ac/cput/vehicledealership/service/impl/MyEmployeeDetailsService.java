@@ -2,6 +2,7 @@ package za.ac.cput.vehicledealership.service.impl;
 
 
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -12,10 +13,10 @@ import za.ac.cput.vehicledealership.security.MyUserDetails;
 
 
 @Service
-@AllArgsConstructor
 public class MyEmployeeDetailsService implements UserDetailsService {
 
-    private final EmployeeRepository employeeRepository;
+    @Autowired
+    private EmployeeRepository employeeRepository;
 
     @Override
     public UserDetails loadUserByUsername(String emailAddress) throws UsernameNotFoundException {

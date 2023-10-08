@@ -13,6 +13,5 @@ import java.util.Collection;
 public class RegisterDTO {
     private Name name;
     private String emailAddress;
-    private String password;
     private Collection<?> authorities;
 }

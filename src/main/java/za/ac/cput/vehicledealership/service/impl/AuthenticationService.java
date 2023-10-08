@@ -59,7 +59,7 @@ public class AuthenticationService {
         System.out.println(mappedDTOtoUser);
 
         userRepository.save(mappedDTOtoUser);
-        return new RegisterDTO(request.getName(), request.getEmailAddress(), request.getPassword(), roleSet);
+        return new RegisterDTO(request.getName(), request.getEmailAddress(), roleSet);
     }
 
 
@@ -83,7 +83,7 @@ public class AuthenticationService {
 
 
         employeeRepository.save(mappedDTOtoEmployee);
-        return new RegisterDTO(request.getName(), request.getEmailAddress(), request.getPassword(), roleSet);
+        return new RegisterDTO(request.getName(), request.getEmailAddress(), roleSet);
     }
 
 
@@ -98,7 +98,7 @@ public class AuthenticationService {
             System.out.println(authentication);
             MyUserDetails userDetails = (MyUserDetails) authentication.getPrincipal();
 
-            String token = jwtService.generateToken(userDetails.getUsername(), authentication);
+            String token = jwtService.generateToken(authentication);
 
             System.out.println("generated token");
             System.out.println(token);

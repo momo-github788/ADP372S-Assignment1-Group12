@@ -50,12 +50,19 @@ public class MyUserDetails implements UserDetails {
 
         @Override
         public String getPassword() {
-            return user.getPassword();
-        }
+            if(user != null) {
+                return user.getPassword();
+            } else {
+                return employee.getPassword();
+            }        }
 
         @Override
         public String getUsername() {
-            return user.getEmailAddress();
+            if(user != null) {
+                return user.getEmailAddress();
+            } else {
+                return employee.getEmailAddress();
+            }
         }
 
         @Override

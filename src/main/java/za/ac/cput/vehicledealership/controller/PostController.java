@@ -3,6 +3,7 @@ package za.ac.cput.vehicledealership.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import za.ac.cput.vehicledealership.domain.*;
@@ -30,11 +31,12 @@ public class PostController {
         this.imageUploadService = imageUploadService;
     }
 
+//    @PreAuthorize("hasAuthority('ROLE_USER')")
     @PostMapping("/create")
     public ResponseEntity<?> create(@RequestPart(required = false, value = "image")  MultipartFile image, @RequestPart(value = "post") Post post, Principal principal) {
         // replace wwith principal
-        System.out.println("PRINCIPLA " + principal.getName());
-        Post createdPost = postService.create(post,principal.getName());
+        //System.out.println("PRINCIPLA " + principal.getName());
+        Post createdPost = postService.create(post, principal.getName());
 
         // If there is a post and there is an image added to request
         if(createdPost != null) {
@@ -66,8 +68,9 @@ public class PostController {
     }
 
     @GetMapping("/all/employee")
-    public List<Post> getAll() {
-        return postService.getAllByEmailAddress("john@gmail.com");
+    public List<Post> getAll(Principal principal) {
+        System.out.println("princpal " + principal.getName());
+        return postService.getAllByEmailAddress(principal.getName());
     }
 
     @GetMapping("/search")
@@ -76,9 +79,9 @@ public class PostController {
     }
 
     @PostMapping("/update")
-    public ResponseEntity<?> update(@RequestPart(required = false, value = "image")  MultipartFile image, @RequestPart(value = "post") Post post) {
+    public ResponseEntity<?> update(@RequestPart(required = false, value = "image")  MultipartFile image, @RequestPart(value = "post") Post post, Principal principal) {
 
-        Post updatedPost = postService.update(post, image, "john@gmail.com");
+        Post updatedPost = postService.update(post, image, principal.getName());
 
         if(updatedPost != null) {
             return ResponseEntity.ok(updatedPost);

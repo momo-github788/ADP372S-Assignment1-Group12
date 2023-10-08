@@ -28,7 +28,7 @@ class PostControllerTest {
 
     private static Name name = NameFactory.createName("John", "", "Doe");
     private static Employee employee = EmployeeFactory.createEmployee(name, "john@gmail.com", "Password123");
-    private static RegisterDTO request = new RegisterDTO(name, employee.getEmailAddress(), employee.getPassword(), null);
+    private static RegisterDTO request = new RegisterDTO(name, employee.getEmailAddress(), null);
 
     private static Location location = LocationFactory.createLocation(27, "Daisy Street", "Cape Town",
             7850, "Western Cape");

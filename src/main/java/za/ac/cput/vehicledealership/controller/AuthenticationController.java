@@ -1,5 +1,7 @@
 package za.ac.cput.vehicledealership.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +20,8 @@ import za.ac.cput.vehicledealership.service.impl.AuthenticationService;
 import za.ac.cput.vehicledealership.service.impl.ErrorValidationServiceImpl;
 import za.ac.cput.vehicledealership.service.impl.UserServiceImpl;
 
+import java.security.Principal;
+
 @RestController
 @RequestMapping("/auth")
 @AllArgsConstructor
@@ -29,7 +33,11 @@ public class AuthenticationController {
     private AuthenticationService authenticationService;
 
     @PostMapping("/user/register")
-    public ResponseEntity<?> registerUser(@RequestBody RegisterRequest request) {
+    public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterRequest request, BindingResult result) {
+
+        ResponseEntity<?> errorMap = errorValidationService.validationService(result);
+        if(errorMap != null) return errorMap;
+
         RegisterDTO createdUser = authenticationService.registerUser(request);
 
         if(createdUser == null) {
@@ -51,8 +59,9 @@ public class AuthenticationController {
         return new ResponseEntity<>(createdEmployee, HttpStatus.CREATED);
     }
 
+
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequest request, BindingResult result) {
+    public ResponseEntity<?> login(@Valid @RequestBody LoginRequest request, BindingResult result) {
 
         ResponseEntity<?> errorMap = errorValidationService.validationService(result);
         if(errorMap != null) return errorMap;

@@ -9,6 +9,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -25,65 +26,93 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import za.ac.cput.vehicledealership.security.jwt.JwtAuthenticationEntryPoint;
 import za.ac.cput.vehicledealership.security.jwt.JwtAuthenticationFilter;
+import za.ac.cput.vehicledealership.service.UserService;
+
+import za.ac.cput.vehicledealership.service.impl.MyEmployeeDetailsService;
 import za.ac.cput.vehicledealership.service.impl.MyUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity
 @RequiredArgsConstructor
+@EnableMethodSecurity
 public class SecurityConfig {
 
     @Value("${spring.security.ant.matchers}")
     private String[] securityAntMatchers;
 
-    private final JwtAuthenticationFilter authFilter;
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+    private final MyUserDetailsService myUserDetailsService;
+    private final MyEmployeeDetailsService myEmployeeDetailsService;
+
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**").allowedOrigins("*").allowedMethods("*");
+            }
+        };
+    }
 
 
-    //Dsiable cors
-//    @Bean
-//    public WebMvcConfigurer corsConfigurer() {
-//        return new WebMvcConfigurer() {
-//            @Override
-//            public void addCorsMappings(CorsRegistry registry) {
-//                registry.addMapping("/**").allowedOrigins("*").allowedMethods("*");
-//            }
-//        };
-//    }
-
-    // Configuring HttpSecurity
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
+                .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
+                .and()
+                .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests()
+                //.requestMatchers("/user/**").hasAuthority("USER")
+                .requestMatchers("/post/create, /post/update, /post/delete, /post/all/employee").hasAuthority("ADMIN")
+                .requestMatchers("/upload/**").hasAuthority("ADMIN")
+                .requestMatchers("/branch/create, /branch/update, /branch/delete").hasAuthority("ADMIN")
+                .requestMatchers("/watchlist/**").hasAuthority("USER")
                 .requestMatchers(securityAntMatchers).permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .cors().disable()
-                .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+                .cors().disable();
 
-        http.addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class);
+
+        //http.authenticationProvider(authenticationProviderUser());
+        http.authenticationProvider(authenticationProviderEmployee());
+        http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+
         return http.build();
     }
 
+    @Bean
+    public AuthenticationProvider authenticationProviderUser(){
+        DaoAuthenticationProvider authenticationProvider=new DaoAuthenticationProvider();
+        authenticationProvider.setUserDetailsService(myUserDetailsService); // Can only log in with an Admin login details
+        authenticationProvider.setPasswordEncoder(passwordEncoder());
+        return authenticationProvider;
+    }
+
+    @Bean
+    public AuthenticationProvider authenticationProviderEmployee(){
+        DaoAuthenticationProvider authenticationProvider=new DaoAuthenticationProvider();
+        authenticationProvider.setUserDetailsService(myEmployeeDetailsService); // Can only log in with an Admin login details
+        authenticationProvider.setPasswordEncoder(passwordEncoder());
+        return authenticationProvider;
+    }
+
 //    @Bean
-//    public AuthenticationProvider authenticationProvider(){
-//        DaoAuthenticationProvider authenticationProvider=new DaoAuthenticationProvider();
-//        authenticationProvider.setUserDetailsService(userDetailsService);
-//        authenticationProvider.setPasswordEncoder(passwordEncoder());
-//        return authenticationProvider;
+//    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+//        return config.getAuthenticationManager();
 //    }
-@Bean
-AuthenticationManager authenticationManager(UserDetailsService myUserDetailsService, PasswordEncoder encoder) {
-    DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-    provider.setUserDetailsService(myUserDetailsService);
-    provider.setPasswordEncoder(encoder);
-    return new ProviderManager(provider);
-}
 
 
+    @Bean
+    AuthenticationManager authenticationManager(UserDetailsService myUserDetailsService, PasswordEncoder encoder) {
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setUserDetailsService(myEmployeeDetailsService);
+        provider.setPasswordEncoder(encoder);
+        return new ProviderManager(provider);
+    }
 
-    // Password Encoding
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
