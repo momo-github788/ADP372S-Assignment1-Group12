@@ -18,6 +18,7 @@ import za.ac.cput.vehicledealership.service.impl.VehicleAddonService;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/addons")
 public class AddonController {
 

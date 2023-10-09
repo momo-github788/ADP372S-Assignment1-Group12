@@ -16,6 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/motorcycle")
+@CrossOrigin
 public class MotorcycleController {
 
     @Autowired

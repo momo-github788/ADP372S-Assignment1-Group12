@@ -16,6 +16,7 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("/vehicle")
+@CrossOrigin
 public class VehicleController {
 
     @Autowired

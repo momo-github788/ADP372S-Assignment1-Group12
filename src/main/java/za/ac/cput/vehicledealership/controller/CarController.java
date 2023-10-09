@@ -16,6 +16,7 @@ import za.ac.cput.vehicledealership.service.CarService;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/car")
 public class CarController {
 

@@ -16,6 +16,7 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("/watchlist")
+@CrossOrigin
 public class WatchListPostController {
 
     @Autowired

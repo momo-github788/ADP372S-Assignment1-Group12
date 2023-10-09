@@ -12,6 +12,7 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("/branch")
+@CrossOrigin
 public class BranchController {
 
     @Autowired

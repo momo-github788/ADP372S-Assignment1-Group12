@@ -19,6 +19,7 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("/post")
+@CrossOrigin
 public class PostController {
 
 

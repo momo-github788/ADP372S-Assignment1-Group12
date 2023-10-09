@@ -16,6 +16,7 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("/vehicleInventory")
+@CrossOrigin
 public class VehicleInventoryController {
 
     @Autowired

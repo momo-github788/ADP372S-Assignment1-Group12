@@ -9,6 +9,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -61,19 +62,21 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
+                .cors(Customizer.withDefaults())
+                .formLogin(f -> f.disable())
+                .httpBasic(b -> b.disable())
                 .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
                 .and()
                 .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests()
                 //.requestMatchers("/user/**").hasAuthority("USER")
                 .requestMatchers("/post/create, /post/update, /post/delete, /post/all/employee").hasAuthority("ADMIN")
+                .requestMatchers("/inventory/create, /inventory/update, /inventory/delete").hasAuthority("ADMIN")
                 .requestMatchers("/upload/**").hasAuthority("ADMIN")
                 .requestMatchers("/branch/create, /branch/update, /branch/delete").hasAuthority("ADMIN")
                 .requestMatchers("/watchlist/**").hasAuthority("USER")
                 .requestMatchers(securityAntMatchers).permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .cors().disable();
+                .anyRequest().authenticated();
 
 
         //http.authenticationProvider(authenticationProviderUser());
