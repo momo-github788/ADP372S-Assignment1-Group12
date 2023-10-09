@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.ProviderManager;
@@ -31,7 +32,7 @@ import za.ac.cput.vehicledealership.security.jwt.JwtAuthenticationEntryPoint;
 import za.ac.cput.vehicledealership.security.jwt.JwtAuthenticationFilter;
 import za.ac.cput.vehicledealership.service.UserService;
 
-import za.ac.cput.vehicledealership.service.impl.MyEmployeeDetailsService;
+//import za.ac.cput.vehicledealership.service.impl.MyEmployeeDetailsService;
 import za.ac.cput.vehicledealership.service.impl.MyUserDetailsService;
 
 @Configuration
@@ -46,7 +47,7 @@ public class SecurityConfig {
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final MyUserDetailsService myUserDetailsService;
-    private final MyEmployeeDetailsService myEmployeeDetailsService;
+    //private final MyEmployeeDetailsService myEmployeeDetailsService;
 
     @Bean
     public WebMvcConfigurer corsConfigurer() {
@@ -58,9 +59,11 @@ public class SecurityConfig {
         };
     }
 
-
+    @Primary
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        System.out.println("in sec filte chain 1");
+
         http.csrf().disable()
                 .cors(Customizer.withDefaults())
                 .formLogin(f -> f.disable())
@@ -78,16 +81,13 @@ public class SecurityConfig {
                 .requestMatchers(securityAntMatchers).permitAll()
                 .anyRequest().authenticated();
 
-
-        //http.authenticationProvider(authenticationProviderUser());
-        http.authenticationProvider(authenticationProviderEmployee());
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-
+        http.authenticationProvider(authenticationProvider());
         return http.build();
     }
 
     @Bean
-    public AuthenticationProvider authenticationProviderUser(){
+    public AuthenticationProvider authenticationProvider(){
         DaoAuthenticationProvider authenticationProvider=new DaoAuthenticationProvider();
         authenticationProvider.setUserDetailsService(myUserDetailsService); // Can only log in with an Admin login details
         authenticationProvider.setPasswordEncoder(passwordEncoder());
@@ -95,23 +95,10 @@ public class SecurityConfig {
     }
 
     @Bean
-    public AuthenticationProvider authenticationProviderEmployee(){
-        DaoAuthenticationProvider authenticationProvider=new DaoAuthenticationProvider();
-        authenticationProvider.setUserDetailsService(myEmployeeDetailsService); // Can only log in with an Admin login details
-        authenticationProvider.setPasswordEncoder(passwordEncoder());
-        return authenticationProvider;
-    }
-
-//    @Bean
-//    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
-//        return config.getAuthenticationManager();
-//    }
-
-
-    @Bean
-    AuthenticationManager authenticationManager(UserDetailsService myUserDetailsService, PasswordEncoder encoder) {
+    AuthenticationManager authenticationManager(PasswordEncoder encoder) {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setUserDetailsService(myEmployeeDetailsService);
+        provider.setUserDetailsService(myUserDetailsService);
+        //provider.setUserDetailsService(myEmployeeDetailsService);
         provider.setPasswordEncoder(encoder);
         return new ProviderManager(provider);
     }
