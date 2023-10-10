@@ -70,10 +70,8 @@ public class AuthenticationService {
         }
 
         Role adminRole = roleService.findByName(ERole.ADMIN);
-        Role userRole = roleService.findByName(ERole.USER);
 
         Set<Role> roleSet = new HashSet<>();
-        roleSet.add(userRole);
         roleSet.add(adminRole);
 
         Employee mappedDTOtoEmployee = modelMapper.map(request, Employee.class);
