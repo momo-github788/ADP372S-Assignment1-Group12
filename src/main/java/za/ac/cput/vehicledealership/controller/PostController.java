@@ -32,11 +32,8 @@ public class PostController {
         this.imageUploadService = imageUploadService;
     }
 
-//    @PreAuthorize("hasAuthority('ROLE_USER')")
     @PostMapping("/create")
     public ResponseEntity<?> create(@RequestPart(required = false, value = "image")  MultipartFile image, @RequestPart(value = "post") Post post, Principal principal) {
-        // replace wwith principal
-        //System.out.println("PRINCIPLA " + principal.getName());
         Post createdPost = postService.create(post, principal.getName());
 
         // If there is a post and there is an image added to request
@@ -93,12 +90,7 @@ public class PostController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> delete(@PathVariable int id) {
-        boolean status = postService.delete(id, "john@gmail.com");
-
-        if(status) {
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.badRequest().body("Error deleting post");
+    public boolean delete(@PathVariable int id, Principal principal) {
+        return postService.delete(id, principal.getName());
     }
 }

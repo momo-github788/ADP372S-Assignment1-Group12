@@ -53,23 +53,6 @@ public class PostServiceImpl {
         postRepository.deleteAll();
     }
 
-//
-//    User user = userRepository.findUserByEmailAddress(emailAddress);
-//        post.setPostCreatorEmail(emailAddress);
-//        post.setPostCreatorName(user.getFullName());
-//        post.setUser(user);
-//        post.setActive(true);
-//
-//        if(postRepository.existsByTitle(post.getTitle())) {
-//        throw new PostAlreadyExistsException("Post with title " + post.getTitle() + " already exists");
-//    }
-//
-//
-//        userRepository.save(user);
-//        postRepository.save(post);
-//        return post;
-
-
     public Post create(Post post, String emailAddress) {
         System.out.println("Finding employee by " + emailAddress);
         Employee employee = employeeService.readByEmail(emailAddress);
@@ -82,12 +65,6 @@ public class PostServiceImpl {
             throw new IllegalArgumentException("BRANCH DOES NOT EXIST");
         }
 
-        System.out.println("Found emp");
-        System.out.println(employee);
-
-        System.out.println("Found branch");
-        System.out.println(branch);
-
         Vehicle vehicle = vehicleService.create(post.getVehicle());
 
         post.setPostCreatorEmail(emailAddress);
@@ -95,8 +72,6 @@ public class PostServiceImpl {
         post.setActive(true);
         post.setVehicle(vehicle);
         post.setBranch(branch);
-
-//            post.setBranch();
 
         if (postRepository.existsByTitle(post.getTitle())) {
             System.out.println("post already exist");

@@ -23,8 +23,9 @@ public class WatchListPostController {
     private WatchListPostServiceImpl watchListPostService;
 
     @GetMapping("/{postId}")
-    public WatchListPost create(@PathVariable int postId) {
-        return watchListPostService.create(postId, "user12345@gmail.com");
+    public WatchListPost create(@PathVariable int postId, Principal principal) {
+        System.out.println("princiapl to create watchlist " + principal.getName());
+        return watchListPostService.create(postId, principal.getName());
     }
 
     @GetMapping("read/{postId}")
@@ -43,7 +44,7 @@ public class WatchListPostController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public boolean delete(@PathVariable int id) {
-        return watchListPostService.delete(id, "user@gmail.com");
+    public boolean delete(@PathVariable int id, Principal principal) {
+        return watchListPostService.delete(id, principal.getName());
     }
 }

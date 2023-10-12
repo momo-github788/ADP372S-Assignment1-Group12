@@ -29,11 +29,6 @@ public class AuthenticationController {
     @Autowired
     private AuthenticationService authenticationService;
 
-    @Autowired
-    private HttpServletRequest request;
-
-
-
     @PostMapping("/user/register")
     public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterRequest request, BindingResult result) {
 
@@ -50,7 +45,11 @@ public class AuthenticationController {
     }
 
     @PostMapping("/employee/register")
-    public ResponseEntity<?> registerEmployee(@RequestBody RegisterRequest request) {
+    public ResponseEntity<?> registerEmployee(@Valid @RequestBody RegisterRequest request, BindingResult result) {
+
+        ResponseEntity<?> errorMap = errorValidationService.validationService(result);
+        if(errorMap != null) return errorMap;
+
         RegisterDTO createdEmployee = authenticationService.registerEmployee(request);
 
         if(createdEmployee == null) {
@@ -62,7 +61,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> loginUser(@Valid @RequestBody LoginRequest request, @RequestParam String type, BindingResult result) {
+    public ResponseEntity<?> loginUser(@Valid @RequestBody LoginRequest request, BindingResult result) {
         ResponseEntity<?> errorMap = errorValidationService.validationService(result);
         if(errorMap != null) return errorMap;
 

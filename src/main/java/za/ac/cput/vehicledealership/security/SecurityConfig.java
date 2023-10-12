@@ -47,7 +47,7 @@ public class SecurityConfig {
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final MyUserDetailsService myUserDetailsService;
-    //private final MyEmployeeDetailsService myEmployeeDetailsService;
+
 
     @Bean
     public WebMvcConfigurer corsConfigurer() {
@@ -72,12 +72,13 @@ public class SecurityConfig {
                 .and()
                 .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests()
-                //.requestMatchers("/user/**").hasAuthority("USER")
+                .requestMatchers("/user/**").hasAuthority("USER")
+                .requestMatchers("/watchlist/**").hasAuthority("USER")
                 .requestMatchers("/post/create, /post/update, /post/delete, /post/all/employee").hasAuthority("ADMIN")
                 .requestMatchers("/inventory/create, /inventory/update, /inventory/delete").hasAuthority("ADMIN")
                 .requestMatchers("/upload/**").hasAuthority("ADMIN")
                 .requestMatchers("/branch/create, /branch/update, /branch/delete").hasAuthority("ADMIN")
-                .requestMatchers("/watchlist/**").hasAuthority("USER")
+
                 .requestMatchers(securityAntMatchers).permitAll()
                 .anyRequest().authenticated();
 
@@ -89,7 +90,7 @@ public class SecurityConfig {
     @Bean
     public AuthenticationProvider authenticationProvider(){
         DaoAuthenticationProvider authenticationProvider=new DaoAuthenticationProvider();
-        authenticationProvider.setUserDetailsService(myUserDetailsService); // Can only log in with an Admin login details
+        authenticationProvider.setUserDetailsService(myUserDetailsService);
         authenticationProvider.setPasswordEncoder(passwordEncoder());
         return authenticationProvider;
     }
@@ -98,7 +99,6 @@ public class SecurityConfig {
     AuthenticationManager authenticationManager(PasswordEncoder encoder) {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setUserDetailsService(myUserDetailsService);
-        //provider.setUserDetailsService(myEmployeeDetailsService);
         provider.setPasswordEncoder(encoder);
         return new ProviderManager(provider);
     }
