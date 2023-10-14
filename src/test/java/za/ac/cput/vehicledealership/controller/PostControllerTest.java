@@ -2,6 +2,7 @@ package za.ac.cput.vehicledealership.controller;
 
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -19,6 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 //@Disabled
+@AutoConfigureMockMvc(addFilters = false)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class PostControllerTest {
@@ -49,7 +51,7 @@ class PostControllerTest {
     @Order(1)
     void create() {
         String url = BASE_URL + "/create";
-        ResponseEntity<Employee> employeeResponse = restTemplate.postForEntity("http://localhost:8080/employee/create", employee, Employee.class);
+        ResponseEntity<Employee> employeeResponse = restTemplate.postForEntity("http://localhost:8080/authenticate/employee/register", employee, Employee.class);
 
         Branch createdBranch = branchService.create(branch);
         System.out.println(employeeResponse);

@@ -25,7 +25,6 @@ public class InventoryServiceImpl implements InventoryService {
     @Override
     public Inventory create(Inventory inventory) {
 
-//        List<Vehicle> vehicleList = new ArrayList<>();
         Branch branch = branchService.read(inventory.getBranch().getBranchId());
         if (branch == null) {
             throw new IllegalArgumentException("BRANCH DOES NOT EXIST");
@@ -34,37 +33,8 @@ public class InventoryServiceImpl implements InventoryService {
         if(inventoryRepository.existsByName(inventory.getName())) {
             throw new RuntimeException("Inventory with name " + inventory.getName() + " exists");
         }
-//
-//        System.out.println("inventory vehicles " + inventory.getVehicles().size());
-//
-//        if (inventory.getVehicles().size() < 1) {
-//            throw new IllegalArgumentException("VEHICLE DOES NOT EXIST");
-//        }
-//
-//        for(int i = 0; i < inventory.getVehicles().size(); i++) {
-//            System.out.println("inside inventory vehicle loop");
-//            Vehicle vehicle = vehicleService.read(inventory.getVehicles().get(i).getVehicleId());
-//
-//            if(inventory.getInventoryType().equals(InventoryType.NEW)) {
-//                System.out.println("inventory only allows for new vehicles");
-//            } else if(inventory.getInventoryType().equals(InventoryType.USED)){
-//                System.out.println("inventory only allows for used vehicles");
-//
-//            } else {
-//                System.out.println("inventory only allows for demo vehicles");
-//
-//            }
-//            vehicleList.add(vehicle);
-//            vehicle.setInventory(inventory);
-//
-//        }
-//        System.out.println("vehicle list");
-//        System.out.println(vehicleList);
-//
-//
+
         inventory.setBranch(branch);
-//        inventory.setVehicles(vehicleList);
-//        //inventory.setQuantity(inventory.getQuantity()+1);
 
         return inventoryRepository.save(inventory);
     }
@@ -77,8 +47,6 @@ public class InventoryServiceImpl implements InventoryService {
 
     @Override
     public Inventory update(Inventory inventory) {
-//        Vehicle vehicle=vehicleService.read(inventory.getVehicle().getVehicleId());
-//        Inventory tinventory= InventoryFactory.updateInventoryFactorywithid(inventory.getInventoryId(),inventory.getQuantity(),inventory.getInventoryType(),vehicle);
         return  inventoryRepository.save(inventory);
     }
 

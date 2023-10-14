@@ -59,7 +59,8 @@ public class SecurityConfig {
         };
     }
 
-    @Primary
+
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         System.out.println("in sec filte chain 1");
@@ -74,6 +75,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers("/user/**").hasAuthority("USER")
                 .requestMatchers("/watchlist/**").hasAuthority("USER")
+                .requestMatchers("/employee/**").hasAuthority("ADMIN")
                 .requestMatchers("/post/create, /post/update, /post/delete, /post/all/employee").hasAuthority("ADMIN")
                 .requestMatchers("/inventory/create, /inventory/update, /inventory/delete").hasAuthority("ADMIN")
                 .requestMatchers("/upload/**").hasAuthority("ADMIN")

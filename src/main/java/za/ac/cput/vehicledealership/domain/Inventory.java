@@ -30,10 +30,6 @@ public class Inventory {
     @Enumerated(EnumType.STRING)
     private InventoryType inventoryType;
 
-//    @OneToMany
-//    //@JoinColumn(name="vehicle_id", referencedColumnName="inventory_id")
-//    private List<Vehicle> vehicles;
-//
     @OneToOne
     @JoinColumn(name = "branch_id")
     private Branch branch;
@@ -44,7 +40,6 @@ public class Inventory {
         this.quantity =  builder.quantity;
         this.name = builder.name;
         this.inventoryType =  builder.inventoryType;
-//        this.vehicles = builder.vehicles;
         this.branch = builder.branch;
     }
 

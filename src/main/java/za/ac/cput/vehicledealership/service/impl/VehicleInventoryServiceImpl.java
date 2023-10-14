@@ -26,30 +26,19 @@ import java.util.stream.Collectors;
 @Service
 public class VehicleInventoryServiceImpl {
 
-
     private final VehicleInventoryRepository vehicleInventoryRepository;
     private final VehicleRepository vehicleRepository;
     private final InventoryService inventoryService;
-
-
 
     public VehicleInventory create(int vehicleId, int inventoryId) {
         Inventory inventory = inventoryService.read(inventoryId);
         Vehicle vehicle = vehicleRepository.findById(vehicleId).orElse(null);
 
-        if(inventory == null) {
-            throw new RuntimeException("Inventory with id " + inventory.getInventoryId() + " does not exist");
-        }
-
-        if(vehicle == null) {
-            throw new RuntimeException("Vehicle with id " + vehicle.getVehicleId() + " does not exist");
-        }
+        if(inventory == null) throw new RuntimeException("Inventory with id " + inventory.getInventoryId() + " does not exist");
+        if(vehicle == null) throw new RuntimeException("Vehicle with id " + vehicle.getVehicleId() + " does not exist");
 
         VehicleInventory vehicleInventory = VehicleInventoryFactory.createVehicleInventory(vehicle.getVehicleId(), inventory.getInventoryId());
-
         inventory.setQuantity(inventory.getQuantity()+1);
-        System.out.println("vehicleInventory");
-        System.out.println(vehicleInventory);
         return vehicleInventoryRepository.save(vehicleInventory);
     }
 
@@ -57,44 +46,27 @@ public class VehicleInventoryServiceImpl {
         Inventory inventory = inventoryService.read(inventoryId);
         Vehicle vehicle = vehicleRepository.findById(vehicleId).orElse(null);
 
-        if(inventory == null) {
-            throw new RuntimeException("Inventory with id " + inventory.getInventoryId() + " does not exist");
-        }
+        if(inventory == null) throw new RuntimeException("Inventory with id " + inventory.getInventoryId() + " does not exist");
+        if(vehicle == null) throw new RuntimeException("Vehicle with id " + vehicle.getVehicleId() + " does not exist");
 
-        if(vehicle == null) {
-            throw new RuntimeException("Vehicle with id " + vehicle.getVehicleId() + " does not exist");
-        }
         inventory.setQuantity(inventory.getQuantity()-1);
 
         VehicleInventory vehicleInventory = vehicleInventoryRepository.findFirstByVehicleIdAndInventoryId(vehicle.getVehicleId(), inventory.getInventoryId());
 
-        if (vehicleInventory == null) {
-            return false;
-        }
+        if (vehicleInventory == null) return false;
 
         vehicleInventoryRepository.delete(vehicleInventory);
         return true;
     }
-
 
     public List<Vehicle> getAllVehiclesByInventoryId(int inventoryId) {
 
         Inventory inventory = inventoryService.read(inventoryId);
 
         List<VehicleInventory> vehicleInventoryIdList = vehicleInventoryRepository.findAllByInventoryId(inventory.getInventoryId());
+        List<Vehicle> vehicles = vehicleRepository.findAllByVehicleIdIn(vehicleInventoryIdList.stream().map(v -> v.getVehicleId()).collect(Collectors.toList()));
 
-        List<Vehicle> vehicles = vehicleRepository.findAllByVehicleIdIn(vehicleInventoryIdList.stream()
-                .map(v -> v.getVehicleId())
-                .collect(Collectors.toList())
-        );
-
-
-        System.out.println(vehicles);
-
-        if (vehicles.isEmpty()) {
-            return Collections.EMPTY_LIST;
-        }
-
+        if (vehicles.isEmpty()) return Collections.EMPTY_LIST;
 
         return vehicles;
     }
