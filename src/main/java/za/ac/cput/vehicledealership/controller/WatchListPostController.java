@@ -29,8 +29,8 @@ public class WatchListPostController {
     }
 
     @GetMapping("read/{postId}")
-    public ResponseEntity<?> get(@PathVariable int postId) {
-        WatchListPost watchListPost = watchListPostService.readWatchlistPostForUserByPostId("user@gmail.com", postId);
+    public ResponseEntity<?> get(@PathVariable int postId, Principal principal) {
+        WatchListPost watchListPost = watchListPostService.readWatchlistPostForUserByPostId(principal.getName(), postId);
 
         if (watchListPost == null){
             return ResponseEntity.badRequest().body("Watchlist post with id " + postId + " not found");
