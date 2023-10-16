@@ -72,7 +72,14 @@ public class AddonController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public boolean delete(@PathVariable int id) {
-        return addonsService.delete(id);
+    public ResponseEntity<String> delete(@PathVariable int id) {
+        boolean status = addonsService.delete(id);
+        if(status) {
+            // 204 No Content for successful deletion
+            return ResponseEntity.noContent().build();
+        } else {
+            // 404 Not Found for unsuccessful deletion
+            return ResponseEntity.notFound().build();
+        }
     }
 }
