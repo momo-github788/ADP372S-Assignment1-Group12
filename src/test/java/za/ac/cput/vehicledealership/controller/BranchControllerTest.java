@@ -102,35 +102,41 @@ class BranchControllerTest {
     void update() {
         String url = BASE_URL + "/update?type=employee";
 
-        Location location = LocationFactory.createLocation(46664, "Marvel", "Durban", 8200, "Western cape");
         Branch updateBranch = new Branch.BranchBuilder()
                 .copy(branch)
-                .setLocation(location)
+                .setBranchName("Updated name")
                 .build();
 
         updateBranch.setBranchId(branchId);
 
+        HttpEntity<?> branchEntity = performPostRequest(updateBranch);
+
         System.out.println("URL: " + url);
-        System.out.println("POST data: " + updateBranch);
-        ResponseEntity<Branch> response = restTemplate.postForEntity(url, updateBranch, Branch.class);
+        System.out.println("POST data: " + branchEntity);
+        ResponseEntity<Branch> response = restTemplate.postForEntity(url, branchEntity, Branch.class);
         assertNotNull(response.getBody());
     }
 
     @Test
     @Order(5)
-    void delete() {
+    void delete() throws URISyntaxException {
+
+        authConfig.getAuthForEmployee();
         String url = BASE_URL + "/delete/" + branchId + "?type=employee";
         System.out.println("URL: " + url);
 
-        ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.DELETE, null, String.class);
+        HttpEntity<?> branchEntity = performPostRequest(branch);
+
+        ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.DELETE, branchEntity, String.class);
         assertEquals(HttpStatus.OK, response.getStatusCode()); // 204 No Content for successful deletion
     }
 
     @Test
     @Order(4)
     void getAll() {
-        String url = BASE_URL + "/all";
+        String url = BASE_URL + "/all?type=employee";
         HttpHeaders headers = new HttpHeaders();
+        headers.addAll(authConfig.getAuthForEmployee());
         HttpEntity<String> entity = new HttpEntity<>(null, headers);
 
         ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
