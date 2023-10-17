@@ -38,7 +38,7 @@ public class User implements Serializable {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<ContactDetail> contactDetails = new HashSet<>();
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name="user_id"),
             inverseJoinColumns = @JoinColumn(name="role_id"))

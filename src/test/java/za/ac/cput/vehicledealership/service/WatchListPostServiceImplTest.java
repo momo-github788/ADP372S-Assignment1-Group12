@@ -68,8 +68,8 @@ public class WatchListPostServiceImplTest {
 
     @Test
     public void testCreate() {
-        RegisterDTO theUser = authenticationService.registerUser(new RegisterRequest(userName, user.getEmailAddress(), user.getPassword()));
-        RegisterDTO theEmployee = authenticationService.registerEmployee(new RegisterRequest(employee.getName(), employee.getEmailAddress(), employee.getPassword()));
+        User theUser = authenticationService.registerUser(new RegisterRequest(userName, user.getEmailAddress(), user.getPassword()));
+        Employee theEmployee = authenticationService.registerEmployee(new RegisterRequest(employee.getName(), employee.getEmailAddress(), employee.getPassword()));
 
         Branch theBranch = branchService.create(branch);
         post.setBranch(theBranch);

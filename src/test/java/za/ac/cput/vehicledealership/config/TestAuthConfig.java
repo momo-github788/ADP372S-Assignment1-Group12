@@ -78,6 +78,15 @@ public class TestAuthConfig {
         return headers;
     }
 
+    public HttpHeaders getRequestPartAuthForEmployee() {
+        String token = loginEmployee(new LoginRequest(EMPLOYEE_NAME, PASSWORD));
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+        headers.set("Accept", "text/plain");
+        headers.setBearerAuth(token);
+        return headers;
+    }
+
     // Gets the token of the logged in user
     // Sets the token to the HTTP Requests "Authorization Header" , this is how you know the user is logged in..
     public HttpHeaders getAuthForUser() {

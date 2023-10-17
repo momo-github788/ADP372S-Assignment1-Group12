@@ -39,7 +39,7 @@ public class AuthenticationService {
     private final ModelMapper modelMapper;
 
 
-    public RegisterDTO registerUser(RegisterRequest request) {
+    public User registerUser(RegisterRequest request) {
 
         if(employeeRepository.existsByEmailAddress(request.getEmailAddress()) || userRepository.existsByEmailAddress(request.getEmailAddress())) {
             return null;
@@ -59,11 +59,11 @@ public class AuthenticationService {
         System.out.println(mappedDTOtoUser);
 
         userRepository.save(mappedDTOtoUser);
-        return new RegisterDTO(request.getName(), request.getEmailAddress(), roleSet);
+        return mappedDTOtoUser;
     }
 
 
-    public RegisterDTO registerEmployee(RegisterRequest request) {
+    public Employee registerEmployee(RegisterRequest request) {
 
         if(employeeRepository.existsByEmailAddress(request.getEmailAddress()) || userRepository.existsByEmailAddress(request.getEmailAddress())) {
             return null;
@@ -79,9 +79,8 @@ public class AuthenticationService {
         mappedDTOtoEmployee.setPassword(passwordEncoder.encode(request.getPassword()));
         mappedDTOtoEmployee.setRoles(roleSet);
 
-
         employeeRepository.save(mappedDTOtoEmployee);
-        return new RegisterDTO(request.getName(), request.getEmailAddress(), roleSet);
+        return mappedDTOtoEmployee;
     }
 
 

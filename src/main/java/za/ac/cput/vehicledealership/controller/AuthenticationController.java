@@ -35,7 +35,7 @@ public class AuthenticationController {
         ResponseEntity<?> errorMap = errorValidationService.validationService(result);
         if(errorMap != null) return errorMap;
 
-        RegisterDTO createdUser = authenticationService.registerUser(request);
+        User createdUser = authenticationService.registerUser(request);
 
         if(createdUser == null) {
             return ResponseEntity.badRequest().body("User already exists");
@@ -50,12 +50,14 @@ public class AuthenticationController {
         ResponseEntity<?> errorMap = errorValidationService.validationService(result);
         if(errorMap != null) return errorMap;
 
-        RegisterDTO createdEmployee = authenticationService.registerEmployee(request);
+        Employee createdEmployee = authenticationService.registerEmployee(request);
 
         if(createdEmployee == null) {
             return ResponseEntity.badRequest().body("Employee already exists");
         }
 
+        System.out.println("RegisterDTO");
+        System.out.println(createdEmployee);
 
         return new ResponseEntity<>(createdEmployee, HttpStatus.CREATED);
     }

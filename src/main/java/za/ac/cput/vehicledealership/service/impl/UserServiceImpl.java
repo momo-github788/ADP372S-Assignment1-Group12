@@ -41,8 +41,11 @@ public class UserServiceImpl {
 
 
     public User update(User user) {
-        if (this.repository.existsById(user.getUserId()))
+        if (this.repository.existsById(user.getUserId())) {
+            System.out.println("user exists with id " + user.getUserId());
             return this.repository.save(user);
+        }
+        System.out.println("user with id " + user.getUserId() + " doesnt ecist");
         return null;
     }
 

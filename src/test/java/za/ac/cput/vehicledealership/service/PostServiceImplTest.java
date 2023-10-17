@@ -12,10 +12,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import za.ac.cput.vehicledealership.domain.*;
 import za.ac.cput.vehicledealership.dto.RegisterDTO;
 import za.ac.cput.vehicledealership.factory.*;
-import za.ac.cput.vehicledealership.service.impl.BranchServiceImpl;
-import za.ac.cput.vehicledealership.service.impl.EmployeeServiceImpl;
-import za.ac.cput.vehicledealership.service.impl.PostServiceImpl;
-import za.ac.cput.vehicledealership.service.impl.VehicleServiceImpl;
+import za.ac.cput.vehicledealership.payload.request.RegisterRequest;
+import za.ac.cput.vehicledealership.service.impl.*;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -32,13 +32,13 @@ class PostServiceImplTest {
     @Autowired
     private BranchServiceImpl branchService;
     @Autowired
-    private EmployeeServiceImpl employeeService;
+    private AuthenticationService authenticationService;
 
 
     private static Name name = NameFactory.createName("Mary", "", "Anne");
     private static Employee employee = EmployeeFactory.createEmployee( name, "john@gmail.com", "Password123");
 
-    private static RegisterDTO request = new RegisterDTO(name, employee.getEmailAddress(), null);
+    private static RegisterRequest request = new RegisterRequest(name, employee.getEmailAddress(), employee.getPassword());
 
     private static Location location = LocationFactory.createLocation(27, "Daisy Street", "Cape Town",
             7850, "Western Cape");
@@ -52,9 +52,12 @@ class PostServiceImplTest {
     @Order(1)
     @Test
     void create() {
+
+        Employee employee = authenticationService.registerEmployee(request);
         Branch createdBranch = branchService.create(branch);
         System.out.println("created branch");
         System.out.println(createdBranch);
+        employee.setPosts(List.of(post));
         post.setBranch(createdBranch);
 
 

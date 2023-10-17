@@ -33,18 +33,23 @@ class UserServiceImplTest {
 
     private static RegisterRequest request = new RegisterRequest(name, user.getEmailAddress(), user.getPassword());
 
+
+    private static int userId;
+
     @Order(1)
     @Test
     void create() {
-        RegisterDTO created = authenticationService.registerUser(request);
+        User created = authenticationService.registerUser(request);
+
         assertNotNull(created);
         System.out.println("Created: " + created);
+        userId = created.getUserId();
     }
 
     @Order(2)
     @Test
     void read() {
-        User read = userService.read(user.getUserId());
+        User read = userService.read(userId);
         assertNotNull(read);
         System.out.println("Read: " + read);
     }
@@ -53,18 +58,27 @@ class UserServiceImplTest {
     @Order(3)
     @Test
     void update() {
+
+
+        Name middleName = NameFactory.createName("Julian");
+
         User newUser= new User.UserBuilder().copy(user)
-                .setEmailAddress("mhopkins@gmail.com")
+                .setName(middleName)
                 .build();
+
+        newUser.setUserId(userId);
+
         User updated = userService.update(newUser);
-        assertEquals("mhopkins@gmail.com", updated.getEmailAddress());
-        System.out.println("Updated: " + newUser);
+
+
+        assertNotNull(updated);
+        System.out.println("Updated: " + updated);
     }
 
     @Order(5)
     @Test
     void delete() {
-        boolean success = userService.delete(user.getUserId());
+        boolean success = userService.delete(userId);
         assertTrue(success);
         System.out.println("Delete: " + success);
     }

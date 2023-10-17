@@ -75,12 +75,12 @@ public class SecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers("/user/**").hasAuthority("USER")
                 .requestMatchers("/watchlist/**").hasAuthority("USER")
+                .requestMatchers("/contact/**").hasAuthority("USER")
                 .requestMatchers("/employee/**").hasAuthority("ADMIN")
                 .requestMatchers("/post/create, /post/update, /post/delete, /post/all/employee").hasAuthority("ADMIN")
                 .requestMatchers("/inventory/create, /inventory/update, /inventory/delete").hasAuthority("ADMIN")
                 .requestMatchers("/upload/**").hasAuthority("ADMIN")
                 .requestMatchers("/branch/create, /branch/update, /branch/delete").hasAuthority("ADMIN")
-
                 .requestMatchers(securityAntMatchers).permitAll()
                 .anyRequest().authenticated();
 

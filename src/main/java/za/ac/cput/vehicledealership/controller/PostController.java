@@ -12,6 +12,7 @@ import za.ac.cput.vehicledealership.service.PostService;
 import za.ac.cput.vehicledealership.service.impl.ImageUploadServiceImpl;
 import za.ac.cput.vehicledealership.service.impl.PostServiceImpl;
 
+import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.List;

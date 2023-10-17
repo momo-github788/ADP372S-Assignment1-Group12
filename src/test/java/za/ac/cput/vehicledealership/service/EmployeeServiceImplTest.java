@@ -43,7 +43,7 @@ class EmployeeServiceImplTest {
     @Order(1)
     @Test
     void create() {
-        RegisterDTO createdEmployee = authenticationService.registerEmployee(employeeRegisterRequest);
+        Employee createdEmployee = authenticationService.registerEmployee(employeeRegisterRequest);
         assertNotNull(createdEmployee);
         System.out.println("Create: " + createdEmployee);
     }
@@ -51,7 +51,7 @@ class EmployeeServiceImplTest {
     @Order(3)
     @Test
     void read() {
-        RegisterDTO createdEmployee = authenticationService.registerEmployee(employeeRegisterRequest);
+        Employee createdEmployee = authenticationService.registerEmployee(employeeRegisterRequest);
 
         Employee mapped = modelMapper.map(createdEmployee, Employee.class);
         //Employee readEmployee = employeeService.read(mapped.getEmployeeNumber());
@@ -67,7 +67,7 @@ class EmployeeServiceImplTest {
     @Order(4)
     @Test
     void update() {
-        RegisterDTO createdEmployee = authenticationService.registerEmployee(employeeRegisterRequest);
+        Employee createdEmployee = authenticationService.registerEmployee(employeeRegisterRequest);
         Employee mapped = modelMapper.map(createdEmployee, Employee.class);
 
         Employee updatedEmployee = new Employee.Builder()
@@ -88,7 +88,7 @@ class EmployeeServiceImplTest {
     @Order(6)
     @Test
     void delete() {
-        RegisterDTO createdEmployee = authenticationService.registerEmployee(employeeRegisterRequest);
+        Employee createdEmployee = authenticationService.registerEmployee(employeeRegisterRequest);
 
         Employee mapped = modelMapper.map(createdEmployee, Employee.class);
 

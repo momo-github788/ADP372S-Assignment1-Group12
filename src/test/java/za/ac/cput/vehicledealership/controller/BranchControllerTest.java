@@ -35,7 +35,7 @@ class BranchControllerTest {
 
     private TestAuthConfig authConfig = new TestAuthConfig();
     private static Location location = LocationFactory.createLocation(89974, "Main Road", "Paarl", 7626, "Western Cape");
-    private static Branch branch  = BranchFactory.createBranch("Paarl branch",2008,location);
+    private static Branch branch  = BranchFactory.createBranch("Padarl branch",2008,location);
     private final String BASE_URL = "http://localhost:8080/branch";
     private RestTemplate restTemplate = new RestTemplate();
 
