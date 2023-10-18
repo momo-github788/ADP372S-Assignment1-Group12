@@ -22,7 +22,7 @@ jobs:
           java-version: '17'
 
       - name: Build with Maven
-        run: mvn clean install -DskipTests 
+        run: mvn clean install
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
@@ -49,5 +49,5 @@ jobs:
         with:
           app-name: 'dreamcruisedealers'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_F930CB1E7CA8463990947DBF0D433245 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_826D2BE77393438F884F8A3581C41699 }}
           package: '*.jar'
