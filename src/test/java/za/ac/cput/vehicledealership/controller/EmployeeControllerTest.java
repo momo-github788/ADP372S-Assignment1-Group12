@@ -39,7 +39,7 @@ class EmployeeControllerTest {
 
 
     private static Name name = NameFactory.createName("Mary", "", "Anne");
-    private static Employee employee = EmployeeFactory.createEmployee(name, "mdasrddesy@gmail.com", "P@ssword123");
+    private static Employee employee = EmployeeFactory.createEmployee(name, "mary@gmail.com", "P@ssword123");
     private final String AUTH_URL = "http://localhost:8080/auth";
 
     private final String BASE_URL = "http://localhost:8080/employee";

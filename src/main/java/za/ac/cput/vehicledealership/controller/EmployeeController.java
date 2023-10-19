@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import za.ac.cput.vehicledealership.domain.Employee;
 
+import za.ac.cput.vehicledealership.domain.User;
 import za.ac.cput.vehicledealership.dto.RegisterDTO;
 import za.ac.cput.vehicledealership.service.impl.EmployeeServiceImpl;
 import za.ac.cput.vehicledealership.service.impl.ErrorValidationServiceImpl;
@@ -32,6 +33,15 @@ public class EmployeeController {
     public EmployeeController(EmployeeServiceImpl employeeService, ErrorValidationServiceImpl errorValidationService) {
         this.employeeService = employeeService;
         this.errorValidationService = errorValidationService;
+    }
+
+    @GetMapping("readEmail/{emailAddress}")
+    public ResponseEntity<?> get(@PathVariable String emailAddress){
+        Employee employee = employeeService.readByEmailAddress(emailAddress);
+        if (employee == null){
+            return ResponseEntity.badRequest().body("Employee with email " + emailAddress + " not found");
+        }
+        return ResponseEntity.ok(employee);
     }
 
     @GetMapping("read/{id}")

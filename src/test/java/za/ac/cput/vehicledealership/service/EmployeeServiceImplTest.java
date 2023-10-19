@@ -33,6 +33,8 @@ class EmployeeServiceImplTest {
     @Autowired
     private ModelMapper modelMapper;
 
+    private static int employeeNumber;
+
 
     private static Name name = NameFactory.createName("Mary", "", "Anne");
 
@@ -46,59 +48,47 @@ class EmployeeServiceImplTest {
         Employee createdEmployee = authenticationService.registerEmployee(employeeRegisterRequest);
         assertNotNull(createdEmployee);
         System.out.println("Create: " + createdEmployee);
+        employeeNumber = createdEmployee.getEmployeeNumber();
     }
+
+    @Order(2)
+    @Test
+    void read() {
+        Employee readEmployee = employeeService.read(employeeNumber);
+
+        assertNotNull(readEmployee);
+        System.out.println("Read: " + readEmployee);
+    }
+
+
 
     @Order(3)
     @Test
-    void read() {
-        Employee createdEmployee = authenticationService.registerEmployee(employeeRegisterRequest);
-
-        Employee mapped = modelMapper.map(createdEmployee, Employee.class);
-        //Employee readEmployee = employeeService.read(mapped.getEmployeeNumber());
-
-        assertNotNull(mapped);
-        System.out.println("Read: " + mapped);
-        employeeService.delete(employee.getEmployeeNumber());
-
-    }
-
-
-
-    @Order(4)
-    @Test
     void update() {
-        Employee createdEmployee = authenticationService.registerEmployee(employeeRegisterRequest);
-        Employee mapped = modelMapper.map(createdEmployee, Employee.class);
+        Name middleName = NameFactory.createName("Michael");
 
         Employee updatedEmployee = new Employee.Builder()
-                .copy(mapped)
-                .setPassword("updatedpassword123")
+                .copy(employee)
+                .setName(middleName)
                 .build();
+
+        updatedEmployee.setEmployeeNumber(employeeNumber);
         System.out.println("Update: " + updatedEmployee);
         assertNotNull(employeeService.update(updatedEmployee));
 
     }
 
-    @Order(7)
-    @Test
-    void deleteAll() {
-        employeeService.deleteAll();
-    }
 
-    @Order(6)
+    @Order(5)
     @Test
     void delete() {
-        Employee createdEmployee = authenticationService.registerEmployee(employeeRegisterRequest);
-
-        Employee mapped = modelMapper.map(createdEmployee, Employee.class);
-
-        boolean success = employeeService.delete(mapped.getEmployeeNumber());
+        boolean success = employeeService.delete(employeeNumber);
 
         assertTrue(success);
         System.out.println("Delete: " + success);
     }
 
-    @Order(5)
+    @Order(4)
     @Test
     void getAll() {
         System.out.println("Get all: ");

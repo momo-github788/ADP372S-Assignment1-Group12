@@ -39,6 +39,10 @@ public class UserServiceImpl {
         return this.repository.findById(userId).orElse(null);
     }
 
+    public User read(String email) {
+        return this.repository.findByEmailAddress(email);
+    }
+
 
     public User update(User user) {
         if (this.repository.existsById(user.getUserId())) {

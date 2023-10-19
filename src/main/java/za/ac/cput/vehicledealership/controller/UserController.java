@@ -35,6 +35,15 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
+    @GetMapping("readEmail/{emailAddress}")
+    public ResponseEntity<?> get(@PathVariable String emailAddress){
+        User user = userService.readByEmailAddress(emailAddress);
+        if (user == null){
+            return ResponseEntity.badRequest().body("User with email " + emailAddress + " not found");
+        }
+        return ResponseEntity.ok(user);
+    }
+
     @GetMapping("/all")
    // @PreAuthorize("hasAuthority('USER')")
     public List<User> getAll() {return userService.getAll();}

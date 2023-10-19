@@ -8,6 +8,7 @@ package za.ac.cput.vehicledealership.service.impl;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import za.ac.cput.vehicledealership.domain.*;
 import za.ac.cput.vehicledealership.factory.EmployeeFactory;
@@ -29,9 +30,13 @@ public class EmployeeServiceImpl {
     private ContactDetailRepository contactDetailRepository;
 
     @Autowired
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository, ContactDetailServiceImpl contactDetailService, ContactDetailRepository contactDetailRepository) {
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository, PasswordEncoder passwordEncoder, ContactDetailServiceImpl contactDetailService, ContactDetailRepository contactDetailRepository) {
         this.employeeRepository = employeeRepository;
         this.contactDetailService = contactDetailService;
+        this.passwordEncoder = passwordEncoder;
         this.contactDetailRepository = contactDetailRepository;
     }
 
@@ -46,6 +51,17 @@ public class EmployeeServiceImpl {
             // Handle the case where the employee with the given ID doesn't exist
             return Collections.emptySet();
         }
+    }
+
+    public Employee readByEmailAddress(String emailAddress) {
+        Employee employee = employeeRepository.findByEmailAddress(emailAddress);
+
+        if(employee!=null){
+            return this.employeeRepository.findByEmailAddress(emailAddress);
+        }
+        System.out.println("Employee " + emailAddress + " not exist");
+        return null;
+
     }
 
     public Employee readByEmail(String emailAddress) {
@@ -66,9 +82,15 @@ public class EmployeeServiceImpl {
 
 
     public Employee update(Employee employee) {
+
         if(employeeRepository.existsById(employee.getEmployeeNumber())) {
+            System.out.println("employee exists with id " + employee.getEmployeeNumber());
+            //employee.setRoles("d");
+            employee.setPassword(passwordEncoder.encode(employee.getPassword()));
             return this.employeeRepository.save(employee);
         }
+        System.out.println("employee doesnt exist with id " + employee.getEmployeeNumber());
+
         return null;
     }
 

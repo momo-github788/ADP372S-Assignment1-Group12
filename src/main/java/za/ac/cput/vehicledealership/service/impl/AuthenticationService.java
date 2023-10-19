@@ -100,7 +100,7 @@ public class AuthenticationService {
             System.out.println("generated token");
             System.out.println(token);
 
-            loginDTO = new LoginDTO(userDetails.getUsername(), token, userDetails.getAuthorities());
+            loginDTO = new LoginDTO(userDetails.getId(), userDetails.getUsername(), token, userDetails.getAuthorities());
         } catch (DisabledException e) {
             throw new UsernameNotFoundException("User account is disabled");
         } catch (BadCredentialsException e) {

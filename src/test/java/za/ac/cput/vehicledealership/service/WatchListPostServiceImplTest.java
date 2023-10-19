@@ -76,44 +76,10 @@ public class WatchListPostServiceImplTest {
         Post thePost = postService.create(post, employee.getEmailAddress());
 
 
-        Employee employee = modelMapper.map(theEmployee, Employee.class);
-
-        employee.setPosts(List.of(thePost));
+        theEmployee.setPosts(List.of(thePost));
 
         WatchListPost createdWatchListPost = watchListPostService.create(thePost.getPostId(), theUser.getEmailAddress());
         System.out.println(createdWatchListPost);
         assertNotNull(createdWatchListPost);
     }
-//
-//    @Test
-//    public void testRead() {
-//        WatchListPost watchListPost = WatchListPostFactory.createWatchListPost(user.getUserId(), post.getPostId());
-//        WatchListPost readWatchListPost = watchListPostService.
-//        Assertions.assertNotNull(readWatchListPost);
-//        Assertions.assertEquals(watchListPost, readWatchListPost);
-//    }
-
-
-//    @Test
-//    public void testDelete() {
-//        WatchListPost watchListPost = WatchListPostFactory.createWatchListPost();
-//        WatchListPostRepositoryimpl.create(watchListPost);
-//        boolean deleted = WatchListPostRepositoryimpl.delete(watchListPost.getWatchListPostId());
-//        Assertions.assertTrue(deleted);
-//        WatchListPost readWatchListPost = WatchListPostRepositoryimpl.read(watchListPost.getWatchListPostId());
-//        Assertions.assertNull(readWatchListPost);
-//    }
-//
-//    @Test
-//    public void testGetAll() {
-//        WatchListPost watchListPost1 = WatchListPostFactory.createWatchListPost();
-//        WatchListPost watchListPost2 = WatchListPostFactory.createWatchListPost();
-//        WatchListPostRepositoryimpl.create(watchListPost1);
-//        WatchListPostRepositoryimpl.create(watchListPost2);
-//        Set<WatchListPost> watchListPosts = WatchListPostRepositoryimpl.getAll();
-//        Assertions.assertEquals(4, watchListPosts.size());
-//        Assertions.assertTrue(watchListPosts.contains(watchListPost1));
-//        Assertions.assertTrue(watchListPosts.contains(watchListPost2));
-//    }
-
 }

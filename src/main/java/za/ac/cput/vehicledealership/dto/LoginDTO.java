@@ -10,6 +10,7 @@ import java.util.Collection;
 @AllArgsConstructor
 @NoArgsConstructor
 public class LoginDTO {
+    private String id;
     private String emailAddress;
     private String jwt;
     private Collection<?> authorities;

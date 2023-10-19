@@ -27,6 +27,16 @@ public class MyUserDetails implements UserDetails {
             this.authorities = authorities;
         }
 
+        public String getId() {
+            if(user != null) {
+                return String.valueOf(user.getUserId());
+            } else {
+                return String.valueOf(employee.getEmployeeNumber());
+            }
+        }
+
+
+
         public static MyUserDetails createAppUser(User user) {
             List<GrantedAuthority> authorities = user.getRoles().stream()
                     .map(role -> new SimpleGrantedAuthority(role.getName().name()))

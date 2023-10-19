@@ -57,6 +57,7 @@ public class JwtServiceImpl {
         return Jwts.builder()
                 .setSubject(userPrincipal.getUsername())
                 .claim("roles", authentication.getAuthorities())
+                .setId(userPrincipal.getId())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(Date.from(Instant.now().plus(expirationTime, ChronoUnit.MILLIS)))
                 .signWith(key(), SignatureAlgorithm.HS256).compact();
