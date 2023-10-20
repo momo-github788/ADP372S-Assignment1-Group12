@@ -24,6 +24,8 @@ public class VehicleInventoryController {
 
     @PostMapping("/create")
     public VehicleInventory create(@RequestBody VehicleInventory vehicleInventory) {
+
+        System.out.println(vehicleInventory);
         return vehicleInventoryService.create(vehicleInventory.getVehicleId(), vehicleInventory.getInventoryId());
     }
 
@@ -32,7 +34,7 @@ public class VehicleInventoryController {
         return vehicleInventoryService.getAllVehiclesByInventoryId(inventoryId);
     }
 
-    @DeleteMapping("/delete")
+    @PostMapping("/delete")
     public boolean delete(@RequestBody VehicleInventory vehicleInventory) {
         System.out.println(vehicleInventory + " to delete");
         return vehicleInventoryService.delete(vehicleInventory.getVehicleId(), vehicleInventory.getInventoryId());

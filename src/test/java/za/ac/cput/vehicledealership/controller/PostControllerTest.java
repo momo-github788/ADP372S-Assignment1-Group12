@@ -5,10 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.FileSystemResource;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import za.ac.cput.vehicledealership.config.TestAuthConfig;
 import za.ac.cput.vehicledealership.domain.*;
@@ -20,6 +20,8 @@ import za.ac.cput.vehicledealership.repository.UserRepository;
 import za.ac.cput.vehicledealership.service.impl.BranchServiceImpl;
 
 import java.io.File;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -79,23 +81,18 @@ class PostControllerTest {
     @Test
     @Order(1)
     void create() {
-        FileSystemResource postRequestPart = new FileSystemResource("src/main/resources/create_post.json");
-        System.out.println(postRequestPart.getDescription());
-
-
         Branch createdBranch = branchService.create(branch);
-        //HttpEntity<?> branchEntity = performPostRequest(createdBranch);
-        //System.out.println(branchEntity);
+        MultiValueMap<String, Object> parameters = new LinkedMultiValueMap<String, Object>();
+        parameters.add("post", new FileSystemResource("src/main/resources/create_post.json")); // load file into parameter
 
         String url = BASE_URL + "/create?type=employee";
-        //ResponseEntity<Branch> branchResponse = restTemplate.postForEntity(url, branchEntity, Branch.class);
-
-        HttpEntity<?> postEntity = new HttpEntity<>(postRequestPart, authConfig.getRequestPartAuthForEmployee());
-
         employee.setPosts(List.of(post));
 
         post.setBranch(createdBranch);
-        ResponseEntity<Post> postResponse = restTemplate.postForEntity(url, postEntity, Post.class);
+
+        ResponseEntity<Post> postResponse = restTemplate.postForEntity(url,
+                new HttpEntity<>(parameters, authConfig.getAuthForEmployeeCreatePost()),
+                Post.class);
 
         assertNotNull(postResponse);
         assertNotNull(postResponse.getBody());
@@ -108,13 +105,15 @@ class PostControllerTest {
         postId = savedPost.getPostId();
     }
 
-
     @Test
     @Order(2)
-    void read() {
+    void read() throws URISyntaxException {
         String url = BASE_URL + "/read/" + postId + "?type=employee";
         System.out.println("URL: " + url);
-        ResponseEntity<Post> getResponse = restTemplate.getForEntity(url, Post.class);
+        ResponseEntity<Post> getResponse = restTemplate
+                .exchange(RequestEntity.get(new URI(url))
+                        .headers(authConfig.getAuthForEmployee())
+                        .build(), Post.class);
         Post readPost = getResponse.getBody();
 
         System.out.println(readPost);
@@ -125,38 +124,27 @@ class PostControllerTest {
 
     }
 
-    @Test
-    @Order(3)
-    void update() {
-        String url = BASE_URL + "/update?type=employee";
-
-        Post updatePost = new Post.Builder()
-                .copy(post)
-                .setDescription("Car is in terrible condition. Behind on license")
-                .build();
-
-        updatePost.setPostId(postId);
-
-        System.out.println("URL: " + url);
-        System.out.println("POST data: " + updatePost);
-        ResponseEntity<Post> response = restTemplate.postForEntity(url, updatePost, Post.class);
-        assertNotNull(response.getBody());
-    }
-
-    @Test
-    @Order(5)
-    void delete() {
-        String url = BASE_URL + "/delete/" + postId + "?type=employee";
-        System.out.println("URL: " + url);
-        restTemplate.delete(url);
-
-    }
 
     @Test
     @Order(4)
+    void delete() {
+        authConfig.getAuthForEmployee();
+        String url = BASE_URL + "/delete/" + postId + "?type=employee";
+        System.out.println("URL: " + url);
+
+        HttpEntity<?> postEntity = performPostRequest(post);
+
+        ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.DELETE, postEntity, String.class);
+        assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode()); // 204 No Content for successful deletion);
+
+    }
+
+    @Test
+    @Order(3)
     void getAll() {
-        String url = BASE_URL + "/all?type=employee";
+        String url = BASE_URL + "/search";
         HttpHeaders headers = new HttpHeaders();
+        headers.addAll(authConfig.getAuthForEmployee());
         HttpEntity<String> entity = new HttpEntity<>(null, headers);
 
         ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);

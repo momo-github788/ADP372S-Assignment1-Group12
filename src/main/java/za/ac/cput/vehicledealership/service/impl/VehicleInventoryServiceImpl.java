@@ -44,10 +44,14 @@ public class VehicleInventoryServiceImpl {
 
     public boolean delete(int vehicleId, int inventoryId) {
         Inventory inventory = inventoryService.read(inventoryId);
-        Vehicle vehicle = vehicleRepository.findById(vehicleId).orElse(null);
 
-        if(inventory == null) throw new RuntimeException("Inventory with id " + inventory.getInventoryId() + " does not exist");
-        if(vehicle == null) throw new RuntimeException("Vehicle with id " + vehicle.getVehicleId() + " does not exist");
+        System.out.println("inventory");
+        System.out.println(inventory);
+        Vehicle vehicle = vehicleRepository.findById(vehicleId).orElse(null);
+        System.out.println("vehicle");
+        System.out.println(vehicle);
+        if(inventory == null) throw new RuntimeException("Inventory with id " + inventoryId + " does not exist");
+        if(vehicle == null) throw new RuntimeException("Vehicle with id " + vehicleId + " does not exist");
 
         inventory.setQuantity(inventory.getQuantity()-1);
 
@@ -62,10 +66,16 @@ public class VehicleInventoryServiceImpl {
     public List<Vehicle> getAllVehiclesByInventoryId(int inventoryId) {
 
         Inventory inventory = inventoryService.read(inventoryId);
+        System.out.println("Inventory found " + inventoryId);
+        System.out.println(inventory);
+
+
 
         List<VehicleInventory> vehicleInventoryIdList = vehicleInventoryRepository.findAllByInventoryId(inventory.getInventoryId());
         List<Vehicle> vehicles = vehicleRepository.findAllByVehicleIdIn(vehicleInventoryIdList.stream().map(v -> v.getVehicleId()).collect(Collectors.toList()));
 
+        System.out.println("vehicles found ");
+        System.out.println(vehicles);
         if (vehicles.isEmpty()) return Collections.EMPTY_LIST;
 
         return vehicles;

@@ -39,6 +39,7 @@ public class InventoryServiceImpl implements InventoryService {
         return inventoryRepository.save(inventory);
     }
 
+
     @Override
     public Inventory read(Integer inventoryId) {
         return inventoryRepository.findById(inventoryId)

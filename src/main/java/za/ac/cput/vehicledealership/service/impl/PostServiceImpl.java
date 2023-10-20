@@ -125,7 +125,7 @@ public class PostServiceImpl {
                     post.setImageUpload(imageUpload);
                 }
 
-
+                vehicleRepository.save(post.getVehicle());
                 post.setPostCreatorEmail(emailAddress);
                 post.setActive(true);
                 post.setEmployee(employee);

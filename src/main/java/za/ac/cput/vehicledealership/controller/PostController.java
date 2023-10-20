@@ -1,22 +1,16 @@
 package za.ac.cput.vehicledealership.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import za.ac.cput.vehicledealership.domain.*;
-import za.ac.cput.vehicledealership.service.PostService;
-import za.ac.cput.vehicledealership.service.PostService;
 import za.ac.cput.vehicledealership.service.impl.ImageUploadServiceImpl;
 import za.ac.cput.vehicledealership.service.impl.PostServiceImpl;
 
-import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/post")
@@ -91,7 +85,15 @@ public class PostController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public boolean delete(@PathVariable int id, Principal principal) {
-        return postService.delete(id, principal.getName());
+    public ResponseEntity<String> delete(@PathVariable int id, Principal principal) {
+        boolean status = postService.delete(id, principal.getName());
+
+        if(status) {
+            // 204 No Content for successful deletion
+            return ResponseEntity.noContent().build();
+        } else {
+            // 404 Not Found for unsuccessful deletion
+            return ResponseEntity.notFound().build();
+        }
     }
 }

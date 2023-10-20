@@ -31,7 +31,7 @@ public class Employee implements Serializable {
     @Embedded
     private Name name;
     private LocalDateTime dateJoined;
-    @NotBlank(message = "Required")
+
     private String password;
 
 

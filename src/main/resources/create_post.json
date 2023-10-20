@@ -1,9 +1,9 @@
 {
-  "title": "Selling m ycar",
+  "title": "Selling my car",
   "description": "This car is in great condition",
   "price": 65000,
   "vehicle": {
-    "make": "Au2di",
+    "make": "Audi",
     "model": "A4",
     "condition": "DEMO",
     "fuelType": "PETROL",
@@ -13,6 +13,6 @@
     "mileage": 45000
   },
   "branch": {
-    "branchId": 2
+    "branchId": 1
   }
 }
