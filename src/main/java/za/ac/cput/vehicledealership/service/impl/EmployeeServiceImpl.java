@@ -21,6 +21,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import static za.ac.cput.vehicledealership.domain.ERole.ADMIN;
+
 @Service
 public class EmployeeServiceImpl {
 
@@ -42,6 +44,7 @@ public class EmployeeServiceImpl {
 
     public Set<ContactDetail> getContactsByEmployeeId(int employeeId) {
         Employee employee = employeeRepository.findById(employeeId).orElse(null);
+
 
         if (employee != null) {
             System.out.println("getContactsByEmployeeId");
@@ -85,7 +88,7 @@ public class EmployeeServiceImpl {
 
         if(employeeRepository.existsById(employee.getEmployeeNumber())) {
             System.out.println("employee exists with id " + employee.getEmployeeNumber());
-            //employee.setRoles("d");
+            employee.setRoles(Set.of(new Role(ADMIN)));
             employee.setPassword(passwordEncoder.encode(employee.getPassword()));
             return this.employeeRepository.save(employee);
         }
