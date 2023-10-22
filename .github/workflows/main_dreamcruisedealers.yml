@@ -49,5 +49,5 @@ jobs:
         with:
           app-name: 'dreamcruisedealers'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_826D2BE77393438F884F8A3581C41699 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_85FBF9A249C545F88F8E17729E641C36 }}
           package: '*.jar'
