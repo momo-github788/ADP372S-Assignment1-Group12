@@ -90,6 +90,7 @@ public class EmployeeServiceImpl {
             System.out.println("employee exists with id " + employee.getEmployeeNumber());
             employee.setRoles(Set.of(new Role(ADMIN)));
             employee.setPassword(passwordEncoder.encode(employee.getPassword()));
+
             return this.employeeRepository.save(employee);
         }
         System.out.println("employee doesnt exist with id " + employee.getEmployeeNumber());

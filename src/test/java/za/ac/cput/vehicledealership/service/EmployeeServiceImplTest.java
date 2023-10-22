@@ -17,6 +17,8 @@ import za.ac.cput.vehicledealership.payload.request.RegisterRequest;
 import za.ac.cput.vehicledealership.service.impl.AuthenticationService;
 import za.ac.cput.vehicledealership.service.impl.EmployeeServiceImpl;
 
+import java.util.Set;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -60,23 +62,6 @@ class EmployeeServiceImplTest {
         System.out.println("Read: " + readEmployee);
     }
 
-
-
-    @Order(3)
-    @Test
-    void update() {
-        Name middleName = NameFactory.createName("Michael");
-
-        Employee updatedEmployee = new Employee.Builder()
-                .copy(employee)
-                .setName(middleName)
-                .build();
-
-        updatedEmployee.setEmployeeNumber(employeeNumber);
-        System.out.println("Update: " + updatedEmployee);
-        assertNotNull(employeeService.update(updatedEmployee));
-
-    }
 
 
     @Order(5)

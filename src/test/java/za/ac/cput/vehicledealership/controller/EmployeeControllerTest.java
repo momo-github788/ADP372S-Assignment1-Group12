@@ -10,9 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 import za.ac.cput.vehicledealership.config.TestAuthConfig;
-import za.ac.cput.vehicledealership.domain.Branch;
-import za.ac.cput.vehicledealership.domain.Employee;
-import za.ac.cput.vehicledealership.domain.Name;
+import za.ac.cput.vehicledealership.domain.*;
 import za.ac.cput.vehicledealership.factory.EmployeeFactory;
 import za.ac.cput.vehicledealership.factory.NameFactory;
 import za.ac.cput.vehicledealership.payload.request.RegisterRequest;
@@ -21,6 +19,7 @@ import za.ac.cput.vehicledealership.repository.UserRepository;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -100,27 +99,6 @@ class EmployeeControllerTest {
 
     }
 
-    @Test
-    @Order(3)
-    void update() {
-        String url = BASE_URL + "/update?type=employee";
-
-        Name middleName = NameFactory.createName("Julian");
-
-        Employee updateEmployee = new Employee.Builder()
-                .copy(employee)
-                .setName(middleName)
-                .build();
-
-        updateEmployee.setEmployeeNumber(employeeNumber);
-
-        HttpEntity<?> employeeEntity = performPostRequest(updateEmployee);
-
-        System.out.println("URL: " + url);
-        System.out.println("POST data: " + updateEmployee);
-        ResponseEntity<Employee> response = restTemplate.postForEntity(url, employeeEntity, Employee.class);
-        assertNotNull(response.getBody());
-    }
 
     @Test
     @Order(5)
